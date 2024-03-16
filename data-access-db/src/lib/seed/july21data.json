@@ -1,0 +1,1977 @@
+{
+    "breakfast":[
+     {
+      "name": "Sabji",
+      "secondaryLanguageName": "سابجي",
+      "cost": 0.7,
+      "price": 0.7,
+      "categoryId": 2,
+      "qwickViewOrder": 1,
+      "code": 1,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Dal ",
+      "secondaryLanguageName": "دال",
+      "cost": 0.7,
+      "price": 0.7,
+      "categoryId": 2,
+      "qwickViewOrder": 1,
+      "code": 2,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Keema",
+      "secondaryLanguageName": "كيما",
+      "cost": 0.7,
+      "price": 0.7,
+      "categoryId": 2,
+      "qwickViewOrder": 1,
+      "code": 3,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Egg Tomato ",
+      "secondaryLanguageName": "طماطم البيض",
+      "cost": 0.7,
+      "price": 0.7,
+      "categoryId": 2,
+      "qwickViewOrder": 1,
+      "code": 4,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Tuna",
+      "secondaryLanguageName": "تونة",
+      "cost": 1,
+      "price": 1,
+      "categoryId": 2,
+      "qwickViewOrder": 1,
+      "code": 5,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Phoole",
+      "secondaryLanguageName": "phoole",
+      "cost": 0.8,
+      "price": 0.8,
+      "categoryId": 2,
+      "qwickViewOrder": 1,
+      "code": 6,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Pazoli",
+      "secondaryLanguageName": "بازولي",
+      "cost": 0.8,
+      "price": 0.8,
+      "categoryId": 2,
+      "qwickViewOrder": 1,
+      "code": 7,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Porotta",
+      "secondaryLanguageName": "بوروتا",
+      "cost": 0.05,
+      "price": 0.05,
+      "categoryId": 2,
+      "qwickViewOrder": 1,
+      "code": 8,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Chapati",
+      "secondaryLanguageName": "تشاباتي",
+      "cost": 0.05,
+      "price": 0.05,
+      "categoryId": 2,
+      "qwickViewOrder": 1,
+      "code": 9,
+      "color": "#eeeeee"
+     },
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "price": 1.4,
+      "categoryId": 2,
+      "qwickViewOrder": 3,
+      "code": 3,
+      "color": "#eeeeee"
+     },
+     {
+      "price": 1.5,
+      "categoryId": 2,
+      "qwickViewOrder": 3,
+      "code": 3,
+      "color": "#eeeeee"
+     },
+     {
+      "price": 1.3,
+      "categoryId": 2,
+      "qwickViewOrder": 3,
+      "code": 3,
+      "color": "#eeeeee"
+     },
+     {
+      "price": 1.5,
+      "categoryId": 2,
+      "qwickViewOrder": 3,
+      "code": 3,
+      "color": "#eeeeee"
+     },
+     {
+      "price": 1.5,
+      "categoryId": 2,
+      "qwickViewOrder": 3,
+      "code": 3,
+      "color": "#eeeeee"
+     },
+     {
+      "price": 1.5,
+      "categoryId": 2,
+      "qwickViewOrder": 3,
+      "code": 3,
+      "color": "#eeeeee"
+     },
+     {
+      "price": 1.5,
+      "categoryId": 2,
+      "qwickViewOrder": 3,
+      "code": 3,
+      "color": "#eeeeee"
+     },
+     {
+      "price": 1.6,
+      "categoryId": 2,
+      "qwickViewOrder": 3,
+      "code": 3,
+      "color": "#eeeeee"
+     },
+     {
+      "price": 1.3,
+      "categoryId": 2,
+      "qwickViewOrder": 3,
+      "code": 3,
+      "color": "#eeeeee"
+     },
+     {
+      "price": 1.5,
+      "categoryId": 2,
+      "qwickViewOrder": 3,
+      "code": 3,
+      "color": "#eeeeee"
+     },
+     {
+      "price": 1.5,
+      "categoryId": 2,
+      "qwickViewOrder": 3,
+      "code": 3,
+      "color": "#eeeeee"
+     },
+     {
+      "price": 1,
+      "categoryId": 2,
+      "qwickViewOrder": 3,
+      "code": 3,
+      "color": "#eeeeee"
+     },
+     {
+      "price": 1.5,
+      "categoryId": 2,
+      "qwickViewOrder": 3,
+      "code": 3,
+      "color": "#eeeeee"
+     },
+     {
+      "price": 1.5,
+      "categoryId": 2,
+      "qwickViewOrder": 3,
+      "code": 3,
+      "color": "#eeeeee"
+     },
+     {
+      "price": 1.5,
+      "categoryId": 2,
+      "qwickViewOrder": 3,
+      "code": 3,
+      "color": "#eeeeee"
+     },
+     {
+      "price": 1.5,
+      "categoryId": 2,
+      "qwickViewOrder": 3,
+      "code": 3,
+      "color": "#eeeeee"
+     },
+     {
+      "price": 1.5,
+      "categoryId": 2,
+      "qwickViewOrder": 3,
+      "code": 3,
+      "color": "#eeeeee"
+     },
+     {
+      "price": 1.5,
+      "categoryId": 2,
+      "qwickViewOrder": 3,
+      "code": 3,
+      "color": "#eeeeee"
+     },
+     {
+      "price": 1.8,
+      "categoryId": 2,
+      "qwickViewOrder": 3,
+      "code": 3,
+      "color": "#eeeeee"
+     },
+     {
+      "price": 1.5,
+      "categoryId": 2,
+      "qwickViewOrder": 3,
+      "code": 3,
+      "color": "#eeeeee"
+     },
+     {
+      "price": 1.5,
+      "categoryId": 2,
+      "qwickViewOrder": 3,
+      "code": 3,
+      "color": "#eeeeee"
+     }
+    ],
+    "Biriyani  Majboos":[
+     {
+      "name": "Chicken Biryani ",
+      "secondaryLanguageName": "برياني دجاج",
+      "cost": 1.2,
+      "price": 1.2,
+      "categoryId": 2,
+      "qwickViewOrder": 2,
+      "code": 7,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "1\/2 Chicken Biriyani",
+      "secondaryLanguageName": "1\/2 دجاج بيرياني",
+      "cost": 1.7,
+      "price": 1.7,
+      "categoryId": 2,
+      "qwickViewOrder": 2,
+      "code": 8,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "CB Hyderabadi",
+      "secondaryLanguageName": "CB Hyderabadi",
+      "cost": 1.2,
+      "price": 1.2,
+      "categoryId": 2,
+      "qwickViewOrder": 2,
+      "code": 9,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "1\/2 CB Hyderabadi",
+      "secondaryLanguageName": "1\/2 CB Hyderabadi",
+      "cost": 1.7,
+      "price": 1.7,
+      "categoryId": 2,
+      "qwickViewOrder": 2,
+      "code": 10,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Mutton Biriyani",
+      "secondaryLanguageName": "لحم الضأن بيرياني",
+      "cost": 1.8,
+      "price": 1.8,
+      "categoryId": 2,
+      "qwickViewOrder": 2,
+      "code": 11,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "K Biriyani",
+      "secondaryLanguageName": "ك برياني",
+      "cost": 2,
+      "price": 2,
+      "categoryId": 2,
+      "qwickViewOrder": 2,
+      "code": 12,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Shey Biriyani",
+      "secondaryLanguageName": "شيري بيرياني",
+      "cost": 2,
+      "price": 2,
+      "categoryId": 2,
+      "qwickViewOrder": 2,
+      "code": 13,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Rubiyan Biriyani",
+      "secondaryLanguageName": "روبيان بيرياني",
+      "cost": 1.8,
+      "price": 1.8,
+      "categoryId": 2,
+      "qwickViewOrder": 2,
+      "code": 14,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Neher Biriyani",
+      "secondaryLanguageName": "نهر بيرياني",
+      "cost": 1.8,
+      "price": 1.8,
+      "categoryId": 2,
+      "qwickViewOrder": 2,
+      "code": 15,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "R\/N Biriyani",
+      "secondaryLanguageName": "r\/n biriyani",
+      "cost": 1.8,
+      "price": 1.8,
+      "categoryId": 2,
+      "qwickViewOrder": 2,
+      "code": 16,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Fish Biriyani",
+      "secondaryLanguageName": "السمك بيرياني",
+      "cost": 1.8,
+      "price": 1.8,
+      "categoryId": 2,
+      "qwickViewOrder": 2,
+      "code": 17,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "C Majboos",
+      "secondaryLanguageName": "ج ماجبو",
+      "cost": 1.2,
+      "price": 1.2,
+      "categoryId": 2,
+      "qwickViewOrder": 2,
+      "code": 18,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "1\/2 C Majboos",
+      "secondaryLanguageName": "1\/2 ج ماجبو",
+      "cost": 1.7,
+      "price": 1.7,
+      "categoryId": 2,
+      "qwickViewOrder": 2,
+      "code": 19,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Mutton Majboos",
+      "secondaryLanguageName": "لحم الضأن ماجبو",
+      "cost": 1.8,
+      "price": 1.8,
+      "categoryId": 2,
+      "qwickViewOrder": 2,
+      "code": 20,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Kenal Majboos",
+      "secondaryLanguageName": "كينال ماجبو",
+      "cost": 2,
+      "price": 2,
+      "categoryId": 2,
+      "qwickViewOrder": 2,
+      "code": 21,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Shery Majboos",
+      "secondaryLanguageName": "شيري ماجبو",
+      "cost": 2,
+      "price": 2,
+      "categoryId": 2,
+      "qwickViewOrder": 2,
+      "code": 22,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Fish Majboos",
+      "secondaryLanguageName": "ماجبو السمك",
+      "cost": 2,
+      "price": 2,
+      "categoryId": 2,
+      "qwickViewOrder": 2,
+      "code": 23,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Rubian Majboos",
+      "secondaryLanguageName": "روبيان ماجبو",
+      "cost": 1.8,
+      "price": 1.8,
+      "categoryId": 2,
+      "qwickViewOrder": 2,
+      "code": 24,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Neher Majboos",
+      "secondaryLanguageName": "Neher Majboos",
+      "cost": 1.8,
+      "price": 1.8,
+      "categoryId": 2,
+      "qwickViewOrder": 2,
+      "code": 25,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "R\/N Majboos",
+      "secondaryLanguageName": "R\/N Majboos",
+      "cost": 1.8,
+      "price": 1.8,
+      "categoryId": 2,
+      "qwickViewOrder": 2,
+      "code": 26,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "F Prans Majboos",
+      "secondaryLanguageName": "و prans majboos",
+      "cost": 2.5,
+      "price": 2.5,
+      "categoryId": 2,
+      "qwickViewOrder": 2,
+      "code": 27,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "F Prans Biriyani",
+      "secondaryLanguageName": "و prans biriyani",
+      "cost": 2.5,
+      "price": 2.5,
+      "categoryId": 2,
+      "qwickViewOrder": 2,
+      "code": 28,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "B Rice",
+      "secondaryLanguageName": "الأرز ب",
+      "cost": 0.7,
+      "price": 0.7,
+      "categoryId": 2,
+      "qwickViewOrder": 2,
+      "code": 29,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "M Rice",
+      "secondaryLanguageName": "م الأرز",
+      "cost": 0.7,
+      "price": 0.7,
+      "categoryId": 2,
+      "qwickViewOrder": 2,
+      "code": 30,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "W Rice",
+      "secondaryLanguageName": "أرز",
+      "cost": 0.6,
+      "price": 0.6,
+      "categoryId": 2,
+      "qwickViewOrder": 2,
+      "code": 31,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "B Rice Small",
+      "secondaryLanguageName": "B الأرز صغير",
+      "cost": 0.3,
+      "price": 0.3,
+      "categoryId": 2,
+      "qwickViewOrder": 2,
+      "code": 32,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "CF Rice",
+      "secondaryLanguageName": "رايس رايس",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 2,
+      "qwickViewOrder": 2,
+      "code": 33,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Mix F Rice",
+      "secondaryLanguageName": "خلط F الأرز",
+      "cost": 1.8,
+      "price": 1.8,
+      "categoryId": 2,
+      "qwickViewOrder": 2,
+      "code": 34,
+      "color": "#eeeeee"
+     }
+    ],
+    "Dum Biriyani":[
+     {
+      "name": "C Dum",
+      "secondaryLanguageName": "ج دوم",
+      "cost": 1.2,
+      "price": 1.2,
+      "categoryId": 2,
+      "qwickViewOrder": 3,
+      "code": 35,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "B Dum",
+      "secondaryLanguageName": "ب دوم",
+      "cost": 1.7,
+      "price": 1.7,
+      "categoryId": 2,
+      "qwickViewOrder": 3,
+      "code": 36,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Mutton Dum",
+      "secondaryLanguageName": "لحم الضأن دوم",
+      "cost": 1.8,
+      "price": 1.8,
+      "categoryId": 2,
+      "qwickViewOrder": 3,
+      "code": 37,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Kenal Dum",
+      "secondaryLanguageName": "كينال دوم",
+      "cost": 2,
+      "price": 2,
+      "categoryId": 2,
+      "qwickViewOrder": 3,
+      "code": 38,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Prans Dum",
+      "secondaryLanguageName": "برانس دوم",
+      "cost": 1.8,
+      "price": 1.8,
+      "categoryId": 2,
+      "qwickViewOrder": 3,
+      "code": 39,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "F Prans Dum",
+      "secondaryLanguageName": "و prans dum",
+      "cost": 2.5,
+      "price": 2.5,
+      "categoryId": 2,
+      "qwickViewOrder": 3,
+      "code": 40,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Shery Dum",
+      "secondaryLanguageName": "شيري دوم",
+      "cost": 2.5,
+      "price": 2.5,
+      "categoryId": 2,
+      "qwickViewOrder": 3,
+      "code": 41,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Fish Dum",
+      "secondaryLanguageName": "السمك",
+      "cost": 2.5,
+      "price": 2.5,
+      "categoryId": 2,
+      "qwickViewOrder": 3,
+      "code": 42,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "C Biriyani Masala",
+      "secondaryLanguageName": "C Biriyani Masala",
+      "cost": 1.2,
+      "price": 1.2,
+      "categoryId": 2,
+      "qwickViewOrder": 3,
+      "code": 43,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Beef Biriyani Masala",
+      "secondaryLanguageName": "لحوم البقر بيرياني ماسالا",
+      "cost": 1.7,
+      "price": 1.7,
+      "categoryId": 2,
+      "qwickViewOrder": 3,
+      "code": 44,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Mutton Biriyani Masala",
+      "secondaryLanguageName": "لحم الضأن برياني ماسالا",
+      "cost": 1.8,
+      "price": 1.8,
+      "categoryId": 2,
+      "qwickViewOrder": 3,
+      "code": 45,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "K Biriyani Masala",
+      "secondaryLanguageName": "ك برياني ماسالا",
+      "cost": 2,
+      "price": 2,
+      "categoryId": 2,
+      "qwickViewOrder": 3,
+      "code": 46,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Veg Biriyani",
+      "secondaryLanguageName": "الخضار بيرياني",
+      "cost": 1.1,
+      "price": 1.1,
+      "categoryId": 2,
+      "qwickViewOrder": 3,
+      "code": 47,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Dum B Rice",
+      "secondaryLanguageName": "أرز دوم ب",
+      "cost": 0.7,
+      "price": 0.7,
+      "categoryId": 2,
+      "qwickViewOrder": 3,
+      "code": 48,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Gee Rice",
+      "secondaryLanguageName": "أرز جي",
+      "cost": 0.7,
+      "price": 0.7,
+      "categoryId": 2,
+      "qwickViewOrder": 3,
+      "code": 49,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Dum B rice small",
+      "secondaryLanguageName": "أرز دوم ب صغير",
+      "cost": 0.3,
+      "price": 0.3,
+      "categoryId": 2,
+      "qwickViewOrder": 3,
+      "code": 50,
+      "color": "#eeeeee"
+     }
+    ],
+    "Arabic":[
+     {
+      "name": "C Nashif",
+      "secondaryLanguageName": "ج ناشيف",
+      "cost": 1.4,
+      "price": 1.4,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 42,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Butter Chicken",
+      "secondaryLanguageName": "الدجاج الزبدة",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 43,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "C Kusasi",
+      "secondaryLanguageName": "C Kusasi",
+      "cost": 1.3,
+      "price": 1.3,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 44,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "C chilly",
+      "secondaryLanguageName": "ج باردة",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 45,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "C 65",
+      "secondaryLanguageName": "ج 65",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 46,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "C smoked",
+      "secondaryLanguageName": "ج مدخن",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 47,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "C ginger gardlic",
+      "secondaryLanguageName": "ج جاردينك جاركلك",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 48,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "C Manchoorian",
+      "secondaryLanguageName": "C Manchoorian",
+      "cost": 1.6,
+      "price": 1.6,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 49,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "C Masala",
+      "secondaryLanguageName": "ج ماسالا",
+      "cost": 1.3,
+      "price": 1.3,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 50,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "C Tava",
+      "secondaryLanguageName": "ج تافا",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 51,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "D Sepili Chicken",
+      "secondaryLanguageName": "د الدجاج سيبيلي",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 52,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Amoose Shawarma",
+      "secondaryLanguageName": "Amoose Shawarma",
+      "cost": 1,
+      "price": 1,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 53,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "R Nashif",
+      "secondaryLanguageName": "ص ناشيف",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 54,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Rubiyan Butter",
+      "secondaryLanguageName": "زبدة روبيان",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 55,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Rubian Chilly",
+      "secondaryLanguageName": "روبيان بارد",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 56,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Rubiyan 65",
+      "secondaryLanguageName": "روبيان 65",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 57,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Rubian Masala",
+      "secondaryLanguageName": "روبيان ماسالا",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 58,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Rubian Machooriyan",
+      "secondaryLanguageName": "روبيان ماتشوريان",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 59,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "R Smocked",
+      "secondaryLanguageName": "ص مدخن",
+      "cost": 1.8,
+      "price": 1.8,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 60,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "R Magil amoose",
+      "secondaryLanguageName": "ص ماجيل أموز",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 61,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Nehar Nashif",
+      "secondaryLanguageName": "نهر ناشيف",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 62,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Nehar Butter",
+      "secondaryLanguageName": "زبدة نهر",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 63,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Nehar Chilly",
+      "secondaryLanguageName": "نهر بارد",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 64,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Nehar 65",
+      "secondaryLanguageName": "نهر 65",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 65,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Nehar Smoked",
+      "secondaryLanguageName": "نهر يدخن",
+      "cost": 1.8,
+      "price": 1.8,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 66,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Nehar Manjoorian",
+      "secondaryLanguageName": "نهر مانجوريان",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 67,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Nehar Masala",
+      "secondaryLanguageName": "نهر ماسالا",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 68,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Nehar Ginger Garlic",
+      "secondaryLanguageName": "ثوم جينجر نهر",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 69,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Nehar Magli Amoose",
+      "secondaryLanguageName": "نهر ماجلي أموز",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 70,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "R\/Nehar Nashif",
+      "secondaryLanguageName": "ص\/نهر ناشيف",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 71,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "R\/N Butter",
+      "secondaryLanguageName": "ص\/زبدة",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 72,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "R\/N chilly",
+      "secondaryLanguageName": "ص\/ن بارد",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 73,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "R\/N Smoked",
+      "secondaryLanguageName": "R\/N مدخن",
+      "cost": 1.8,
+      "price": 1.8,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 74,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "R\/N Masala",
+      "secondaryLanguageName": "R\/N Masala",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 75,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "R\/N Magli Hammose",
+      "secondaryLanguageName": "R\/N Magli Hammose",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 76,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "R\/N Manjoorian",
+      "secondaryLanguageName": "ص\/ن مانجوريان",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 77,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "R\/N 65",
+      "secondaryLanguageName": "ص\/ن 65",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 78,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "R\/N Ginger Garlic",
+      "secondaryLanguageName": "ص\/نجر الثوم",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 79,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "F Rubiyan Nashif",
+      "secondaryLanguageName": "و روبيان ناشيف",
+      "cost": 2.3,
+      "price": 2.3,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 80,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "F Rubian Butter",
+      "secondaryLanguageName": "زبدة روبيان",
+      "cost": 2.3,
+      "price": 2.3,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 81,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "F Rubian Masala",
+      "secondaryLanguageName": "و روبيان ماسالا",
+      "cost": 2.3,
+      "price": 2.3,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 82,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "F Rubian Chilly",
+      "secondaryLanguageName": "و روبيان بارد",
+      "cost": 2.3,
+      "price": 2.3,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 83,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "F Rubina 65",
+      "secondaryLanguageName": "F Rubina 65",
+      "cost": 2.3,
+      "price": 2.3,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 84,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "F Rubian Smoked",
+      "secondaryLanguageName": "و روبيان يدخن",
+      "cost": 2.3,
+      "price": 2.3,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 85,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "F Rubian Manjoorian",
+      "secondaryLanguageName": "و روبيان مانجوريان",
+      "cost": 2.3,
+      "price": 2.3,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 86,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "F Rubian Magli Ammose",
+      "secondaryLanguageName": "و روبيان ماجلي",
+      "cost": 2.3,
+      "price": 2.3,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 87,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Nakenak Nashif",
+      "secondaryLanguageName": "ناكيناك ناشيف",
+      "cost": 1,
+      "price": 1,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 88,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Nakenak Masala",
+      "secondaryLanguageName": "ناكيناك ماسالا",
+      "cost": 1.2,
+      "price": 1.2,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 89,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Nakenak Butter",
+      "secondaryLanguageName": "زبدة ناكيناك",
+      "cost": 1.2,
+      "price": 1.2,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 90,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Nakenak Magli Ammose",
+      "secondaryLanguageName": "Nakenak Magli Ammose",
+      "cost": 1.2,
+      "price": 1.2,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 91,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Nakenak Chilly",
+      "secondaryLanguageName": "نياك بارد",
+      "cost": 1.2,
+      "price": 1.2,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 92,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Lahem Nashif",
+      "secondaryLanguageName": "لاهيم ناشيف",
+      "cost": 1.4,
+      "price": 1.4,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 93,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Hammose Leham",
+      "secondaryLanguageName": "هامس ليهام",
+      "cost": 1.4,
+      "price": 1.4,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 94,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Beef Butter",
+      "secondaryLanguageName": "زبدة لحوم البقر",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 95,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Egg Tomato",
+      "secondaryLanguageName": "طماطم البيض",
+      "cost": 0.7,
+      "price": 0.7,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 96,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Mutton Masala",
+      "secondaryLanguageName": "لحم الضأن ماسالا",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 5,
+      "qwickViewOrder": 2,
+      "code": 97,
+      "color": "#eeeeee"
+     }
+    ],
+    "Indian":[
+     {
+      "name": "Beef Rost",
+      "secondaryLanguageName": "لحم البقر",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 98,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Beef Fry",
+      "secondaryLanguageName": "بقرية لحوم البقر",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 99,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Beef Curry",
+      "secondaryLanguageName": "لحم البقر بالكاري",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 100,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Liver",
+      "secondaryLanguageName": "الكبد",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 101,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Botti",
+      "secondaryLanguageName": "بوتي",
+      "cost": 1.3,
+      "price": 1.3,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 102,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Duck",
+      "secondaryLanguageName": "بطة",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 103,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Ayla Curry",
+      "secondaryLanguageName": "Ayla كاري",
+      "cost": 1.2,
+      "price": 1.2,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 104,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Avoli Curry",
+      "secondaryLanguageName": "أفولي كاري",
+      "cost": 1.4,
+      "price": 1.4,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 105,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Mutton Pepper",
+      "secondaryLanguageName": "فلفل لحم الضأن",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 106,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Crab",
+      "secondaryLanguageName": "سلطعون",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 107,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Koonthel Rost",
+      "secondaryLanguageName": "Koonthel Rost",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 108,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "C Pepper Masala",
+      "secondaryLanguageName": "ج الفلفل ماسالا",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 109,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "C Kadai",
+      "secondaryLanguageName": "ج كاداي",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 110,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "C Chilly",
+      "secondaryLanguageName": "ج باردة",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 111,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "C 65",
+      "secondaryLanguageName": "ج 65",
+      "cost": 1.4,
+      "price": 1.4,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 112,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "C Kerala",
+      "secondaryLanguageName": "ج كيرالا",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 113,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "C Asiyana",
+      "secondaryLanguageName": "C Asiyana",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 114,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "C Kuruma",
+      "secondaryLanguageName": "ج كوروما",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 115,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "C Chettinadu",
+      "secondaryLanguageName": "C Chettinadu",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 116,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Chicken Stew",
+      "secondaryLanguageName": "حساء الدجاج",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 117,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Chicken Rost",
+      "secondaryLanguageName": "دجاج روست",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 118,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Pepper Chilly",
+      "secondaryLanguageName": "الفلفل بارد",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 119,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "C Smoked",
+      "secondaryLanguageName": "ج مدخن",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 120,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Fish Rost",
+      "secondaryLanguageName": "صخور الأسماك",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 121,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Prans Rost",
+      "secondaryLanguageName": "برانس روست",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 122,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "F Prans Rost",
+      "secondaryLanguageName": "و prans rost",
+      "cost": 2.3,
+      "price": 2.3,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 123,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Chicken Sachwan",
+      "secondaryLanguageName": "دجاج ساشوان",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 124,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Chicken Masala",
+      "secondaryLanguageName": "دجاج ماسالا",
+      "cost": 1.3,
+      "price": 1.3,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 125,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Vej Kuruma",
+      "secondaryLanguageName": "فيج كوروما",
+      "cost": 0.8,
+      "price": 0.8,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 126,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Paneer Masala",
+      "secondaryLanguageName": "بانير ماسالا",
+      "cost": 1.2,
+      "price": 1.2,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 127,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Paneel Butter",
+      "secondaryLanguageName": "زبدة paneel",
+      "cost": 1.2,
+      "price": 1.2,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 128,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Paneer Kadai",
+      "secondaryLanguageName": "بانير كاداي",
+      "cost": 1.2,
+      "price": 1.2,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 129,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Paneer Buruji",
+      "secondaryLanguageName": "بانير بوروجي",
+      "cost": 1.2,
+      "price": 1.2,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 130,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Mashroom Masala",
+      "secondaryLanguageName": "مهجور ماسالا",
+      "cost": 1.2,
+      "price": 1.2,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 131,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Mashroom Kadai",
+      "secondaryLanguageName": "المهجور كاداي",
+      "cost": 1.2,
+      "price": 1.2,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 132,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Gobi Manjoorian",
+      "secondaryLanguageName": "جوبي مانجوريان",
+      "cost": 1.2,
+      "price": 1.2,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 133,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Chilly Gobi",
+      "secondaryLanguageName": "جوبي البارد",
+      "cost": 1.2,
+      "price": 1.2,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 134,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Egg Burji",
+      "secondaryLanguageName": "بيضة بورجي",
+      "cost": 0.8,
+      "price": 0.8,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 135,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Porotta",
+      "secondaryLanguageName": "بوروتا",
+      "cost": 0.05,
+      "price": 0.05,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 136,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Atta Porotta",
+      "secondaryLanguageName": "عطا بوروتا",
+      "cost": 0.05,
+      "price": 0.05,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 137,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Chapati",
+      "secondaryLanguageName": "تشاباتي",
+      "cost": 0.05,
+      "price": 0.05,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 138,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Idiyappam",
+      "secondaryLanguageName": "Idiyappam",
+      "cost": 0.1,
+      "price": 0.1,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 139,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Kappa",
+      "secondaryLanguageName": "كابا",
+      "cost": 0.4,
+      "price": 0.4,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 140,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Gee Rice",
+      "secondaryLanguageName": "أرز جي",
+      "cost": 0.7,
+      "price": 0.7,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 141,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "W Rice",
+      "secondaryLanguageName": "أرز",
+      "cost": 0.7,
+      "price": 0.7,
+      "categoryId": 6,
+      "qwickViewOrder": 4,
+      "code": 142,
+      "color": "#eeeeee"
+     }
+    ],
+    "Rice With Gravy":[
+     {
+      "name": "Butter C Rice",
+      "secondaryLanguageName": "زبدة الأرز",
+      "cost": 1.8,
+      "price": 1.8,
+      "categoryId": 7,
+      "qwickViewOrder": 4,
+      "code": 143,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Mutton Masala Rice",
+      "secondaryLanguageName": "لحم الضأن ماسالا الأرز",
+      "cost": 1.8,
+      "price": 1.8,
+      "categoryId": 7,
+      "qwickViewOrder": 4,
+      "code": 144,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Rubian Masala Rice",
+      "secondaryLanguageName": "أرز روبيان ماسالا",
+      "cost": 1.8,
+      "price": 1.8,
+      "categoryId": 7,
+      "qwickViewOrder": 4,
+      "code": 145,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Fish Masala Rice",
+      "secondaryLanguageName": "الأرز ماسالا السمك",
+      "cost": 1.8,
+      "price": 1.8,
+      "categoryId": 7,
+      "qwickViewOrder": 4,
+      "code": 146,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "R Butter Rice",
+      "secondaryLanguageName": "ردة الأرز",
+      "cost": 1.8,
+      "price": 1.8,
+      "categoryId": 7,
+      "qwickViewOrder": 4,
+      "code": 147,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "C Masala Rice",
+      "secondaryLanguageName": "ج ماسالا الأرز",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 7,
+      "qwickViewOrder": 4,
+      "code": 148,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Nehar Masala Rice",
+      "secondaryLanguageName": "رايس نهر ماسالا",
+      "cost": 1.8,
+      "price": 1.8,
+      "categoryId": 7,
+      "qwickViewOrder": 4,
+      "code": 149,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Ghee Rice Beef rost",
+      "secondaryLanguageName": "السمن رايس لحم البقر rost",
+      "cost": 1.8,
+      "price": 1.8,
+      "categoryId": 7,
+      "qwickViewOrder": 4,
+      "code": 150,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "G Rice C Curry",
+      "secondaryLanguageName": "G الأرز C Curry",
+      "cost": 1.8,
+      "price": 1.8,
+      "categoryId": 7,
+      "qwickViewOrder": 4,
+      "code": 151,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "B Rice",
+      "secondaryLanguageName": "الأرز ب",
+      "cost": 0.7,
+      "price": 0.7,
+      "categoryId": 7,
+      "qwickViewOrder": 4,
+      "code": 152,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "W Rice",
+      "secondaryLanguageName": "أرز",
+      "cost": 0.7,
+      "price": 0.7,
+      "categoryId": 7,
+      "qwickViewOrder": 4,
+      "code": 153,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "G Rice",
+      "secondaryLanguageName": "رايس",
+      "cost": 0.7,
+      "price": 0.7,
+      "categoryId": 7,
+      "qwickViewOrder": 4,
+      "code": 154,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Rice Small",
+      "secondaryLanguageName": "الأرز صغير",
+      "cost": 0.3,
+      "price": 0.3,
+      "categoryId": 7,
+      "qwickViewOrder": 4,
+      "code": 155,
+      "color": "#eeeeee"
+     }
+    ],
+    "Chinese":[
+     {
+      "name": "C Fried Rice",
+      "secondaryLanguageName": "ج الأرز المقلي",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 8,
+      "qwickViewOrder": 33,
+      "code": 156,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Veg Fried Rice",
+      "secondaryLanguageName": "الأرز الخضار المقلي",
+      "cost": 1.2,
+      "price": 1.2,
+      "categoryId": 8,
+      "qwickViewOrder": 33,
+      "code": 157,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Egg Fried Rice",
+      "secondaryLanguageName": "الأرز المقلي البيض",
+      "cost": 1.3,
+      "price": 1.3,
+      "categoryId": 8,
+      "qwickViewOrder": 33,
+      "code": 158,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Mix Fried Rice",
+      "secondaryLanguageName": "خلط الأرز المقلي",
+      "cost": 1.8,
+      "price": 1.8,
+      "categoryId": 8,
+      "qwickViewOrder": 33,
+      "code": 159,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "Seshwan Fried Rice",
+      "secondaryLanguageName": "سيشوان الأرز المقلي",
+      "cost": 1.8,
+      "price": 1.8,
+      "categoryId": 8,
+      "qwickViewOrder": 33,
+      "code": 160,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "C Chilly",
+      "secondaryLanguageName": "ج باردة",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 8,
+      "qwickViewOrder": 33,
+      "code": 161,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "C Manjoorian",
+      "secondaryLanguageName": "ج مانجوريان",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 8,
+      "qwickViewOrder": 33,
+      "code": 162,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "C Smoked",
+      "secondaryLanguageName": "ج مدخن",
+      "cost": 1.5,
+      "price": 1.5,
+      "categoryId": 8,
+      "qwickViewOrder": 33,
+      "code": 163,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "C 65",
+      "secondaryLanguageName": "ج 65",
+      "cost": 1.4,
+      "price": 1.4,
+      "categoryId": 8,
+      "qwickViewOrder": 33,
+      "code": 164,
+      "color": "#eeeeee"
+     },
+     {
+      "name": "W Rice",
+      "secondaryLanguageName": "أرز",
+      "cost": 0.7,
+      "price": 0.7,
+      "categoryId": 8,
+      "qwickViewOrder": 33,
+      "code": 165,
+      "color": "#eeeeee"
+     }
+    ]
+    }

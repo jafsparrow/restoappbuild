@@ -1,0 +1,257 @@
+generator client {
+    provider = "prisma-client-js"
+    // output   = "../../../generated-db-types/src"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+// datasource db {
+//     provider = "postgresql"
+//     url      = "postgresql://postgres:Jafrose1*@localhost:5432/dawar"
+//     // url      = "file:./dev.db?socket_timeout=10&connection_limit=1"
+// }
+
+model user {
+    id                 Int          @id @default(autoincrement())
+    username           String       @unique
+    password           Int
+    name               String?
+    phone              String?
+    isAdmin            Boolean      @default(false)
+    isCashier          Boolean      @default(false)
+    isWaiter           Boolean      @default(true)
+    isKitchenUser      Boolean      @default(false)
+    isHomeDeliveryUser Boolean      @default(false)
+    // userCreatedOrders Order[]     @relation("createdUser")
+    // createdForOrders  Order[]     @relation("createdForUser")
+    orders             order[]      @relation("createdOrders")
+    deliveryOrders     order[]      @relation("deliveryOrders")
+    createdOrderItems  orderItem[]  @relation("createdUser")
+    kots               kot[]
+    posSession         posSession[]
+}
+
+model product {
+    id                    Int             @id @default(autoincrement())
+    code                  Int             @default(1)
+    name                  String
+    secondaryLanguageName String?
+    price                 Float
+    cost                  Float
+    image                 String          @default("")
+    inStock               Boolean         @default(true)
+    hasVariant            Boolean         @default(false)
+    hasModifiers          Boolean         @default(false)
+    createdAt             DateTime        @default(now())
+    updatedAt             DateTime        @updatedAt
+    isArchived            Boolean         @default(false)
+    collection            collection      @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+    collectionId          Int
+    qwickViewOrder        Int?            @default(1)
+    category              category        @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+    categoryId            Int
+    color                 String          @default("")
+    variants              variant[]
+    modifierGroup         modifierGroup[]
+    orderItem             orderItem[]
+    description           String          @default("product details")
+    printName             String          @default("Not Added")
+}
+
+model category {
+    id                Int       @id @default(autoincrement())
+    name              String
+    categoryCode      Int       @default(1)
+    color             String
+    kitchenId         Int
+    kitchen           kitchen   @relation(fields: [kitchenId], references: [id])
+    isAvailableAllDay Boolean   @default(true)
+    startTime         String    @default("")
+    endTime           String    @default("")
+    products          product[]
+}
+
+model collection {
+    id       Int       @id @default(autoincrement())
+    name     String
+    products product[]
+}
+
+model kitchen {
+    id             Int        @id @default(autoincrement())
+    name           String
+    printer        String
+    shouldPrintKot Boolean    @default(true)
+    kots           kot[]
+    categories     category[]
+}
+
+model variant {
+    id        Int     @id @default(autoincrement())
+    name      String
+    price     Float
+    productId Int
+    product   product @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model modifier {
+    id              Int               @id @default(autoincrement())
+    name            String
+    price           Float
+    modifierGroup   modifierGroup?    @relation(fields: [modifierGroupId], references: [id])
+    modifierGroupId Int?
+    orderItem       orderItem?        @relation(fields: [orderItemId], references: [id])
+    orderItemId     Int?
+    modifierapplied modifierapplied[]
+}
+
+model modifierGroup {
+    id                    Int        @id @default(autoincrement())
+    description           String?
+    price                 Float?
+    image                 String?
+    printName             String?
+    printModifiersAsItems Boolean    @default(false)
+    modifiers             modifier[]
+    product               product    @relation(fields: [productId], references: [id])
+    productId             Int
+}
+
+model order {
+    id             Int         @id @default(autoincrement())
+    orderNumber    Int         @unique()
+    paymentStatus  String
+    orderStatus    String
+    createdAt      DateTime    @default(now())
+    updatedAt      DateTime    @updatedAt
+    orderItems     orderItem[]
+    tableId        Int?
+    table          table?      @relation(fields: [tableId], references: [id])
+    createdUserId  Int
+    orderType      String      @default("table")
+    customerName   String?
+    customerId     Int         @default(1)
+    customer       customer    @relation(fields: [customerId], references: [id])
+    // createdUserId   Int
+    // createForUserId Int
+    // createdUser     User        @relation("createdUser", fields: [createdUserId], references: [id], onDelete: Cascade)
+    // createdFor      User        @relation("createdForUser", fields: [createForUserId], references: [id], onDelete: Cascade)
+    user           user        @relation("createdOrders", fields: [createdUserId], references: [id])
+    deliveryUserId Int?
+    deliveryUser   user?       @relation("deliveryOrders", fields: [deliveryUserId], references: [id])
+}
+
+model customer {
+    id        Int     @id @default(autoincrement())
+    firstName String
+    lastName  String  @default("Spider")
+    type      String  @default("table")
+    order     order[]
+}
+
+model orderItem {
+    id            Int        @id @default(autoincrement())
+    customeKey    String
+    name          String
+    kotNumber     Int
+    Kot           kot?       @relation(fields: [kotNumber], references: [id])
+    orderId       Int
+    order         order      @relation(fields: [orderId], references: [id])
+    createdUser   user?      @relation("createdUser", fields: [userId], references: [id])
+    userId        Int?
+    status        String?
+    orderItemType String     @default("new")
+    message       String     @default("")
+    count         Int
+    modifiers     String     @default("")
+    amount        Float      @default(0)
+    productId     Int        @default(1)
+    product       product    @relation(fields: [productId], references: [id])
+    modifier      modifier[]
+
+    modifiersapplied modifierapplied[]
+}
+
+model modifierapplied {
+    id          Int       @id @default(autoincrement())
+    modifierId  Int
+    modifier    modifier  @relation(fields: [modifierId], references: [id])
+    orderItemId Int
+    orderItem   orderItem @relation(fields: [orderItemId], references: [id])
+}
+
+model kot {
+    id            Int         @id @default(autoincrement())
+    createdAt     DateTime    @default(now())
+    updatedAt     DateTime    @updatedAt
+    updatedUserId Int?
+    updatedUser   user?       @relation(fields: [updatedUserId], references: [id])
+    orderItems    orderItem[]
+
+    kitchenId Int?
+    Kitchen   kitchen? @relation(fields: [kitchenId], references: [id])
+}
+
+model company {
+    id                    Int     @id @default(autoincrement())
+    name                  String
+    secondaryLanguageName String  @default("add other laguage")
+    logoUrl               String
+    lastOrderNumber       Int
+    caption               String
+    footer                String
+    currencyCode          String
+    address               String
+    lat                   String? @default("")
+    long                  String? @default("")
+    taxes                 tax[]
+    decimalZeros          Int?    @default(3)
+    printer               String  @default("Not configured")
+}
+
+model tax {
+    id           Int     @id @default(autoincrement())
+    name         String
+    printName    String
+    isPercentage Boolean @default(true)
+    value        Float
+
+    company   company? @relation(fields: [companyId], references: [id])
+    companyId Int?
+}
+
+model floor {
+    id     Int     @id @default(autoincrement())
+    name   String
+    tables table[]
+}
+
+model table {
+    id         Int          @id @default(autoincrement())
+    name       String
+    capacity   Int?
+    orders     order[]
+    tableSeats tableSeats[]
+    floorId    Int          @default(1)
+    floor      floor        @relation(fields: [floorId], references: [id])
+}
+
+model tableSeats {
+    id      Int    @id @default(autoincrement())
+    name    String
+    tableId Int
+    table   table  @relation(fields: [tableId], references: [id])
+}
+
+model posSession {
+    id            Int       @id @default(autoincrement())
+    startTime     DateTime  @default(now())
+    endTime       DateTime?
+    status        String
+    createdUserId Int
+    createUser    user      @relation(fields: [createdUserId], references: [id])
+    initialCash   Float     @default(1)
+}
