@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>KOT</title>
+	<head>
+	<style type="text/css">
+		body{
+			width: 360px;
+			margin: 0px;
+			padding: 0px;
+			font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+            font-weight: light;
+			font-size: 24px;
+		}
+    
+    .bold {
+      font-weight: bold;
+    }
+	
+    .py-2 {
+      padding: 1rem 0px;
+    }
+    
+    .dotted-border-top {
+      border-top: 2px dotted black;
+    }
+		.running-order {
+			height: 20px;
+			width: 20px;
+			border-radius: 10px;
+			border: 2px solid black;
+			
+			display: inline-block
+		}
+
+    .text-center {
+      text-align: center;
+    }
+
+		.kot-header {
+			font: bold;
+			font-size: 18px;
+		}
+		.kitchen-name {
+			text-align: center;
+      padding-bottom: 5px;
+      border-bottom :2px dotted black
+		}
+
+		.kot-header-line {
+			display: flex;
+		}
+		.kot-header-line-heading {
+			width: 50%;
+		}
+
+		.kot-body {
+			border-top: 2px solid black;
+		}
+
+		.items-title{
+			display: flex;
+      flex-direction: row;
+      padding: 5px 0;
+      border-bottom: 2px solid black;
+		}
+
+    	.item-name-heading{
+			flex-grow: 1;
+		}
+    .item {
+      display: flex;
+      flex-direction: row;
+      padding: 3px 0;
+    }
+    
+		.item-name-wrapper {
+			flex-grow: 1;
+		}
+		.item-type-heading {
+			width: 20%;
+		}
+    .item-type {
+			width: 20%;
+		}
+
+		.item-quantity-heading {
+			width: 20%;
+		}
+    .item-quantity {
+			width: 20%;
+		}
+    .summary-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 0 8px;
+      border-top: 2px solid black;
+      border-bottom: 2px solid black;
+	  
+    }
+
+	.modifier {
+		font-style: italic;
+		font-weight: lighter;
+	}
+
+	.edit-bar {
+		margin-top: 15px;
+		border-bottom: 20px dotted black;
+	}
+
+	.delete-bar {
+		margin-top: 15px;
+		border-bottom: 20px solid black;
+	}
+	</style>
+	<meta charset="utf-8">
+</head>
+<body>
+	<div class="text-center">
+		{{#if isRunningOrder}}
+		
+		<div class="running-order">R</div>
+		{{/if}}
+    <div>
+      <span>
+      {{kotType}} -
+      </span>
+      <span class="bold">{{ticketId}}</span>
+        
+      </div>
+				<div>{{kitchenName}} -
+      <span >{{billDate}} </span>
+      </div>
+    
+    				<div>{{orderNumber}} -
+      <span class="bold">{{waiterName}} </span>
+      </div>
+    
+	</div>
+  
+  <div class="text-center py-2 bold dotted-border-top">
+    {{createdForFirstName}} - {{createdForSecondName}}
+  </div>
+
+
+
+	</div>
+	<div class="kot-body">
+		<div class="items-title">
+			<div class="item-name-heading">Item</div>
+			<div class="item-quantity-heading">Quantity</div>
+			<div class="item-type-heading">Type</div>
+		</div>
+
+		{{#each orderItems}}
+
+		<div class="item">
+			<div class="item-name-wrapper">
+       			 <div class="item-name bold">{{this.name}}</div>
+
+					{{#if modifiers}}
+					<div class="modifier">{{modifiers}}</div>
+					{{/if}}
+
+			</div>
+      	<div class="item-quantity bold">{{this.message}}</div>
+			<div class="item-type">{{this.orderItemType}}</div>
+		
+		</div>
+	  {{/each}}
+
+		<div class="summary-container">
+		<div>Items : {{numberOfItems}} </div>
+		<div> Quantity: {{quantity}}</div>
+		</div>
+		
+		{{#if hasDeleteItems}}
+		<div class="delete-bar"></div>
+		{{/if}}
+
+		{{#if hasEditItems}}
+		<div class="edit-bar"></div>
+		{{/if}}
+	</div>
+</body>
+</html>

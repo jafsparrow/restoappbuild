@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Reciept</title>
+	<head>
+	<style type="text/css">
+		body{
+			width: 360px;
+			margin: 0px;
+			padding: 0px;
+			font-size: 18px;
+			font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+            font-weight: light;
+		}
+        .py-1 {
+      padding: .5rem 0px;
+    }
+
+       .dotted-border-bottom {
+      border-bottom: 2px dotted black;
+    }
+    .pb-1 {
+      padding-bottom: 1rem;
+    }
+    .text-sm {
+      font-size: 15px;
+    }
+    
+    .text-lg {
+      font-size: 18px;
+    }
+    .text-center{
+      text-align:center
+    }
+    .bold {
+      font-weight: bold;
+    }
+    
+    .dashed-bottom-line {
+      border-bottom: 2px dotted black
+    }
+
+		.kot-header-line {
+			display: flex;
+		}
+		.kot-header-line-heading {
+			width: 50%;
+		}
+
+		.kot-body {
+			border-top: 2px solid black;
+		}
+
+		.items-title{
+			display: flex;
+      flex-direction: row;
+      padding: 5px 0;
+      border-bottom: 2px solid black;
+      gap: 5px;
+		}
+      	.item-name-heading{
+        width: 50%
+		}
+
+		.item-name {
+			font-weight: bold;
+		}
+    
+    .item-rate-heading {
+      width: 20%
+    }
+  .item-quantity-heading {
+      width: 10%
+    }
+  
+    .item-amount-heading{
+			width: 20%;
+      align-self: end;
+		}
+    .item {
+      display: flex;
+      flex-direction: row;
+      gap: 5px;
+    }
+    
+		.item-name-wrapper {
+      width: 50%
+		}
+    
+    .modifiers {
+      font-style: italic 
+    }
+      .item-rate {
+      width: 20%
+    }
+
+    .item-amount{
+			width: 20%;
+      
+		}
+    .item-quantity {
+			width: 10%;
+		}
+    .summary-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 0 8px;
+      border-top: 2px solid black;
+      border-bottom: 2px solid black
+    }
+    
+    .bottom-summary {
+      margin-top:10px;
+      display: flex;
+      flex-direction: row;
+    }
+    
+    .bottom-summary-text-area {
+      width: 80%;
+      text-align:right;
+      padding-right: 20px;
+    }
+    .bottom-summary-info {
+    
+      text-align: right;
+      width: 30%
+    }
+    
+    .flex {
+      margin-top: 100px;
+      display: flex;
+      height: 15px;
+      position:relative;
+      background-color: #eee;
+      border: 2px dashed black;
+    }
+    
+    .flex-grow-1 {
+      min-width: 5%;
+      background-color: #1A120B
+    }
+        .flex-grow-2{
+      min-width: 8%;
+      background-color: #3C2A21
+    }
+    
+            .flex-grow-3{
+      min-width: 14%;
+      background-color: #b3a759
+    }
+    
+                .flex-grow-4{
+      min-width: 23%;
+      background-color: #b3a759
+    }
+    
+    .thank-container{
+      
+     position: absolute;
+      width: 100%;
+      top: 0px;
+      display: flex;
+      font-size: 12px;
+      font-style:italic
+    }
+    .thank-text{
+      font-size:12px;
+      text-align: right;
+      padding-right: 10px;
+      width: 50%;
+      font-weight: bold;
+    }
+    .jenna-name{
+      padding-left: 5px;
+      width: 50%;
+    }
+    
+	</style>
+	<meta charset="utf-8">
+</head>
+<body>
+	<div class="text-center dashed-bottom-line text-sm pb-1">
+		<!-- <img src="logo.png" class="logo"> -->
+		<div class="bold text-lg">{{companyName}}</div>
+		<div>{{address}}</div>
+		<div>
+      <span>
+        {{billType}}
+      </span>
+       :
+      <span class="bold">
+        {{orderNumber}}
+      </span>
+      
+		</div>
+    
+    
+{{billDateTime}}
+	</div>
+
+	<div class="kot-header">
+
+		<!-- <div class="kot-header-line">
+			<div class="kot-header-line-heading">Bill NO: </div>
+			<div class="kot-header-line-detail">ONly if Bill has sep</div>
+		</div> -->
+
+
+			<div class="text-center bold dotted-border-bottom py-1">
+        
+  
+				{{customerName}} - 
+				{{#if lastName}}
+					{{lastName}}
+				{{/if}}
+
+			</div>
+	
+
+			
+
+		<div class="kot-header-line">
+			<div class="kot-header-line-heading">Waiter: </div>
+			<div class="kot-header-line-detail bold">{{waiterName}}</div>
+		</div>
+    {{#if isHomeDelivery}}
+    <div class="kot-header-line">
+			<div class="kot-header-line-heading">Delivered By: </div>
+			<div class="kot-header-line-detail">{{homeDeliveryUserName}}</div>
+		</div>
+    {{/if}}
+	</div>
+	<div class="kot-body">
+		<div class="items-title">
+			<div class="item-name-heading">Item</div>
+      <div class="item-quantity-heading">Qty</div>
+			<div class="item-rate-heading">Rate</div>
+      
+		
+      
+			<div class="item-amount-heading">Amount</div>
+		</div>
+		{{#each orderItems}}
+	
+		<div class="item">
+			<div class="item-name-wrapper">
+       			 <div class="item-name">
+               <div>{{this.name}}</div>
+               <div class="modifiers">{{this.modifiers}} </div>
+       			 </div>
+							
+					<div class="item-name-arabic">{{this.otherLanguageName}}</div>
+			
+
+			</div>
+      <div class="item-quantity">{{this.count}}</div>
+      <div class="item-rate">{{this.amount}}</div>
+		
+			<div class="item-amount">{{this.individualTotal}}</div>
+      
+		</div>
+		{{/each}}
+
+    <div class="summary-container">
+      <div>Items : {{totalItems }}</div>
+      <div> Quantity: {{totalCount}}</div>
+    </div>
+    
+    <div class=bottom-summary> 
+       <div class="bottom-summary-text-area">
+         Total Amount:
+      </div>
+      <div class="bottom-summary-info">
+        {{total}}
+      </div>
+    </div>
+	{{#each appliedTaxesInfo}}
+
+     <div class=bottom-summary> 
+       <div class="bottom-summary-text-area">
+         {{this.taxName}}
+      </div>
+      <div class="bottom-summary-info">
+        {{this.value}}
+      </div>
+    </div>
+
+	{{/each}}
+     <div class=bottom-summary> 
+       <div class="bottom-summary-text-area">
+         Net Amount:
+      </div>
+      <div class="bottom-summary-info">
+        {{taxedTotal}}
+      </div>
+    </div>
+
+    {{#if hasDiscountApplied }}
+
+      <div class=bottom-summary> 
+        <div class="bottom-summary-text-area">
+          Discount:
+      </div>
+      <div class="bottom-summary-info">
+        {{discountApplied}}
+      </div>
+    </div>
+
+      <div class=bottom-summary> 
+            <div class="bottom-summary-text-area">
+              Paid:
+          </div>
+          <div class="bottom-summary-info">
+            {{totalAfterDiscount}}
+          </div>
+      </div>   
+
+    {{/if}}
+		
+	</div>
+  
+  <div class="flex">
+    <div class="flex-grow-1"></div>
+    <div class="flex-grow-2"></div>
+    <div class="flex-grow-3"></div>
+    <div class="flex-grow-4"></div>
+   <div class="thank-container">
+      <div class="thank-text">THANK YOU</div>
+      <div class="jenna-name bold">
+        JnJ Technologies
+      </div>
+    </div>
+  </div>
+   
+</body>
+</html>
