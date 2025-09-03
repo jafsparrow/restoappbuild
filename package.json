@@ -7,7 +7,7 @@
     "db:studio": "npx env-cmd  -f .local.env npx prisma studio"
   },
   "prisma": {
-    "schema": "libs/api/data-access-db/src/lib/schema.prisma",
+    "schema": "data-access-db/src/lib/schema.prisma",
     "seed": "ts-node seed/seedDawarJuly29.ts"
   },
   "private": true,
