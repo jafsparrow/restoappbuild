@@ -28,28 +28,34 @@ const data_access_db_1 = __webpack_require__(7);
 const feature_product_1 = __webpack_require__(11);
 const feature_category_1 = __webpack_require__(33);
 const feature_order_1 = __webpack_require__(38);
-const feature_company_1 = __webpack_require__(81);
-const feature_table_1 = __webpack_require__(86);
-const feature_floor_1 = __webpack_require__(91);
+const feature_company_1 = __webpack_require__(90);
+const feature_table_1 = __webpack_require__(95);
+const feature_floor_1 = __webpack_require__(100);
 const feature_auth_1 = __webpack_require__(15);
-const serve_static_1 = __webpack_require__(96);
-const path_1 = __webpack_require__(77);
-const feature_pos_session_1 = __webpack_require__(97);
-const feature_stat_1 = __webpack_require__(106);
-const common_2 = __webpack_require__(102);
-const feature_kitchen_1 = __webpack_require__(110);
-const feature_tax_1 = __webpack_require__(115);
-const feature_user_1 = __webpack_require__(120);
-const feature_variant_1 = __webpack_require__(125);
-const feature_home_delivery_1 = __webpack_require__(130);
-const feature_order_history_1 = __webpack_require__(134);
-const feature_kot_1 = __webpack_require__(138);
+const serve_static_1 = __webpack_require__(105);
+const path_1 = __webpack_require__(79);
+const feature_pos_session_1 = __webpack_require__(106);
+const feature_stat_1 = __webpack_require__(111);
+const common_2 = __webpack_require__(83);
+const feature_kitchen_1 = __webpack_require__(127);
+const feature_tax_1 = __webpack_require__(132);
+const feature_user_1 = __webpack_require__(137);
+const feature_variant_1 = __webpack_require__(142);
+const feature_home_delivery_1 = __webpack_require__(147);
+const feature_order_history_1 = __webpack_require__(151);
+const feature_kot_1 = __webpack_require__(155);
+const feature_license_1 = __webpack_require__(121);
+const feature_expense_1 = __webpack_require__(115);
+const feature_payment_1 = __webpack_require__(159);
+const feature_image_upload_1 = __webpack_require__(164);
+const config_1 = __webpack_require__(87);
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = tslib_1.__decorate([
     (0, common_1.Module)({
         imports: [
+            config_1.ConfigModule.forRoot(),
             data_access_db_1.ApiDataAccessDbModule,
             feature_auth_1.ApiFeatureAuthModule,
             feature_product_1.ApiFeatureProductModule,
@@ -69,12 +75,15 @@ exports.AppModule = AppModule = tslib_1.__decorate([
             feature_home_delivery_1.ApiFeatureHomeDeliveryModule,
             feature_order_history_1.ApiFeatureOrderHistoryModule,
             feature_kot_1.ApiFeatureKotModule,
-            // FeatureLicenseModule,
+            feature_license_1.FeatureLicenseModule,
             // FeatureBackupModule,
             serve_static_1.ServeStaticModule.forRoot({
                 rootPath: (0, path_1.join)(__dirname, '..', 'orderapp'),
                 exclude: ['/api*'],
             }),
+            feature_expense_1.FeatureExpenseModule,
+            feature_payment_1.FeaturePaymentModule,
+            feature_image_upload_1.FeatureImageUploadModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
@@ -271,7 +280,7 @@ let ApiFeatureProductController = class ApiFeatureProductController {
         this.productService = productService;
     }
     getProducts() {
-        console.log('get product api end point');
+        // console.log('get product api end point');
         return this.productService.getProduct();
     }
     createProduct(params) {
@@ -283,16 +292,16 @@ let ApiFeatureProductController = class ApiFeatureProductController {
         return this.productService.udpateProduct(productId, body);
     }
     updateProductAvailability(body, id) {
-        console.log('patch request happened now');
+        // console.log('patch request happened now');
         const productId = +id;
-        console.log('Product id', productId);
-        console.log('input data', body);
+        // console.log('Product id', productId);
+        // console.log('input data', body);
         return this.productService.updateProductBoolField(productId, body);
     }
     deleteProduct(id) {
         const productId = +id;
         console.log(`Delete Request to Deactivate Product of product ID ${productId}`);
-        console.log('Product id', productId);
+        // console.log('Product id', productId);
         return this.productService.deactivateProduct(productId);
     }
 };
@@ -743,7 +752,8 @@ let AuthController = class AuthController {
         this.userService = userService;
     }
     signIn(req) {
-        console.log('has gone inside');
+        //[TODO] - have a license check here - anytime a new user logs in.
+        // console.log('has gone inside');
         const user = req.user;
         return this.authService.signIn(user);
     }
@@ -1070,7 +1080,7 @@ let CategoryController = class CategoryController {
     }
     updateKitchen(body, id) {
         const cateogryId = +id;
-        console.log('kitchen id', cateogryId);
+        // console.log('kitchen id', cateogryId);
         return this.categoryService.udpateCategory(cateogryId, body);
     }
 };
@@ -1205,6 +1215,7 @@ tslib_1.__decorate([
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const tslib_1 = __webpack_require__(4);
 tslib_1.__exportStar(__webpack_require__(39), exports);
+tslib_1.__exportStar(__webpack_require__(42), exports);
 
 
 /***/ }),
@@ -1219,18 +1230,20 @@ const common_1 = __webpack_require__(1);
 const api_feature_order_controller_1 = __webpack_require__(40);
 const order_service_1 = __webpack_require__(42);
 const data_access_db_1 = __webpack_require__(7);
-const pdf_service_1 = __webpack_require__(74);
-const print_service_1 = __webpack_require__(79);
+const common_2 = __webpack_require__(83);
+const pdf_service_1 = __webpack_require__(76);
+const print_service_1 = __webpack_require__(81);
 const feature_auth_1 = __webpack_require__(15);
+const thermal_print_service_1 = __webpack_require__(88);
 let ApiFeatureOrderModule = class ApiFeatureOrderModule {
 };
 exports.ApiFeatureOrderModule = ApiFeatureOrderModule;
 exports.ApiFeatureOrderModule = ApiFeatureOrderModule = tslib_1.__decorate([
     (0, common_1.Module)({
-        imports: [data_access_db_1.ApiDataAccessDbModule, feature_auth_1.ApiFeatureAuthModule],
+        imports: [data_access_db_1.ApiDataAccessDbModule, feature_auth_1.ApiFeatureAuthModule, common_2.ApiCommonModule],
         controllers: [api_feature_order_controller_1.OrderContoller],
-        providers: [order_service_1.OrderService, pdf_service_1.PDFService, print_service_1.PrintService],
-        exports: [print_service_1.PrintService],
+        providers: [order_service_1.OrderService, pdf_service_1.PDFService, print_service_1.PrintService, thermal_print_service_1.ThermalPrintService],
+        exports: [print_service_1.PrintService, order_service_1.OrderService],
     })
 ], ApiFeatureOrderModule);
 
@@ -1253,10 +1266,10 @@ let OrderContoller = class OrderContoller {
         this.orderService = orderService;
     }
     getRecentNoPaidOrders(req) {
-        console.log('recent orders');
+        // console.log('recent orders');
         const user = req.user;
         if (user.isCashier) {
-            console.log('iam a cashier user.');
+            // console.log('iam a cashier user.');
             return this.orderService.getRecentNotPaidOrders();
         }
         return this.orderService.getRecentNotPaidOrdersByUser(user);
@@ -1266,22 +1279,21 @@ let OrderContoller = class OrderContoller {
         return this.orderService.printReceipt(orderId);
     }
     makeBillForTheOrder(data) {
-        console.log('patch requrest for ', data);
+        // console.log('patch requrest for ', data);
         // return this.orderService.printReceipt(data.orderId);
         return this.orderService.makeBillForTheOrder(data.orderId);
     }
     getOpenHomeDeliveryOrders() {
-        console.log('home delivery router get request has been called.');
+        // console.log('home delivery router get request has been called.');
         return this.orderService.getOpenHomeDeliveryOrders();
     }
     getOrderDetails(params) {
-        console.log('getting order details');
+        // console.log('getting order details');
         const orderId = +params.id;
         return this.orderService.getOrderDetails(orderId);
     }
     post(order, req) {
         const appUser = req.user;
-        // console.log('from the front end', order);
         return this.orderService.createOrder(order, appUser);
     }
     async qwickPay(order, req, query) {
@@ -1297,9 +1309,9 @@ let OrderContoller = class OrderContoller {
     }
     // @UseGuards(JwtAuthGuard)
     updateOrderItems(data, params) {
-        console.log(data, params);
+        // console.log(data, params);
         const orderId = params.id;
-        console.log('dto array', data);
+        // console.log('dto array', data);
         return 'hello world';
     }
     payTheBill(params, query) {
@@ -1310,7 +1322,7 @@ let OrderContoller = class OrderContoller {
             balance: query.balance ? Number.parseFloat(query.balance) : 0,
             mode: query.mode ?? 'cash',
         };
-        const shouldPrintBill = query.shouldPrint ? true : false;
+        const shouldPrintBill = query.shouldPrint == 'no' ? false : true;
         return this.orderService.payTheBill(orderId, shouldPrintBill, paymentDetails);
     }
     cancelOrder(params, query) {
@@ -1320,13 +1332,13 @@ let OrderContoller = class OrderContoller {
     }
     settleAsCreditPay(params, query) {
         const orderId = +params.id;
-        console.log('query params credit settle received', query);
+        // console.log('query params credit settle received', query);
         const shouldPrintBill = query.shouldPrint ? true : false;
         return this.orderService.creditSettle(orderId, shouldPrintBill);
     }
     async acceptHomeDelivery(data, params, req) {
         const orderId = +params.id;
-        console.log('delivery id to be assinged', data.deliveryUserId);
+        // console.log('delivery id to be assinged', data.deliveryUserId);
         // [TODO] if staff user is the looged in user, need validation to make sure logged and send deliveryId are same
         return this.orderService.acceptHomeDeliveryOrder(orderId, +data.deliveryUserId);
     }
@@ -1468,7 +1480,7 @@ tslib_1.__decorate([
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
-var _a, _b;
+var _a, _b, _c, _d;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.OrderService = void 0;
 const tslib_1 = __webpack_require__(4);
@@ -1476,11 +1488,15 @@ const common_1 = __webpack_require__(1);
 const data_access_db_1 = __webpack_require__(7);
 const util_1 = __webpack_require__(43);
 const types_1 = __webpack_require__(47);
-const pdf_service_1 = __webpack_require__(74);
+const pdf_service_1 = __webpack_require__(76);
+const common_2 = __webpack_require__(83);
+const thermal_print_service_1 = __webpack_require__(88);
 let OrderService = class OrderService {
-    constructor(prismaService, pdfService) {
+    constructor(prismaService, pdfService, thermalPrintConfig, thermalPrintService) {
         this.prismaService = prismaService;
         this.pdfService = pdfService;
+        this.thermalPrintConfig = thermalPrintConfig;
+        this.thermalPrintService = thermalPrintService;
     }
     async testPrismaggregate(orderID) {
         const result = await this.prismaService.orderItem.groupBy({
@@ -1513,7 +1529,7 @@ let OrderService = class OrderService {
         });
         if (!activeSession)
             throw new common_1.NotFoundException('No active session');
-        console.log('active session start time is', activeSession.startTime);
+        // console.log('active session start time is', activeSession.startTime);
         return activeSession.startTime;
     }
     async getRecentOrders() {
@@ -1668,9 +1684,16 @@ let OrderService = class OrderService {
                 discountApplied: discountApplied.toFixed(noOfDecimalPlaces),
             };
             const printer = company.printer;
-            await this.pdfService.printReceipt(infoToPrint, printer);
+            console.log('is this being called');
+            if (this.thermalPrintConfig.shouldUseThermalPrinter) {
+                this.thermalPrintService.printBill(infoToPrint, printer);
+            }
+            else {
+                await this.pdfService.printReceipt(infoToPrint, printer);
+            }
             return order;
-            return 'Recipt printer successfully.';
+            // removed by dead control flow
+
         }
         catch (error) {
             console.log('Error while priting receipt', error);
@@ -1693,6 +1716,20 @@ let OrderService = class OrderService {
         }
         return billType;
     }
+    async waitTillFromArray() {
+        await this.waitRandom();
+        const randomDelaysToCreate = [
+            100, 500, 600, 700, 800, 900, 1000, 1100, 1300, 1500, 1700, 2000, 2200,
+            2400, 2500,
+        ];
+        const max = 13;
+        const min = 0;
+        const randomIndex = Math.floor(Math.random() * (max - min + 1) + min);
+        // console.log('another wait of', randomDelaysToCreate[randomIndex]);
+        return new Promise((resolve) => {
+            setTimeout(resolve, randomDelaysToCreate[randomIndex]);
+        });
+    }
     async waitRandom() {
         const random = Math.random() * 1000;
         // console.log('random number is ', random);
@@ -1702,13 +1739,13 @@ let OrderService = class OrderService {
     }
     async getNextOrderNumber() {
         try {
+            // the followind line is temporary fix for concurrency company
+            // update error. postgres would not have this error, still keeping the code here.s
+            await this.waitTillFromArray();
             const company = await this.prismaService.company.findFirst();
             if (!company)
                 throw new Error('no company data found');
-            console.log('oriingal order number', company.lastOrderNumber);
-            // the followind line is temporary fix for concurrency company
-            // update error. postgres would not have this error, still keeping the code here.s
-            await this.waitRandom();
+            // console.log('oriingal order number', company.lastOrderNumber);
             const updatedCompanyDetails = await this.prismaService.company.update({
                 where: {
                     id: company?.id,
@@ -1717,7 +1754,10 @@ let OrderService = class OrderService {
                     lastOrderNumber: company?.lastOrderNumber + 1,
                 },
             });
-            console.log('updated company order number', updatedCompanyDetails.lastOrderNumber);
+            // console.log(
+            //   'updated company order number',
+            //   updatedCompanyDetails.lastOrderNumber
+            // );
             return updatedCompanyDetails?.lastOrderNumber;
         }
         catch (error) {
@@ -1725,12 +1765,32 @@ let OrderService = class OrderService {
             throw new common_1.BadRequestException(error);
         }
     }
+    async isAllowedToCreateOrder() {
+        try {
+            const activeSessions = await this.prismaService.posSession.findFirst({
+                where: { status: types_1.SessionStatus.ACTIVE },
+            });
+            // console.log('acitve sessin', activeSessions);
+            if (activeSessions) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        catch (error) {
+            console.log(error);
+            return false;
+        }
+    }
     async createOrder(createOrderDto, appUser) {
-        // console.log('user is', appUser);
-        // console.log('creat dto value', createOrderDto);
+        const isAllowedToCreateOrder = await this.isAllowedToCreateOrder();
+        if (!isAllowedToCreateOrder) {
+            throw Error('Cannot created order now...');
+        }
         try {
             const printKot = createOrderDto.printKot;
-            console.log('print Kot flag value is ', printKot);
+            // console.log('print Kot flag value is ', printKot);
             // const tableId = createOrderDto.tableId;
             if (createOrderDto.customerId) {
                 const customerId = createOrderDto.customerId;
@@ -1775,13 +1835,13 @@ let OrderService = class OrderService {
     async createTakeAwayOrder(createOrderDto, appUser) {
         try {
             const nextOrderId = await this.getNextOrderNumber();
-            console.log('order id now is', nextOrderId);
+            // console.log('order id now is', nextOrderId);
             const newCustomer = await this.prismaService.customer.create({
                 data: {
                     firstName: createOrderDto.cartCreatedFor.firstName,
                     lastName: createOrderDto.cartCreatedFor.lastName
                         ? createOrderDto.cartCreatedFor.lastName
-                        : 'no',
+                        : '***',
                 },
             });
             const newOrder = await this.prismaService.order.create({
@@ -1798,7 +1858,7 @@ let OrderService = class OrderService {
                     customer: true,
                 },
             });
-            console.log('prisma is creating data');
+            // console.log('prisma is creating data');
             return newOrder;
         }
         catch (error) {
@@ -1809,13 +1869,13 @@ let OrderService = class OrderService {
     async createHomeDeliveryOrder(createOrderDto, appUser) {
         try {
             const nextOrderId = await this.getNextOrderNumber();
-            console.log('order id now is', nextOrderId);
+            // console.log('order id now is', nextOrderId);
             const newCustomer = await this.prismaService.customer.create({
                 data: {
                     firstName: createOrderDto.cartCreatedFor.firstName,
                     lastName: createOrderDto.cartCreatedFor.lastName
                         ? createOrderDto.cartCreatedFor.lastName
-                        : 'no',
+                        : '***',
                 },
             });
             const deliveryUserId = createOrderDto.deliveryUserId;
@@ -1836,7 +1896,7 @@ let OrderService = class OrderService {
                     customer: true,
                 },
             });
-            console.log('prisma is creating data');
+            // console.log('prisma is creating data');
             return newOrder;
         }
         catch (error) {
@@ -1892,6 +1952,7 @@ let OrderService = class OrderService {
                         kitchenId: +kitId,
                         updatedUserId: appUser.id,
                         orderId: order.id,
+                        note: createOrderDto.note ?? '',
                         status: types_1.KotStatus.INPROGRESS,
                         orderItems: {
                             create: resultantCartItems.map((resultantCartItem) => {
@@ -1904,6 +1965,7 @@ let OrderService = class OrderService {
                                     productId: resultantCartItem.product.id,
                                     orderItemType: resultantCartItem.cartItemType,
                                     message: resultantCartItem.message,
+                                    note: resultantCartItem.note ?? '',
                                     modifiers: resultantCartItem.modifiers
                                         ? resultantCartItem.modifiers?.reduce((prev, curr) => prev.concat(curr.name, ', '), '')
                                         : '',
@@ -1917,6 +1979,7 @@ let OrderService = class OrderService {
                         createdAt: true,
                         updatedUser: true,
                         Kitchen: true,
+                        note: true,
                         orderItems: true,
                     },
                 });
@@ -1930,9 +1993,15 @@ let OrderService = class OrderService {
                 .forEach((kot) => {
                 const kotData = this.createKOTData(kot, order, appUser, hasDeleteItems, hasEditItems, isRunning);
                 if (printKot) {
-                    console.log('print kot is true in this area', printKot);
+                    // console.log('print kot is true in this area', printKot);
                     // not waiting for the print service to finsh. optimization.
-                    this.pdfService.printKot(kotData);
+                    console.log('reaching this far.');
+                    if (this.thermalPrintConfig.shouldUseThermalPrinter) {
+                        this.thermalPrintService.printKot(kotData);
+                    }
+                    else {
+                        this.pdfService.printKot(kotData);
+                    }
                 }
             });
             // Object.entries(kitchenIdVice).forEach(async ([kitId, cartItems]) => {
@@ -1985,17 +2054,22 @@ let OrderService = class OrderService {
         }
     }
     createKOTData(kot, order, user, hasDeleteItems, hasEditItems, isRunningOrder) {
+        // console.log('kot passed is', kot);
         const customerInfor = order.customer;
         const firstName = customerInfor.firstName;
         const secondName = customerInfor.lastName ? customerInfor.lastName : '****';
+        // [TODO] the following kot total is a patch fix hardcoding number of decimal to 3 digits, this needs to be update according the company table numberofDecimal places.
+        const kotTotalToFixed3 = kot.orderItems
+            .reduce((prev, item) => prev + (item.count > 0 ? item.count : 0) * item.amount, 0)
+            .toFixed(3) ?? '';
         const updatedData = {
             kitchenName: kot.Kitchen.name ? kot.Kitchen.name : 'KITCHEN',
             printer: kot.Kitchen.printer,
-            ticketId: `KOT- ${kot.id}`,
+            ticketId: `KOT: ${kot.id}`,
             billDate: (0, util_1.dateTimeToDateHHMM)(kot.createdAt),
             orderNumber: `Order No- ${order?.orderNumber}`,
             orderTypeTitle: order?.orderType == 'table' ? 'Table Info' : 'Customer Info',
-            kotType: order?.orderType == 'table' ? 'Dine In KOT' : 'Take Away KOT',
+            kotType: order?.orderType == 'table' ? 'Dine In' : 'Take Away',
             isRunningOrder,
             tableNumber: order.customerName,
             createdForFirstName: firstName ? firstName : 'First Name',
@@ -2005,6 +2079,8 @@ let OrderService = class OrderService {
             hasEditItems,
             orderItems: kot.orderItems,
             numberOfItems: kot.orderItems.length.toString() ?? '',
+            kotNote: kot.note ?? '',
+            kotTotalAmount: kotTotalToFixed3,
             quantity: kot.orderItems
                 .reduce((prev, item) => prev + (item.count > 0 ? item.count : 0), 0)
                 .toString() ?? '',
@@ -2046,7 +2122,7 @@ let OrderService = class OrderService {
         try {
             const tableId = createOrderDto.tableId;
             const nextOrderId = await this.getNextOrderNumber();
-            console.log('order id now is', nextOrderId);
+            // console.log('order id now is', nextOrderId);
             const newCustomer = await this.prismaService.customer.create({
                 data: {
                     firstName: createOrderDto.cartCreatedFor.firstName,
@@ -2110,7 +2186,7 @@ let OrderService = class OrderService {
     }
     async payTheBill(orderId, shouldPrintBill, paymentDetails) {
         // check if the order is in in progress status. no need as front end takes care of it.
-        console.log('paybill paydetails', paymentDetails);
+        // console.log('paybill paydetails', paymentDetails);
         try {
             const updatedOrder = await this.prismaService.order.update({
                 where: { id: orderId },
@@ -2122,6 +2198,10 @@ let OrderService = class OrderService {
                         discountApplied: paymentDetails.discount,
                         balance: paymentDetails.balance,
                         paymentMode: paymentDetails.mode,
+                        payments: {
+                            // adding these payments after new paybreakup change on may 2024
+                            create: { amount: paymentDetails.paidAmount, paymentTypeId: 1 },
+                        },
                     }),
                 },
                 include: {
@@ -2143,6 +2223,7 @@ let OrderService = class OrderService {
             return updatedOrder;
         }
         catch (error) {
+            console.log(error);
             throw new Error('format later.');
         }
     }
@@ -2255,8 +2336,8 @@ let OrderService = class OrderService {
     async updateOrderItemsForTheOrder(orderId, orderItems) {
         try {
             // await this.prismaService.orderItem.cre;/
-            console.log('order id is', orderId);
-            console.log('order details', orderItems);
+            // console.log('order id is', orderId);
+            // console.log('order details', orderItems);
         }
         catch (error) {
             console.log('erro while updating orerItems.');
@@ -2298,7 +2379,8 @@ let OrderService = class OrderService {
 exports.OrderService = OrderService;
 exports.OrderService = OrderService = tslib_1.__decorate([
     (0, common_1.Injectable)(),
-    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof data_access_db_1.PrismaService !== "undefined" && data_access_db_1.PrismaService) === "function" ? _a : Object, typeof (_b = typeof pdf_service_1.PDFService !== "undefined" && pdf_service_1.PDFService) === "function" ? _b : Object])
+    tslib_1.__param(2, (0, common_1.Inject)('IS_ORDER_APP_THERMAL_OK')),
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof data_access_db_1.PrismaService !== "undefined" && data_access_db_1.PrismaService) === "function" ? _a : Object, typeof (_b = typeof pdf_service_1.PDFService !== "undefined" && pdf_service_1.PDFService) === "function" ? _b : Object, typeof (_c = typeof common_2.ThermalPrintOptions !== "undefined" && common_2.ThermalPrintOptions) === "function" ? _c : Object, typeof (_d = typeof thermal_print_service_1.ThermalPrintService !== "undefined" && thermal_print_service_1.ThermalPrintService) === "function" ? _d : Object])
 ], OrderService);
 
 
@@ -2319,12 +2401,12 @@ tslib_1.__exportStar(__webpack_require__(46), exports);
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.aggregateOrderItems = exports.getOnlyCurrentDateWithoutTime = exports.getStartOfTheMonth = exports.getStartOfTheWeek = exports.getStartOfTheDay = exports.timesAgoFormat = exports.dateTimeNowMinus = exports.dateTimeToDateHHMM = exports.getTaxedSubTotal = exports.getAppliedTaxesAndTaxesTotal = exports.getOrderItemsTotal = exports.commonUtil = void 0;
+exports.aggregateOrderItems = exports.getOnlyCurrentDateWithoutTime = exports.getStartOfTheMonth = exports.getStartOfTheWeek = exports.getStartOfTheDay = exports.timesAgoFormat = exports.dateTimeNowMinus = exports.dateTimeToDateHHMM = exports.getTaxedSubTotal = exports.getAppliedTaxesAndTaxesTotal = exports.getOrderItemsTotal = void 0;
+exports.commonUtil = commonUtil;
 const luxon_1 = __webpack_require__(45);
 function commonUtil() {
     return 'common-util';
 }
-exports.commonUtil = commonUtil;
 const getOrderItemsTotal = (orderItems) => {
     const totalOfOderItems = +Object.values(orderItems).reduce((tot, orderItem) => {
         return tot + orderItem.amount;
@@ -2381,7 +2463,7 @@ const aggregateOrderItems = (orderItems) => {
             ...(itemObj[key] || {}),
             ...{
                 ...orderItem,
-                id: itemObj[key] ? itemObj[key].id : orderItem.id,
+                id: itemObj[key] ? itemObj[key].id : orderItem.id, // This step is neeed to keep the sort order if item had edit later on but still need to keep order at the top even had edits
                 count: itemObj[key]
                     ? itemObj[key].count + orderItem.count
                     : orderItem.count,
@@ -2428,6 +2510,7 @@ const getCartItemTotalFromVariantAndModifiers = (cartItem) => {
     let productPrice = cartItem.variant
         ? cartItem.variant.price
         : cartItem.product.price;
+    console.log('product resultant rate check', productPrice);
     if (cartItem.modifiers) {
         productPrice =
             productPrice +
@@ -2442,6 +2525,7 @@ const getCartItemNameFromVariant = (cartItem) => {
 };
 exports.getCartItemNameFromVariant = getCartItemNameFromVariant;
 const getResultantCartItems = (cartItemObj, orderEditItemsObj) => {
+    console.log('getting resultant items........');
     const cartItems = Object.values(cartItemObj);
     const orderItemEdits = Object.values(orderEditItemsObj);
     const resultantCartItemsArray = [];
@@ -2458,7 +2542,7 @@ const getResultantCartItems = (cartItemObj, orderEditItemsObj) => {
             if (orderEditItemsObj[key]) {
                 console.log('current cart item is in the order edit');
                 const orderEdit = orderEditItemsObj[key];
-                const originalCount = orderEdit.orderItem.count;
+                const originalCount = orderEdit.originalCount || 0;
                 const updatedOrderEditCount = orderEdit.count;
                 const resultantCount = updatedOrderEditCount + currentCountInCart;
                 console.log('result count', resultantCount);
@@ -2528,7 +2612,9 @@ const getResultantCartItems = (cartItemObj, orderEditItemsObj) => {
                     modifiers: cartItem.modifiers,
                     variant: cartItem.variant,
                     sortOrder: cartItem.sortOrder || 0,
+                    note: cartItem.note ?? '',
                 };
+                console.log('only cartitem resultand', resultantCartItem);
                 resultantCartItemsArray.push(resultantCartItem);
             }
         });
@@ -2537,15 +2623,17 @@ const getResultantCartItems = (cartItemObj, orderEditItemsObj) => {
         console.log('only order edit has items');
         Object.entries(orderEditItemsObj).map((item) => {
             const [key, orderItemEditItem] = item;
-            const finalCount = orderItemEditItem.orderItem.count + orderItemEditItem.count;
+            console.log('edit item when reached here', orderItemEditItem);
+            const finalCount = orderItemEditItem.originalCount + orderItemEditItem.count;
+            console.log('final count', finalCount);
             let resultantCartItem = {
                 amount: orderItemEditItem.orderItem.amount || 0,
                 cartItemType: types_1.CartItemType.NEW,
                 count: orderItemEditItem.count,
                 key: key,
-                message: `${orderItemEditItem.orderItem.count}->${orderItemEditItem.count} `,
+                message: `${orderItemEditItem.originalCount}->${orderItemEditItem.count} `,
                 name: orderItemEditItem.orderItem.name || 'No name',
-                originalCount: orderItemEditItem.orderItem.count,
+                originalCount: orderItemEditItem.originalCount,
                 product: orderItemEditItem.orderItem.product,
                 modifiers: orderItemEditItem.orderItem.modifiers,
                 sortOrder: 0,
@@ -2572,7 +2660,7 @@ const getResultantCartItems = (cartItemObj, orderEditItemsObj) => {
                     ...resultantCartItem,
                     count: orderItemEditItem.count,
                     cartItemType: types_1.CartItemType.EDIT,
-                    message: `${orderItemEditItem.orderItem.count}-${finalCount}`,
+                    message: `${orderItemEditItem.originalCount}-${finalCount}`,
                 };
             }
             // const resultantCartItem: ResultantCartItem = {
@@ -2612,11 +2700,10 @@ tslib_1.__exportStar(__webpack_require__(49), exports);
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.commonTypes = void 0;
+exports.commonTypes = commonTypes;
 function commonTypes() {
     return 'common-types';
 }
-exports.commonTypes = commonTypes;
 
 
 /***/ }),
@@ -2650,6 +2737,8 @@ tslib_1.__exportStar(__webpack_require__(70), exports);
 tslib_1.__exportStar(__webpack_require__(71), exports);
 tslib_1.__exportStar(__webpack_require__(72), exports);
 tslib_1.__exportStar(__webpack_require__(73), exports);
+tslib_1.__exportStar(__webpack_require__(74), exports);
+tslib_1.__exportStar(__webpack_require__(75), exports);
 
 
 /***/ }),
@@ -2834,6 +2923,7 @@ var KotStatus;
 (function (KotStatus) {
     KotStatus["INPROGRESS"] = "inprogress";
     KotStatus["READY"] = "ready";
+    KotStatus["SERVED"] = "served";
 })(KotStatus || (exports.KotStatus = KotStatus = {}));
 
 
@@ -2919,6 +3009,22 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 
 /***/ }),
 /* 74 */
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+
+
+/***/ }),
+/* 75 */
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+
+
+/***/ }),
+/* 76 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -2927,26 +3033,26 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.PDFService = void 0;
 const tslib_1 = __webpack_require__(4);
 const common_1 = __webpack_require__(1);
-const fs_1 = __webpack_require__(75);
-const hbs_1 = __webpack_require__(76);
-const path_1 = __webpack_require__(77);
-const puppeteer_1 = __webpack_require__(78);
-const print_service_1 = __webpack_require__(79);
+const fs_1 = __webpack_require__(77);
+const hbs_1 = __webpack_require__(78);
+const path_1 = __webpack_require__(79);
+const puppeteer_1 = __webpack_require__(80);
+const print_service_1 = __webpack_require__(81);
 let PDFService = class PDFService {
     constructor(printService) {
         this.printService = printService;
     }
     async printReceipt(receiptData, printerName) {
         const relativePath = (0, path_1.resolve)(__dirname, 'views');
-        console.log('relative path', relativePath);
-        console.log((0, path_1.join)(relativePath, 'receipt.html'));
+        // console.log('relative path', relativePath);
+        // console.log(join(relativePath, 'receipt.html'));
         const templateHtml = (0, fs_1.readFileSync)((0, path_1.join)(relativePath, 'receipt.html'), 'utf8');
         const template = hbs_1.handlebars.compile(templateHtml);
         const html = template(receiptData);
         const pdfOptions = this.getPdfOptions('pdf', 'receipt');
         await this.savePdf(html, pdfOptions);
         await this.printService.printPdfAtPath(pdfOptions.path, printerName);
-        // this.deletePdf(pdfOptions.path!);
+        this.deletePdf(pdfOptions.path);
         return;
     }
     async samplebill() {
@@ -2969,8 +3075,8 @@ let PDFService = class PDFService {
     createKotHtml(templateName, kotData) {
         // const relativePath = resolve(__dirname, '../src/views');
         const relativePath = (0, path_1.resolve)(__dirname, 'views');
-        console.log('relative path', relativePath);
-        console.log((0, path_1.join)(relativePath, templateName));
+        // console.log('relative path', relativePath);
+        // console.log(join(relativePath, templateName));
         const templateHtml = (0, fs_1.readFileSync)((0, path_1.join)(relativePath, templateName), 'utf8');
         const template = hbs_1.handlebars.compile(templateHtml);
         const html = template(kotData);
@@ -2983,7 +3089,7 @@ let PDFService = class PDFService {
         const relativePath = (0, path_1.resolve)(__dirname, '../../../../pdf');
         // const pdfPath = join('pdf', `${name}-${milis}.pdf`);
         const pdfPath = (0, path_1.join)(relativePath, `${name}-${milis}.pdf`);
-        console.log('pdf path', pdfPath);
+        // console.log('pdf path', pdfPath);
         const options = {
             width: '270',
             headerTemplate: '<p>header jafar</p>',
@@ -2992,12 +3098,14 @@ let PDFService = class PDFService {
             margin: {
                 top: '0px',
                 bottom: '10px',
+                left: '15px', //19 Mar 2024 - adding this line to support kerala darbar print margin
             },
             printBackground: false,
             path: pdfPath,
         };
         return options;
     }
+    // NOTE: the puppeteer excecutable path need to be added. added to get th pkg .exe output to find the puppeteer. you can remove it later.
     async savePdf(html, options) {
         const browser = await (0, puppeteer_1.launch)({
             args: [
@@ -3039,7 +3147,7 @@ let PDFService = class PDFService {
                 '--use-gl=swiftshader',
                 '--use-mock-keychain',
             ],
-            headless: 'new',
+            headless: 'shell',
         });
         const page = await browser.newPage();
         // await page.goto(`data:text/html;charset=UTF-8,${html}`, {
@@ -3075,31 +3183,31 @@ exports.PDFService = PDFService = tslib_1.__decorate([
 
 
 /***/ }),
-/* 75 */
+/* 77 */
 /***/ ((module) => {
 
 module.exports = require("fs");
 
 /***/ }),
-/* 76 */
+/* 78 */
 /***/ ((module) => {
 
 module.exports = require("hbs");
 
 /***/ }),
-/* 77 */
+/* 79 */
 /***/ ((module) => {
 
 module.exports = require("path");
 
 /***/ }),
-/* 78 */
+/* 80 */
 /***/ ((module) => {
 
 module.exports = require("puppeteer");
 
 /***/ }),
-/* 79 */
+/* 81 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -3107,16 +3215,17 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.PrintService = void 0;
 const tslib_1 = __webpack_require__(4);
 const common_1 = __webpack_require__(1);
-const path_1 = __webpack_require__(77);
-const pdf_to_printer_1 = __webpack_require__(80);
+const path_1 = __webpack_require__(79);
+const pdf_to_printer_1 = __webpack_require__(82);
 let PrintService = class PrintService {
-    async printPdfAtPath(path, printerName) {
+    async printPdfAtPath(pPath, printerName) {
         try {
             // awaiting printer will make the progress stop
             // until printer comes back online in the case of printer being offline.
             // to give enough time to read the pdf before it gets deleted.. adding an artifical delay
-            const result = await this.printDoc((0, pdf_to_printer_1.print)((0, path_1.resolve)(__dirname, path), {
-                printer: printerName,
+            // NOTE: to make pkg to work as .exe __dirname should be replaced with path.dirname(process.execPath)
+            const result = await this.printDoc((0, pdf_to_printer_1.print)((0, path_1.resolve)(__dirname, pPath), {
+                printer: printerName, //'CP-Q2',
                 scale: 'noscale',
             }), 3000);
             // await print(resolve(__dirname, path), {
@@ -3146,185 +3255,61 @@ exports.PrintService = PrintService = tslib_1.__decorate([
 
 
 /***/ }),
-/* 80 */
+/* 82 */
 /***/ ((module) => {
 
 module.exports = require("pdf-to-printer");
-
-/***/ }),
-/* 81 */
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-const tslib_1 = __webpack_require__(4);
-tslib_1.__exportStar(__webpack_require__(82), exports);
-tslib_1.__exportStar(__webpack_require__(85), exports);
-
-
-/***/ }),
-/* 82 */
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-var _a, _b, _c;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.ApiFeatureCompanyController = void 0;
-const tslib_1 = __webpack_require__(4);
-const common_1 = __webpack_require__(1);
-const company_service_1 = __webpack_require__(83);
-const company_update_dto_1 = __webpack_require__(84);
-const types_1 = __webpack_require__(47);
-let ApiFeatureCompanyController = class ApiFeatureCompanyController {
-    constructor(companyService) {
-        this.companyService = companyService;
-    }
-    getCompanyDetails() {
-        console.log('jafar get copamy ');
-        return this.companyService.getCompanyDetails(1);
-    }
-    updateCompany(companyUpdateDto) {
-        return this.companyService.updateCompany(companyUpdateDto);
-    }
-    getConnectedPrinters() {
-        return this.companyService.getPrinters();
-    }
-    updateProductShortcuts(updateProductShortcuts, data) {
-        console.log('query data', data);
-        const shortcutType = data.shortcutName;
-        if (shortcutType == types_1.CompanyShortcutTypes.CUSTOMERSHORTCUTS ||
-            shortcutType == types_1.CompanyShortcutTypes.PRODUCTSHORTCUTS) {
-            return this.companyService.updateProductShortcuts(updateProductShortcuts, shortcutType);
-        }
-        throw Error('Query data does not match shortcut name');
-    }
-};
-exports.ApiFeatureCompanyController = ApiFeatureCompanyController;
-tslib_1.__decorate([
-    (0, common_1.Get)(),
-    tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", []),
-    tslib_1.__metadata("design:returntype", void 0)
-], ApiFeatureCompanyController.prototype, "getCompanyDetails", null);
-tslib_1.__decorate([
-    (0, common_1.Post)(),
-    tslib_1.__param(0, (0, common_1.Body)()),
-    tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", [typeof (_b = typeof company_update_dto_1.UpdateCompanyDto !== "undefined" && company_update_dto_1.UpdateCompanyDto) === "function" ? _b : Object]),
-    tslib_1.__metadata("design:returntype", void 0)
-], ApiFeatureCompanyController.prototype, "updateCompany", null);
-tslib_1.__decorate([
-    (0, common_1.Get)('printers'),
-    tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", []),
-    tslib_1.__metadata("design:returntype", void 0)
-], ApiFeatureCompanyController.prototype, "getConnectedPrinters", null);
-tslib_1.__decorate([
-    (0, common_1.Patch)(),
-    tslib_1.__param(0, (0, common_1.Body)()),
-    tslib_1.__param(1, (0, common_1.Query)()),
-    tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", [typeof (_c = typeof company_update_dto_1.UpdateProdcutShortcutsDto !== "undefined" && company_update_dto_1.UpdateProdcutShortcutsDto) === "function" ? _c : Object, Object]),
-    tslib_1.__metadata("design:returntype", void 0)
-], ApiFeatureCompanyController.prototype, "updateProductShortcuts", null);
-exports.ApiFeatureCompanyController = ApiFeatureCompanyController = tslib_1.__decorate([
-    (0, common_1.Controller)('company'),
-    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof company_service_1.CompanyService !== "undefined" && company_service_1.CompanyService) === "function" ? _a : Object])
-], ApiFeatureCompanyController);
-
 
 /***/ }),
 /* 83 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
-var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.CompanyService = void 0;
 const tslib_1 = __webpack_require__(4);
-const data_access_db_1 = __webpack_require__(7);
-const common_1 = __webpack_require__(1);
-const pdf_to_printer_1 = __webpack_require__(80);
-const types_1 = __webpack_require__(47);
-let CompanyService = class CompanyService {
-    constructor(prismaService) {
-        this.prismaService = prismaService;
-    }
-    async getCompanyDetails(id) {
-        return await this.prismaService.company.findFirst({
-            include: {
-                taxes: true,
-            },
-        });
-    }
-    async updateCompany(updateCompanyDto) {
-        console.log(updateCompanyDto);
-        return await this.prismaService.company.update({
-            where: { id: updateCompanyDto.id },
-            data: {
-                ...updateCompanyDto,
-                lastOrderNumber: +updateCompanyDto.lastOrderNumber,
-                decimalZeros: +updateCompanyDto.decimalZeros,
-            },
-        });
-    }
-    async getPrinters() {
-        try {
-            const printers = await (0, pdf_to_printer_1.getPrinters)();
-            // console.log(printers);
-            const mappedArr = printers.map((item) => ({
-                name: item.name,
-                printer: item.name,
-            }));
-            return mappedArr;
-        }
-        catch (error) {
-            console.log('exception while getting priters list');
-            console.log(error);
-            throw new Error('Error on Getting installed printers');
-        }
-    }
-    async updateProductShortcuts(updateProductShorcutdto, shortcutType) {
-        try {
-            const company = await this.prismaService.company.update({
-                where: { id: updateProductShorcutdto.id },
-                data: {
-                    ...(shortcutType == types_1.CompanyShortcutTypes.PRODUCTSHORTCUTS && {
-                        productShortcuts: updateProductShorcutdto.shortcuts,
-                    }),
-                    ...(shortcutType == types_1.CompanyShortcutTypes.CUSTOMERSHORTCUTS && {
-                        customerShortcuts: updateProductShorcutdto.shortcuts,
-                    }),
-                },
-            });
-            return company.productShortcuts;
-        }
-        catch (error) {
-            console.log(error);
-            throw new Error('failed to update products shortcuts');
-        }
-    }
-};
-exports.CompanyService = CompanyService;
-exports.CompanyService = CompanyService = tslib_1.__decorate([
-    (0, common_1.Injectable)(),
-    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof data_access_db_1.PrismaService !== "undefined" && data_access_db_1.PrismaService) === "function" ? _a : Object])
-], CompanyService);
+tslib_1.__exportStar(__webpack_require__(84), exports);
+tslib_1.__exportStar(__webpack_require__(85), exports);
 
 
 /***/ }),
 /* 84 */
-/***/ ((__unused_webpack_module, exports) => {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.UpdateProdcutShortcutsDto = exports.UpdateCompanyDto = void 0;
-class UpdateCompanyDto {
-}
-exports.UpdateCompanyDto = UpdateCompanyDto;
-class UpdateProdcutShortcutsDto {
-}
-exports.UpdateProdcutShortcutsDto = UpdateProdcutShortcutsDto;
+exports.ApiCommonModule = void 0;
+const tslib_1 = __webpack_require__(4);
+const common_1 = __webpack_require__(1);
+const puppeteer_service_1 = __webpack_require__(85);
+const config_1 = __webpack_require__(87);
+let ApiCommonModule = class ApiCommonModule {
+};
+exports.ApiCommonModule = ApiCommonModule;
+exports.ApiCommonModule = ApiCommonModule = tslib_1.__decorate([
+    (0, common_1.Module)({
+        controllers: [],
+        imports: [config_1.ConfigModule],
+        providers: [
+            puppeteer_service_1.PuppeteerService,
+            {
+                provide: 'IS_ORDER_APP_THERMAL_OK',
+                useFactory: (configService) => {
+                    const thermalSetup = {
+                        shouldUseThermalPrinter: configService.get('order_app_thermal') === 'OK',
+                        printerBeepOption1: configService.get('thermal_beep_count_option1') ?? 1,
+                        printerBeepOption2: configService.get('thermal_beep_count_option1') ?? 1,
+                    };
+                    return thermalSetup;
+                },
+                inject: [config_1.ConfigService],
+            },
+        ],
+        exports: [
+            puppeteer_service_1.PuppeteerService,
+            'IS_ORDER_APP_THERMAL_OK', // Export the factory provider
+        ],
+    })
+], ApiCommonModule);
 
 
 /***/ }),
@@ -3333,855 +3318,9 @@ exports.UpdateProdcutShortcutsDto = UpdateProdcutShortcutsDto;
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.ApiFeatureCompanyModule = void 0;
-const tslib_1 = __webpack_require__(4);
-const common_1 = __webpack_require__(1);
-const api_feature_company_controller_1 = __webpack_require__(82);
-const company_service_1 = __webpack_require__(83);
-const data_access_db_1 = __webpack_require__(7);
-let ApiFeatureCompanyModule = class ApiFeatureCompanyModule {
-};
-exports.ApiFeatureCompanyModule = ApiFeatureCompanyModule;
-exports.ApiFeatureCompanyModule = ApiFeatureCompanyModule = tslib_1.__decorate([
-    (0, common_1.Module)({
-        imports: [data_access_db_1.ApiDataAccessDbModule],
-        controllers: [api_feature_company_controller_1.ApiFeatureCompanyController],
-        providers: [company_service_1.CompanyService],
-        exports: [],
-    })
-], ApiFeatureCompanyModule);
-
-
-/***/ }),
-/* 86 */
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-const tslib_1 = __webpack_require__(4);
-tslib_1.__exportStar(__webpack_require__(87), exports);
-
-
-/***/ }),
-/* 87 */
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.ApiFeatureTableModule = void 0;
-const tslib_1 = __webpack_require__(4);
-const common_1 = __webpack_require__(1);
-const table_controller_1 = __webpack_require__(88);
-const table_service_1 = __webpack_require__(89);
-const data_access_db_1 = __webpack_require__(7);
-let ApiFeatureTableModule = class ApiFeatureTableModule {
-};
-exports.ApiFeatureTableModule = ApiFeatureTableModule;
-exports.ApiFeatureTableModule = ApiFeatureTableModule = tslib_1.__decorate([
-    (0, common_1.Module)({
-        imports: [data_access_db_1.ApiDataAccessDbModule],
-        controllers: [table_controller_1.TableController],
-        providers: [table_service_1.TableService],
-        exports: [],
-    })
-], ApiFeatureTableModule);
-
-
-/***/ }),
-/* 88 */
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-var _a, _b, _c;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.TableController = void 0;
-const tslib_1 = __webpack_require__(4);
-const common_1 = __webpack_require__(1);
-const table_service_1 = __webpack_require__(89);
-const create_table_dto_1 = __webpack_require__(90);
-let TableController = class TableController {
-    constructor(tableService) {
-        this.tableService = tableService;
-    }
-    getTables() {
-        return this.tableService.getTables();
-    }
-    createTable(params) {
-        return this.tableService.createTable(params);
-    }
-    updateTable(body, id) {
-        const tableId = +id;
-        console.log('table id', tableId);
-        return this.tableService.udpateTable(tableId, body);
-    }
-};
-exports.TableController = TableController;
-tslib_1.__decorate([
-    (0, common_1.Get)(),
-    tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", []),
-    tslib_1.__metadata("design:returntype", void 0)
-], TableController.prototype, "getTables", null);
-tslib_1.__decorate([
-    (0, common_1.Post)(),
-    tslib_1.__param(0, (0, common_1.Body)()),
-    tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", [typeof (_b = typeof create_table_dto_1.CreateTableDto !== "undefined" && create_table_dto_1.CreateTableDto) === "function" ? _b : Object]),
-    tslib_1.__metadata("design:returntype", void 0)
-], TableController.prototype, "createTable", null);
-tslib_1.__decorate([
-    (0, common_1.Put)(':id'),
-    tslib_1.__param(0, (0, common_1.Body)()),
-    tslib_1.__param(1, (0, common_1.Param)('id')),
-    tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", [typeof (_c = typeof create_table_dto_1.CreateTableDto !== "undefined" && create_table_dto_1.CreateTableDto) === "function" ? _c : Object, Object]),
-    tslib_1.__metadata("design:returntype", void 0)
-], TableController.prototype, "updateTable", null);
-exports.TableController = TableController = tslib_1.__decorate([
-    (0, common_1.Controller)('table'),
-    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof table_service_1.TableService !== "undefined" && table_service_1.TableService) === "function" ? _a : Object])
-], TableController);
-
-
-/***/ }),
-/* 89 */
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-var _a;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.TableService = void 0;
-const tslib_1 = __webpack_require__(4);
-const data_access_db_1 = __webpack_require__(7);
-const types_1 = __webpack_require__(47);
-const common_1 = __webpack_require__(1);
-let TableService = class TableService {
-    constructor(prismaService) {
-        this.prismaService = prismaService;
-    }
-    async getTables() {
-        return await this.prismaService.table.findMany({
-            include: {
-                tableSeats: true,
-                orders: {
-                    where: {
-                        orderStatus: { not: types_1.OrderStatus.CANCELLED },
-                        paymentStatus: {
-                            notIn: [types_1.PaymentStatus.CREDIT, types_1.PaymentStatus.PAID],
-                        },
-                    },
-                    select: { id: true },
-                },
-            },
-        });
-    }
-    formatData(data) {
-        return {
-            name: data.name,
-            capacity: +data.capacity,
-            floorId: +data.floorId,
-        };
-    }
-    async createTable(data) {
-        try {
-            return await this.prismaService.table.create({
-                data: this.formatData(data),
-            });
-        }
-        catch (error) {
-            throw new common_1.BadRequestException({ error: error });
-        }
-    }
-    async udpateTable(id, data) {
-        try {
-            return this.prismaService.table.update({
-                where: { id },
-                data: this.formatData(data),
-            });
-        }
-        catch (error) {
-            throw new common_1.BadRequestException({ error: error });
-        }
-    }
-};
-exports.TableService = TableService;
-exports.TableService = TableService = tslib_1.__decorate([
-    (0, common_1.Injectable)(),
-    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof data_access_db_1.PrismaService !== "undefined" && data_access_db_1.PrismaService) === "function" ? _a : Object])
-], TableService);
-
-
-/***/ }),
-/* 90 */
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.CreateTableDto = void 0;
-class CreateTableDto {
-}
-exports.CreateTableDto = CreateTableDto;
-
-
-/***/ }),
-/* 91 */
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-const tslib_1 = __webpack_require__(4);
-tslib_1.__exportStar(__webpack_require__(92), exports);
-
-
-/***/ }),
-/* 92 */
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.ApiFeatureFloorModule = void 0;
-const tslib_1 = __webpack_require__(4);
-const common_1 = __webpack_require__(1);
-const floor_controller_1 = __webpack_require__(93);
-const floor_service_1 = __webpack_require__(94);
-const data_access_db_1 = __webpack_require__(7);
-let ApiFeatureFloorModule = class ApiFeatureFloorModule {
-};
-exports.ApiFeatureFloorModule = ApiFeatureFloorModule;
-exports.ApiFeatureFloorModule = ApiFeatureFloorModule = tslib_1.__decorate([
-    (0, common_1.Module)({
-        imports: [data_access_db_1.ApiDataAccessDbModule],
-        controllers: [floor_controller_1.FloorController],
-        providers: [floor_service_1.FloorService],
-        exports: [],
-    })
-], ApiFeatureFloorModule);
-
-
-/***/ }),
-/* 93 */
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-var _a, _b, _c;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.FloorController = void 0;
-const tslib_1 = __webpack_require__(4);
-const common_1 = __webpack_require__(1);
-const floor_service_1 = __webpack_require__(94);
-const create_floor_dto_1 = __webpack_require__(95);
-let FloorController = class FloorController {
-    constructor(floorService) {
-        this.floorService = floorService;
-    }
-    getFloors() {
-        return this.floorService.getFloors();
-    }
-    getFloorTables(params) {
-        const id = +params.id;
-        return this.floorService.getFloorTables(id);
-    }
-    createProduct(params) {
-        return this.floorService.createFloor(params);
-    }
-    updateProduct(body, id) {
-        const floorId = +id;
-        console.log('floor id', floorId);
-        return this.floorService.editFloor(floorId, body);
-    }
-};
-exports.FloorController = FloorController;
-tslib_1.__decorate([
-    (0, common_1.Get)(),
-    tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", []),
-    tslib_1.__metadata("design:returntype", void 0)
-], FloorController.prototype, "getFloors", null);
-tslib_1.__decorate([
-    (0, common_1.Get)(':id'),
-    tslib_1.__param(0, (0, common_1.Param)()),
-    tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", [Object]),
-    tslib_1.__metadata("design:returntype", void 0)
-], FloorController.prototype, "getFloorTables", null);
-tslib_1.__decorate([
-    (0, common_1.Post)(),
-    tslib_1.__param(0, (0, common_1.Body)()),
-    tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", [typeof (_b = typeof create_floor_dto_1.CreateFloorDto !== "undefined" && create_floor_dto_1.CreateFloorDto) === "function" ? _b : Object]),
-    tslib_1.__metadata("design:returntype", void 0)
-], FloorController.prototype, "createProduct", null);
-tslib_1.__decorate([
-    (0, common_1.Put)(':id'),
-    tslib_1.__param(0, (0, common_1.Body)()),
-    tslib_1.__param(1, (0, common_1.Param)('id')),
-    tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", [typeof (_c = typeof create_floor_dto_1.CreateFloorDto !== "undefined" && create_floor_dto_1.CreateFloorDto) === "function" ? _c : Object, Object]),
-    tslib_1.__metadata("design:returntype", void 0)
-], FloorController.prototype, "updateProduct", null);
-exports.FloorController = FloorController = tslib_1.__decorate([
-    (0, common_1.Controller)('floor'),
-    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof floor_service_1.FloorService !== "undefined" && floor_service_1.FloorService) === "function" ? _a : Object])
-], FloorController);
-
-
-/***/ }),
-/* 94 */
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-var _a;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.FloorService = void 0;
-const tslib_1 = __webpack_require__(4);
-const data_access_db_1 = __webpack_require__(7);
-const types_1 = __webpack_require__(47);
-const common_1 = __webpack_require__(1);
-let FloorService = class FloorService {
-    constructor(prismaService) {
-        this.prismaService = prismaService;
-    }
-    async getFloors() {
-        return await this.prismaService.floor.findMany();
-    }
-    async getFloorTables(floorId) {
-        return await this.prismaService.floor.findFirst({
-            where: { id: floorId },
-            select: {
-                id: true,
-                tables: {
-                    include: {
-                        orders: {
-                            where: {
-                                AND: [
-                                    {
-                                        orderStatus: {
-                                            notIn: [types_1.OrderStatus.SERVED, types_1.OrderStatus.CANCELLED],
-                                        },
-                                    },
-                                    { paymentStatus: types_1.PaymentStatus.NOTPAID },
-                                ],
-                            },
-                            include: {
-                                customer: true,
-                            },
-                        },
-                    },
-                    orderBy: { name: 'asc' },
-                },
-            },
-        });
-    }
-    async createFloor(floor) {
-        try {
-            return await this.prismaService.floor.create({
-                data: {
-                    name: floor.name,
-                },
-            });
-        }
-        catch (error) {
-            throw new Error('unable to create floor');
-        }
-    }
-    async editFloor(id, floor) {
-        try {
-            return await this.prismaService.floor.update({
-                where: { id },
-                data: {
-                    name: floor.name,
-                },
-            });
-        }
-        catch (error) {
-            throw new Error('floor update failed');
-        }
-    }
-};
-exports.FloorService = FloorService;
-exports.FloorService = FloorService = tslib_1.__decorate([
-    (0, common_1.Injectable)(),
-    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof data_access_db_1.PrismaService !== "undefined" && data_access_db_1.PrismaService) === "function" ? _a : Object])
-], FloorService);
-
-
-/***/ }),
-/* 95 */
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.CreateFloorDto = void 0;
-class CreateFloorDto {
-}
-exports.CreateFloorDto = CreateFloorDto;
-
-
-/***/ }),
-/* 96 */
-/***/ ((module) => {
-
-module.exports = require("@nestjs/serve-static");
-
-/***/ }),
-/* 97 */
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-const tslib_1 = __webpack_require__(4);
-tslib_1.__exportStar(__webpack_require__(98), exports);
-
-
-/***/ }),
-/* 98 */
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.ApiFeaturePosSessionModule = void 0;
-const tslib_1 = __webpack_require__(4);
-const common_1 = __webpack_require__(1);
-const pos_session_controller_1 = __webpack_require__(99);
-const session_service_1 = __webpack_require__(100);
-const data_access_db_1 = __webpack_require__(7);
-const feature_auth_1 = __webpack_require__(15);
-const feature_stat_1 = __webpack_require__(106);
-const common_2 = __webpack_require__(102);
-const report_service_1 = __webpack_require__(101);
-let ApiFeaturePosSessionModule = class ApiFeaturePosSessionModule {
-};
-exports.ApiFeaturePosSessionModule = ApiFeaturePosSessionModule;
-exports.ApiFeaturePosSessionModule = ApiFeaturePosSessionModule = tslib_1.__decorate([
-    (0, common_1.Module)({
-        controllers: [pos_session_controller_1.PosSessionController],
-        imports: [
-            data_access_db_1.ApiDataAccessDbModule,
-            feature_auth_1.ApiFeatureAuthModule,
-            feature_stat_1.ApiFeatureStatModule,
-            common_2.ApiCommonModule,
-        ],
-        providers: [session_service_1.PosSessionService, report_service_1.SessionReportService],
-        exports: [],
-    })
-], ApiFeaturePosSessionModule);
-
-
-/***/ }),
-/* 99 */
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-var _a, _b;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.PosSessionController = void 0;
-const tslib_1 = __webpack_require__(4);
-const common_1 = __webpack_require__(1);
-const session_service_1 = __webpack_require__(100);
-const feature_auth_1 = __webpack_require__(15);
-const report_service_1 = __webpack_require__(101);
-let PosSessionController = class PosSessionController {
-    constructor(sessionService, sessionReportService) {
-        this.sessionService = sessionService;
-        this.sessionReportService = sessionReportService;
-    }
-    getSessionsOfTheDay(req) {
-        console.log('recent orders');
-        const user = req.user;
-        return this.sessionService.getSessions();
-    }
-    startAnewSession(req, data) {
-        console.log('recent orders');
-        const user = req.user;
-        const intialAmount = data.cash ? data.cash : 0;
-        return this.sessionService.createSession(user, intialAmount);
-        return 'starting new session';
-    }
-    async endActiveSession(params, req
-    // @Response({ passthrough: true }) res: any
-    ) {
-        console.log('recent orders');
-        const user = req.user;
-        const sessionId = +params.id;
-        const closedSession = await this.sessionService.closeSession(sessionId);
-        return closedSession;
-        // const result = await this.sessionReportService.downloadSessionReport(
-        //   sessionId
-        // );
-        // res.set({
-        //   'Content-Type': 'application/pdf',
-        //   'Content-Disposition': `attachment; filename="${result!.reportName}.pdf`,
-        // });
-        // return new StreamableFile(result!.pdfStream);
-    }
-    // @UseGuards(JwtAuthGuard)
-    async downloadSessionReport(req, Id, res) {
-        const sessionId = +Id;
-        // const user = req.user;se
-        const result = await this.sessionReportService.downloadSessionReport(sessionId);
-        res.set({
-            'Content-Type': 'application/pdf',
-            'Content-Disposition': `attachment; filename="${result?.reportName}.pdf`,
-        });
-        return new common_1.StreamableFile(result.pdfStream);
-    }
-};
-exports.PosSessionController = PosSessionController;
-tslib_1.__decorate([
-    (0, common_1.UseGuards)(feature_auth_1.JwtAuthGuard),
-    (0, common_1.Get)(),
-    tslib_1.__param(0, (0, common_1.Req)()),
-    tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", [Object]),
-    tslib_1.__metadata("design:returntype", void 0)
-], PosSessionController.prototype, "getSessionsOfTheDay", null);
-tslib_1.__decorate([
-    (0, common_1.UseGuards)(feature_auth_1.JwtAuthGuard),
-    (0, common_1.Post)(),
-    tslib_1.__param(0, (0, common_1.Req)()),
-    tslib_1.__param(1, (0, common_1.Body)()),
-    tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", [Object, Object]),
-    tslib_1.__metadata("design:returntype", void 0)
-], PosSessionController.prototype, "startAnewSession", null);
-tslib_1.__decorate([
-    (0, common_1.UseGuards)(feature_auth_1.JwtAuthGuard),
-    (0, common_1.Put)(':id'),
-    tslib_1.__param(0, (0, common_1.Param)()),
-    tslib_1.__param(1, (0, common_1.Req)()),
-    tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", [Object, Object]),
-    tslib_1.__metadata("design:returntype", Promise)
-], PosSessionController.prototype, "endActiveSession", null);
-tslib_1.__decorate([
-    (0, common_1.Get)('session/:id'),
-    tslib_1.__param(0, (0, common_1.Req)()),
-    tslib_1.__param(1, (0, common_1.Param)('id')),
-    tslib_1.__param(2, (0, common_1.Response)({ passthrough: true })),
-    tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", [Object, String, Object]),
-    tslib_1.__metadata("design:returntype", Promise)
-], PosSessionController.prototype, "downloadSessionReport", null);
-exports.PosSessionController = PosSessionController = tslib_1.__decorate([
-    (0, common_1.Controller)('session'),
-    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof session_service_1.PosSessionService !== "undefined" && session_service_1.PosSessionService) === "function" ? _a : Object, typeof (_b = typeof report_service_1.SessionReportService !== "undefined" && report_service_1.SessionReportService) === "function" ? _b : Object])
-], PosSessionController);
-
-
-/***/ }),
-/* 100 */
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-var _a;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.PosSessionService = void 0;
-const tslib_1 = __webpack_require__(4);
-const data_access_db_1 = __webpack_require__(7);
-const types_1 = __webpack_require__(47);
-const util_1 = __webpack_require__(43);
-const common_1 = __webpack_require__(1);
-let PosSessionService = class PosSessionService {
-    constructor(prismaService) {
-        this.prismaService = prismaService;
-    }
-    async createSession(appUser, initialCash) {
-        try {
-            // check if there  is any active session.
-            const activesession = await this.prismaService.posSession.findFirst({
-                where: {
-                    status: types_1.SessionStatus.ACTIVE,
-                },
-            });
-            // if yes do not create one..
-            if (activesession)
-                return;
-            // if no start a new one.
-            await this.prismaService.posSession.create({
-                data: {
-                    status: types_1.SessionStatus.ACTIVE,
-                    createdUserId: appUser.id,
-                    initialCash: initialCash,
-                },
-            });
-            // return all the sessions of the day.
-            return this.getSessions();
-        }
-        catch (error) {
-            console.log('error occured during creation of session');
-            return new Error();
-        }
-    }
-    async getSessions() {
-        // console.log('start of the day', getStartOfTheDay());
-        // chek any other open, close it forcefully.
-        const sessions = await this.prismaService.posSession.findMany({
-            where: {
-                OR: [
-                    {
-                        status: types_1.SessionStatus.ACTIVE,
-                    },
-                    {
-                        startTime: { gte: (0, util_1.getStartOfTheDay)() },
-                    },
-                ],
-            },
-        });
-        return sessions;
-    }
-    async closeSession(sessionId) {
-        // make sure all the sessions are closed.
-        // check for non settled orders before close it.
-        const activeSession = await this.prismaService.posSession.findUnique({
-            where: { id: sessionId },
-        });
-        if (!activeSession)
-            throw new common_1.NotFoundException('No active session');
-        const activeSessionStartTime = activeSession.startTime;
-        const nonPaidOrders = await this.prismaService.order.findMany({
-            where: {
-                paymentStatus: { notIn: [types_1.PaymentStatus.CREDIT, types_1.PaymentStatus.PAID] },
-                orderStatus: { not: types_1.OrderStatus.CANCELLED },
-                createdAt: { gte: activeSessionStartTime },
-            },
-        });
-        console.log('not paid users', nonPaidOrders.length);
-        if (nonPaidOrders.length) {
-            console.log('hs gone inside');
-            throw new common_1.InternalServerErrorException({
-                message: `There are ${nonPaidOrders.length} orders which are not settled yet.`,
-            });
-        }
-        // generate report and get it downloaded at the client.
-        const closedSession = await this.prismaService.posSession.update({
-            where: { id: sessionId },
-            data: { status: types_1.SessionStatus.CLOSE, endTime: new Date() },
-        });
-        // console.log('cosed sessino ', closedSession);
-        // // get orders from closed session start time..
-        // const totalsOrders = await this.prismaService.order.findMany({
-        //   where: { createdAt: { gte: closedSession.startTime } },
-        // });
-        return closedSession;
-    }
-};
-exports.PosSessionService = PosSessionService;
-exports.PosSessionService = PosSessionService = tslib_1.__decorate([
-    (0, common_1.Injectable)(),
-    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof data_access_db_1.PrismaService !== "undefined" && data_access_db_1.PrismaService) === "function" ? _a : Object])
-], PosSessionService);
-
-
-/***/ }),
-/* 101 */
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-var _a, _b, _c;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.SessionReportService = void 0;
-const tslib_1 = __webpack_require__(4);
-const common_1 = __webpack_require__(102);
-const data_access_db_1 = __webpack_require__(7);
-const feature_stat_1 = __webpack_require__(106);
-const types_1 = __webpack_require__(47);
-const util_1 = __webpack_require__(43);
-const common_2 = __webpack_require__(1);
-let SessionReportService = class SessionReportService {
-    constructor(prismaService, statService, pupeteerService) {
-        this.prismaService = prismaService;
-        this.statService = statService;
-        this.pupeteerService = pupeteerService;
-    }
-    async downloadSessionReport(sessionId) {
-        try {
-            // get the start and end date of the session Id.
-            const session = await this.getSessionDetails(sessionId);
-            // get company taxes.
-            const company = await this.prismaService.company.findFirst({
-                include: { taxes: true },
-            });
-            if (!company)
-                throw new common_2.NotFoundException({}, 'Company Data Could not be read.');
-            const taxes = company.taxes;
-            console.log('creating pdf for the session status of ', sessionId);
-            if (!session)
-                throw new common_2.NotFoundException({}, 'No Session with the given ID');
-            const startTime = session.startTime;
-            const endTime = session.endTime;
-            const initialCash = session.initialCash;
-            const reportSummary = await this.statService.getReportStatsForThePeriod(startTime, endTime);
-            const prductSummary = await this.statService.getProductStatsForThePeriod(startTime, endTime);
-            const staffCountSummary = await this.statService.getStaffCountStatsForThePeriod(startTime, endTime);
-            const staffAmoutSummary = await this.statService.getStaffAmountStatsForThePeriod(startTime, endTime);
-            // console.log('statff amount, ', staffAmoutSummary);
-            const homeDeliveryCountSummary = await this.statService.getHomeDeliveryStatCountViceForThePeriod(startTime, endTime);
-            // console.log('home delivery count', homeDeliveryCountSummary);
-            const homeDeliveryAmoutSummary = await this.statService.getHomeDeliveryStatAmountViceForThePeriod(startTime, endTime);
-            // console.log('homedevliery amount', homeDeliveryAmoutSummary);
-            const formattedStartTime = (0, util_1.dateTimeToDateHHMM)(startTime);
-            const formattedEndTime = (0, util_1.dateTimeToDateHHMM)(endTime);
-            const currentDayOnlyDate = (0, util_1.getOnlyCurrentDateWithoutTime)();
-            // console.log('product summary', prductSummary);
-            const noOfDecimalPlaces = company?.decimalZeros
-                ? company.decimalZeros
-                : 3;
-            const { ordersStatArr, totalOrderDetail, totalCashSale } = this.formatOrderStatV2(reportSummary, noOfDecimalPlaces);
-            const { taxesApplied, taxedTotal } = (0, util_1.getAppliedTaxesAndTaxesTotal)(totalCashSale, taxes);
-            const totalTaxCollected = taxedTotal - totalCashSale;
-            const htmlInputData = {
-                date: currentDayOnlyDate,
-                startTime: formattedStartTime,
-                endTime: formattedEndTime,
-                initialCash: initialCash.toFixed(noOfDecimalPlaces),
-                totalCashSale: totalCashSale.toFixed(noOfDecimalPlaces),
-                totalCashInDrawer: (initialCash + taxedTotal).toFixed(noOfDecimalPlaces),
-                productStatArr: prductSummary,
-                ordersStatArr,
-                totalOrderDetail,
-                totalTaxCollected: totalTaxCollected.toFixed(noOfDecimalPlaces),
-                stafCountStatArr: staffCountSummary.length ? staffCountSummary : [],
-                stafAmoutStatArr: staffAmoutSummary.length ? staffAmoutSummary : [],
-                homeDeliveryCountStatArr: homeDeliveryCountSummary.length
-                    ? homeDeliveryCountSummary
-                    : [],
-                homeDeliveryAmoutStatArr: homeDeliveryAmoutSummary.length
-                    ? homeDeliveryAmoutSummary
-                    : [],
-            };
-            const pdfStream = await this.pupeteerService.getReportPdfStream('sessionSummary', 'views', 'pdf', 'sessionEndsummary.report.html', htmlInputData);
-            return {
-                pdfStream,
-                reportName: `session report - ${startTime} -- ${endTime}`,
-            };
-        }
-        catch (error) {
-            console.log(error);
-            throw new common_2.BadGatewayException({ error });
-        }
-    }
-    async getSessionDetails(sessionId) {
-        return await this.prismaService.posSession.findUnique({
-            where: { id: sessionId },
-        });
-    }
-    formatOrderStat(orderStat, noOfDecimalPlaces) {
-        let totalOrders = 0;
-        let totalOrderSum = 0;
-        let totalCashSale = 0;
-        const mappedOrders = orderStat.map((item) => {
-            let description = '';
-            switch (item.paystat) {
-                case types_1.PaymentStatus.CREDIT:
-                    description = 'Credit Orders';
-                    break;
-                case types_1.PaymentStatus.PAID:
-                    description = 'Paid Orders';
-                    totalCashSale = totalCashSale + item.sum;
-                    break;
-                case types_1.PaymentStatus.NOTPAID:
-                    description = 'Non Settled Orders';
-                    break;
-                default:
-                    console.log(item.paystat);
-                    break;
-            }
-            totalOrders = totalOrders + item.count;
-            totalOrderSum = totalOrderSum + item.sum;
-            return {
-                description: description,
-                count: item.count,
-                sum: item.sum.toFixed(noOfDecimalPlaces),
-            };
-        });
-        const totalOrderDetail = {
-            description: 'Total Orders',
-            count: totalOrders,
-            totalOrderSum: totalOrderSum.toFixed(noOfDecimalPlaces),
-        };
-        return { ordersStatArr: mappedOrders, totalOrderDetail, totalCashSale };
-    }
-    formatOrderStatV2(orderStat, noOfDecimalPlaces) {
-        let totalOrders = 0;
-        let totalOrderSum = 0;
-        let totalCashSale = 0;
-        let totalDiscount = 0;
-        const mappedOrders = orderStat.map((item) => {
-            console.log('discount of the current', item.discount);
-            totalDiscount = totalDiscount + Number.parseFloat(item.discount);
-            totalOrderSum = totalOrderSum + item.sum;
-            totalOrders = totalOrders + item.count;
-            if (item.paystat == 'cash') {
-                totalCashSale = totalCashSale + item.sum;
-            }
-            return {
-                description: item.paystat,
-                count: item.count,
-                sum: item.sum.toFixed(noOfDecimalPlaces),
-                discount: item.discount,
-            };
-        });
-        console.log('total discount', totalDiscount);
-        const totalOrderDetail = {
-            description: 'Total Orders',
-            count: totalOrders,
-            totalOrderSum: totalOrderSum.toFixed(noOfDecimalPlaces),
-            totalDiscount: totalDiscount.toFixed(noOfDecimalPlaces),
-        };
-        console.log('total order details', totalOrderDetail);
-        console.log('mapped array', mappedOrders);
-        return { ordersStatArr: mappedOrders, totalOrderDetail, totalCashSale };
-    }
-};
-exports.SessionReportService = SessionReportService;
-exports.SessionReportService = SessionReportService = tslib_1.__decorate([
-    (0, common_2.Injectable)(),
-    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof data_access_db_1.PrismaService !== "undefined" && data_access_db_1.PrismaService) === "function" ? _a : Object, typeof (_b = typeof feature_stat_1.StatsService !== "undefined" && feature_stat_1.StatsService) === "function" ? _b : Object, typeof (_c = typeof common_1.PuppeteerService !== "undefined" && common_1.PuppeteerService) === "function" ? _c : Object])
-], SessionReportService);
-
-
-/***/ }),
-/* 102 */
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-const tslib_1 = __webpack_require__(4);
-tslib_1.__exportStar(__webpack_require__(103), exports);
-tslib_1.__exportStar(__webpack_require__(104), exports);
-
-
-/***/ }),
-/* 103 */
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.ApiCommonModule = void 0;
-const tslib_1 = __webpack_require__(4);
-const common_1 = __webpack_require__(1);
-const puppeteer_service_1 = __webpack_require__(104);
-let ApiCommonModule = class ApiCommonModule {
-};
-exports.ApiCommonModule = ApiCommonModule;
-exports.ApiCommonModule = ApiCommonModule = tslib_1.__decorate([
-    (0, common_1.Module)({
-        controllers: [],
-        providers: [puppeteer_service_1.PuppeteerService],
-        exports: [puppeteer_service_1.PuppeteerService],
-    })
-], ApiCommonModule);
-
-
-/***/ }),
-/* 104 */
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.PuppeteerService = void 0;
 const tslib_1 = __webpack_require__(4);
-const puppeteer_util_1 = __webpack_require__(105);
+const puppeteer_util_1 = __webpack_require__(86);
 const common_1 = __webpack_require__(1);
 let PuppeteerService = class PuppeteerService {
     async getReportPdfStream(reportName, templatefolderName, outputFolderName, htmlName, inputData) {
@@ -4224,16 +3363,16 @@ exports.PuppeteerService = PuppeteerService = tslib_1.__decorate([
 
 
 /***/ }),
-/* 105 */
+/* 86 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getPaddedDocHeight = exports.setupHtmlPage = exports.createBrowser = exports.createHtmlDoc = exports.createPdfPath = exports.getPdfOptionsForReciept = exports.deletePdf = void 0;
-const fs_1 = __webpack_require__(75);
-const path_1 = __webpack_require__(77);
-const puppeteer_1 = __webpack_require__(78);
-const hbs_1 = __webpack_require__(76);
+const fs_1 = __webpack_require__(77);
+const path_1 = __webpack_require__(79);
+const puppeteer_1 = __webpack_require__(80);
+const hbs_1 = __webpack_require__(78);
 const deletePdf = (path) => {
     (0, fs_1.unlink)(path, () => {
         console.log('file has been delete from : ', path);
@@ -4318,7 +3457,7 @@ const createBrowser = async () => {
             '--use-gl=swiftshader',
             '--use-mock-keychain',
         ],
-        headless: 'new',
+        headless: 'shell',
     });
     return browser;
 };
@@ -4346,6 +3485,865 @@ exports.getPaddedDocHeight = getPaddedDocHeight;
 
 
 /***/ }),
+/* 87 */
+/***/ ((module) => {
+
+module.exports = require("@nestjs/config");
+
+/***/ }),
+/* 88 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ThermalPrintService = void 0;
+const tslib_1 = __webpack_require__(4);
+const common_1 = __webpack_require__(83);
+const common_2 = __webpack_require__(1);
+const node_thermal_printer_1 = __webpack_require__(89);
+let ThermalPrintService = class ThermalPrintService {
+    constructor(thermalPrintConfig) {
+        this.thermalPrintConfig = thermalPrintConfig;
+        console.log('isOrderAppThermalOK', this.thermalPrintConfig);
+        // this.printBill({}, '\\\\DESKTOP-2BRSEVD\\sharedthermal');
+    }
+    setupTheNodeThermalPrinter(printerName) {
+        // printerName = '\\\\DESKTOP-2BRSEVD\\sharedthermal';
+        // console.log('printer name', printerName);
+        const thermalPrinter = new node_thermal_printer_1.ThermalPrinter({
+            // type: PrinterTypes.STAR,
+            interface: printerName,
+            characterSet: node_thermal_printer_1.CharacterSet.SLOVENIA,
+            removeSpecialCharacters: false,
+            lineCharacter: '-',
+            width: 48,
+            breakLine: node_thermal_printer_1.BreakLine.WORD,
+            options: {
+                timeout: 5000,
+            },
+        });
+        return thermalPrinter;
+    }
+    printKot(data) {
+        try {
+            const printerName = data.printer;
+            const thermalPrinter = this.setupTheNodeThermalPrinter(printerName);
+            this.setupKotHeader(thermalPrinter, data);
+            this.setupKotItemTableHeader(thermalPrinter);
+            thermalPrinter.drawLine();
+            this.setupKotItemsList(thermalPrinter, data);
+            this.setupKotSummary(thermalPrinter, data);
+            this.setupKotTypeIndicator(thermalPrinter, data);
+            this.setupKotNote(thermalPrinter, data);
+            const beepcount = parseInt(this.thermalPrintConfig['printerBeepOption2']);
+            thermalPrinter.beep(beepcount);
+            thermalPrinter.cut();
+            thermalPrinter
+                .execute()
+                .then(() => {
+                console.log('Print job executed successfully.');
+            })
+                .catch((error) => {
+                console.error('Error executing print job:', error);
+            });
+        }
+        catch (error) {
+            console.log('Error on printing KOT....!');
+        }
+    }
+    setupKotHeader(printer, data) {
+        printer.setTextDoubleWidth();
+        printer.alignCenter();
+        if (data.isRunningOrder) {
+            printer.println('RUNNING');
+        }
+        printer.println(`${data.kotType} - ${data.ticketId}`);
+        printer.setTextNormal();
+        printer.bold(true);
+        printer.println(data.kitchenName);
+        printer.bold(false);
+        printer.println(data.billDate);
+        printer.bold(true);
+        printer.println(`${data.orderNumber} - ${data.waiterName}`);
+        printer.bold(false);
+        printer.println(`${data.createdForFirstName} - ${data.createdForSecondName}`);
+    }
+    printBill(data, printerName) {
+        try {
+            // [NOTE] : node thermal printer needs 'printer' package to pull the windows
+            // printer driver to send the raw to the installed printer, but printer package is
+            // so outdated, temporary soluction is share the printer over network and user hte
+            // sharedname to send the print job by nodethermal printer package.
+            // printerName = '\\\\DESKTOP-2BRSEVD\\sharedthermal';
+            const thermalPrinter = this.setupTheNodeThermalPrinter(printerName);
+            this.setupBillHeader(thermalPrinter, data);
+            this.setupBillInfo(thermalPrinter, data);
+            this.setupItemTableHeader(thermalPrinter);
+            this.setupItemsList(thermalPrinter, data);
+            this.setupTotalSummary(thermalPrinter, data);
+            this.setupTaxesApplied(thermalPrinter, data);
+            this.setupDicoundSummary(thermalPrinter, data);
+            this.setupFooter(thermalPrinter);
+            thermalPrinter.cut();
+            const beepcount = parseInt(this.thermalPrintConfig['printerBeepOption1']);
+            thermalPrinter.beep(beepcount);
+            thermalPrinter
+                .execute()
+                .then(() => {
+                console.log('Print job executed successfully.');
+            })
+                .catch((error) => {
+                console.error('Error executing print job:', error);
+            });
+        }
+        catch (error) {
+            console.log('Error on printing bill');
+        }
+    }
+    setupBillHeader(printer, data) {
+        // ===== RECEIPT HEADER =====
+        printer.alignCenter();
+        printer.bold(true);
+        printer.println(data.companyName);
+        printer.setTextNormal();
+        printer.println(data.address);
+        printer.println(`${data.billType} : ${data.orderNumber}`);
+        printer.println(data.billDateTime);
+        printer.drawLine();
+    }
+    setupBillInfo(printer, data) {
+        // // ===== ORDER INFO =====
+        printer.alignLeft();
+        const customerLastName = data.lastName ? `- ${data.lastName}` : '';
+        printer.println(`Customer: ${data.customerName}${customerLastName}`.padEnd(30));
+        printer.println(`Waiter: ${data.waiterName.padEnd(30)}`);
+        if (data.isHomeDelivery) {
+            printer.println(`Delivered By:: ${data.homeDeliveryUserName}`);
+        }
+        printer.drawLine();
+        // printer.alignLeft();
+        // printer.println(`Order #: ${'ORD-2023-001234'.padEnd(30)}`);
+        // printer.println(`Date:    ${new Date().toLocaleString()}`);
+        // printer.println(`Cashier: ${'John Doe'.padEnd(30)}`);
+        // printer.println(`Customer:${'Walk-in Customer'.padEnd(30)}`);
+        // printer.drawLine();
+    }
+    setupItemTableHeader(printer) {
+        // // Table header
+        printer.bold(true);
+        printer.tableCustom([
+            { text: 'Item', align: 'LEFT', width: 0.5 },
+            { text: 'Qty', align: 'CENTER', width: 0.1 },
+            { text: 'Price', align: 'RIGHT', width: 0.2 },
+            { text: 'Total', align: 'CENTER', width: 0.2 },
+        ]);
+    }
+    setupItemsList(printer, data) {
+        printer.bold(false);
+        const items = data.orderItems || [];
+        items.forEach((item) => {
+            printer.tableCustom([
+                { text: item.name, align: 'LEFT', width: 0.5 },
+                { text: item.count, align: 'CENTER', width: 0.1 },
+                { text: item.amount, align: 'RIGHT', width: 0.2 },
+                { text: item.individualTotal, align: 'CENTER', width: 0.2 },
+            ]);
+        });
+        printer.drawLine();
+    }
+    setupTotalSummary(printer, data) {
+        // ===== TOTAL SUMMARY =====
+        printer.bold(false);
+        printer.tableCustom([
+            { text: `Items: ${data.totalItems}`, align: 'LEFT', width: 0.5 },
+            { text: `Quantity: ${data.totalCount}`, align: 'RIGHT', width: 0.5 },
+        ]);
+        printer.bold(true);
+        printer.alignRight();
+        printer.setTextDoubleWidth();
+        printer.println(`Total : ${data.total}`);
+        printer.setTextNormal();
+    }
+    setupTaxesApplied(printer, data) {
+        printer.alignRight();
+        const taxes = data.appliedTaxesInfo || [];
+        taxes.forEach((item) => {
+            printer.println(`${item.taxName} : ${item.value}`);
+        });
+        if (taxes.length > 0) {
+            printer.println(`Net Amount : ${data.taxedTotal}`);
+        }
+    }
+    setupDicoundSummary(printer, data) {
+        printer.alignRight();
+        printer.println(`Discount : ${data.discountApplied}`);
+        printer.println(`To Pay : ${data.totalAfterDiscount}`);
+    }
+    setupFooter(printer) {
+        printer.newLine();
+        printer.newLine();
+        printer.newLine();
+        printer.alignCenter();
+        printer.println('J&J Technologies Ltd.');
+    }
+    setupKotItemTableHeader(printer) {
+        // // Table header
+        printer.bold(true);
+        printer.tableCustom([
+            { text: 'Item', align: 'LEFT', width: 0.6 },
+            { text: 'Qty', align: 'CENTER', width: 0.2 },
+            { text: 'Type', align: 'CENTER', width: 0.2 },
+        ]);
+    }
+    setupKotItemsList(printer, data) {
+        printer.bold(false);
+        printer.setTextNormal();
+        const items = data.orderItems || [];
+        items.forEach((item) => {
+            printer.setTextDoubleHeight();
+            printer.tableCustom([
+                {
+                    text: `${item.name} -(${item.amount})`,
+                    align: 'LEFT',
+                    width: 0.7,
+                },
+                { text: item.message, align: 'CENTER', width: 0.2 },
+                { text: item.orderItemType, align: 'CENTER', width: 0.1 },
+            ]);
+            printer.bold(true);
+            printer.alignLeft();
+            // printer.setTypeFontA();
+            printer.setTextNormal();
+            if (item.modifiers) {
+                printer.println(`Modifiers: ${item.modifiers}`);
+            }
+            if (item.note) {
+                printer.println(`${item.note}`);
+            }
+            printer.bold(false);
+            printer.drawLine();
+        });
+    }
+    setupKotSummary(printer, data) {
+        printer.alignCenter();
+        printer.setTextNormal();
+        printer.println(`Items: ${data.numberOfItems} -- Quantity:  ${data.quantity}`);
+        printer.setTextDoubleWidth();
+        printer.println(`New Items: ${data.kotTotalAmount}`);
+    }
+    setupKotNote(printer, data) {
+        if (!data.kotNote)
+            return;
+        printer.alignCenter();
+        printer.bold(true);
+        printer.setTextDoubleWidth();
+        printer.println(data.kotNote);
+        printer.bold(false);
+        printer.setTextNormal();
+    }
+    setupKotTypeIndicator(printer, data) {
+        printer.alignCenter();
+        printer.newLine();
+        if (data.hasDeleteItems) {
+            printer.underlineThick(true);
+            printer.println('Item Removed');
+        }
+        if (data.hasEditItems) {
+            printer.underline(true);
+            printer.println('Items Edited');
+        }
+        printer.setTextNormal();
+    }
+};
+exports.ThermalPrintService = ThermalPrintService;
+exports.ThermalPrintService = ThermalPrintService = tslib_1.__decorate([
+    (0, common_2.Injectable)(),
+    tslib_1.__param(0, (0, common_2.Inject)('IS_ORDER_APP_THERMAL_OK')),
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof common_1.ThermalPrintOptions !== "undefined" && common_1.ThermalPrintOptions) === "function" ? _a : Object])
+], ThermalPrintService);
+
+
+/***/ }),
+/* 89 */
+/***/ ((module) => {
+
+module.exports = require("node-thermal-printer");
+
+/***/ }),
+/* 90 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const tslib_1 = __webpack_require__(4);
+tslib_1.__exportStar(__webpack_require__(91), exports);
+tslib_1.__exportStar(__webpack_require__(94), exports);
+
+
+/***/ }),
+/* 91 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+var _a, _b, _c;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ApiFeatureCompanyController = void 0;
+const tslib_1 = __webpack_require__(4);
+const common_1 = __webpack_require__(1);
+const company_service_1 = __webpack_require__(92);
+const company_update_dto_1 = __webpack_require__(93);
+const types_1 = __webpack_require__(47);
+let ApiFeatureCompanyController = class ApiFeatureCompanyController {
+    constructor(companyService) {
+        this.companyService = companyService;
+    }
+    getCompanyDetails() {
+        // console.log('jafar get company ');
+        return this.companyService.getCompanyDetails(1);
+    }
+    updateCompany(companyUpdateDto) {
+        return this.companyService.updateCompany(companyUpdateDto);
+    }
+    getConnectedPrinters() {
+        return this.companyService.getInstalledPrinters();
+    }
+    updateProductShortcuts(updateProductShortcuts, data) {
+        // console.log('query data', data);
+        const shortcutType = data.shortcutName;
+        if (shortcutType == types_1.CompanyShortcutTypes.CUSTOMERSHORTCUTS ||
+            shortcutType == types_1.CompanyShortcutTypes.PRODUCTSHORTCUTS) {
+            return this.companyService.updateProductShortcuts(updateProductShortcuts, shortcutType);
+        }
+        throw Error('Query data does not match shortcut name');
+    }
+};
+exports.ApiFeatureCompanyController = ApiFeatureCompanyController;
+tslib_1.__decorate([
+    (0, common_1.Get)(),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", []),
+    tslib_1.__metadata("design:returntype", void 0)
+], ApiFeatureCompanyController.prototype, "getCompanyDetails", null);
+tslib_1.__decorate([
+    (0, common_1.Post)(),
+    tslib_1.__param(0, (0, common_1.Body)()),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [typeof (_b = typeof company_update_dto_1.UpdateCompanyDto !== "undefined" && company_update_dto_1.UpdateCompanyDto) === "function" ? _b : Object]),
+    tslib_1.__metadata("design:returntype", void 0)
+], ApiFeatureCompanyController.prototype, "updateCompany", null);
+tslib_1.__decorate([
+    (0, common_1.Get)('printers'),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", []),
+    tslib_1.__metadata("design:returntype", void 0)
+], ApiFeatureCompanyController.prototype, "getConnectedPrinters", null);
+tslib_1.__decorate([
+    (0, common_1.Patch)(),
+    tslib_1.__param(0, (0, common_1.Body)()),
+    tslib_1.__param(1, (0, common_1.Query)()),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [typeof (_c = typeof company_update_dto_1.UpdateProdcutShortcutsDto !== "undefined" && company_update_dto_1.UpdateProdcutShortcutsDto) === "function" ? _c : Object, Object]),
+    tslib_1.__metadata("design:returntype", void 0)
+], ApiFeatureCompanyController.prototype, "updateProductShortcuts", null);
+exports.ApiFeatureCompanyController = ApiFeatureCompanyController = tslib_1.__decorate([
+    (0, common_1.Controller)('company'),
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof company_service_1.CompanyService !== "undefined" && company_service_1.CompanyService) === "function" ? _a : Object])
+], ApiFeatureCompanyController);
+
+
+/***/ }),
+/* 92 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CompanyService = void 0;
+const tslib_1 = __webpack_require__(4);
+const data_access_db_1 = __webpack_require__(7);
+const common_1 = __webpack_require__(1);
+const pdf_to_printer_1 = __webpack_require__(82);
+const types_1 = __webpack_require__(47);
+let CompanyService = class CompanyService {
+    constructor(prismaService) {
+        this.prismaService = prismaService;
+    }
+    async getCompanyDetails(id) {
+        return await this.prismaService.company.findFirst({
+            include: {
+                taxes: true,
+            },
+        });
+    }
+    async updateCompany(updateCompanyDto) {
+        // console.log(updateCompanyDto);
+        return await this.prismaService.company.update({
+            where: { id: updateCompanyDto.id },
+            data: {
+                ...updateCompanyDto,
+                lastOrderNumber: +updateCompanyDto.lastOrderNumber,
+                decimalZeros: +updateCompanyDto.decimalZeros,
+            },
+        });
+    }
+    async getInstalledPrinters() {
+        try {
+            // console.log('getting installed printers');
+            const printers = await (0, pdf_to_printer_1.getPrinters)();
+            // console.log('printer detais from ', printers);
+            const mappedArr = printers.map((item) => ({
+                name: item.name,
+                printer: item.name,
+            }));
+            return mappedArr;
+        }
+        catch (error) {
+            console.log('exception while getting priters list');
+            console.log(error);
+            throw new Error('Error on Getting installed printers');
+        }
+    }
+    async updateProductShortcuts(updateProductShorcutdto, shortcutType) {
+        try {
+            const company = await this.prismaService.company.update({
+                where: { id: updateProductShorcutdto.id },
+                data: {
+                    ...(shortcutType == types_1.CompanyShortcutTypes.PRODUCTSHORTCUTS && {
+                        productShortcuts: updateProductShorcutdto.shortcuts,
+                    }),
+                    ...(shortcutType == types_1.CompanyShortcutTypes.CUSTOMERSHORTCUTS && {
+                        customerShortcuts: updateProductShorcutdto.shortcuts,
+                    }),
+                },
+            });
+            return company.productShortcuts;
+        }
+        catch (error) {
+            console.log(error);
+            throw new Error('failed to update products shortcuts');
+        }
+    }
+};
+exports.CompanyService = CompanyService;
+exports.CompanyService = CompanyService = tslib_1.__decorate([
+    (0, common_1.Injectable)(),
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof data_access_db_1.PrismaService !== "undefined" && data_access_db_1.PrismaService) === "function" ? _a : Object])
+], CompanyService);
+
+
+/***/ }),
+/* 93 */
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.UpdateProdcutShortcutsDto = exports.UpdateCompanyDto = void 0;
+class UpdateCompanyDto {
+}
+exports.UpdateCompanyDto = UpdateCompanyDto;
+class UpdateProdcutShortcutsDto {
+}
+exports.UpdateProdcutShortcutsDto = UpdateProdcutShortcutsDto;
+
+
+/***/ }),
+/* 94 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ApiFeatureCompanyModule = void 0;
+const tslib_1 = __webpack_require__(4);
+const common_1 = __webpack_require__(1);
+const api_feature_company_controller_1 = __webpack_require__(91);
+const company_service_1 = __webpack_require__(92);
+const data_access_db_1 = __webpack_require__(7);
+let ApiFeatureCompanyModule = class ApiFeatureCompanyModule {
+};
+exports.ApiFeatureCompanyModule = ApiFeatureCompanyModule;
+exports.ApiFeatureCompanyModule = ApiFeatureCompanyModule = tslib_1.__decorate([
+    (0, common_1.Module)({
+        imports: [data_access_db_1.ApiDataAccessDbModule],
+        controllers: [api_feature_company_controller_1.ApiFeatureCompanyController],
+        providers: [company_service_1.CompanyService],
+        exports: [],
+    })
+], ApiFeatureCompanyModule);
+
+
+/***/ }),
+/* 95 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const tslib_1 = __webpack_require__(4);
+tslib_1.__exportStar(__webpack_require__(96), exports);
+
+
+/***/ }),
+/* 96 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ApiFeatureTableModule = void 0;
+const tslib_1 = __webpack_require__(4);
+const common_1 = __webpack_require__(1);
+const table_controller_1 = __webpack_require__(97);
+const table_service_1 = __webpack_require__(98);
+const data_access_db_1 = __webpack_require__(7);
+let ApiFeatureTableModule = class ApiFeatureTableModule {
+};
+exports.ApiFeatureTableModule = ApiFeatureTableModule;
+exports.ApiFeatureTableModule = ApiFeatureTableModule = tslib_1.__decorate([
+    (0, common_1.Module)({
+        imports: [data_access_db_1.ApiDataAccessDbModule],
+        controllers: [table_controller_1.TableController],
+        providers: [table_service_1.TableService],
+        exports: [],
+    })
+], ApiFeatureTableModule);
+
+
+/***/ }),
+/* 97 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+var _a, _b, _c;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.TableController = void 0;
+const tslib_1 = __webpack_require__(4);
+const common_1 = __webpack_require__(1);
+const table_service_1 = __webpack_require__(98);
+const create_table_dto_1 = __webpack_require__(99);
+let TableController = class TableController {
+    constructor(tableService) {
+        this.tableService = tableService;
+    }
+    getTables() {
+        return this.tableService.getTables();
+    }
+    createTable(params) {
+        return this.tableService.createTable(params);
+    }
+    updateTable(body, id) {
+        const tableId = +id;
+        // console.log('table id', tableId);
+        return this.tableService.udpateTable(tableId, body);
+    }
+};
+exports.TableController = TableController;
+tslib_1.__decorate([
+    (0, common_1.Get)(),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", []),
+    tslib_1.__metadata("design:returntype", void 0)
+], TableController.prototype, "getTables", null);
+tslib_1.__decorate([
+    (0, common_1.Post)(),
+    tslib_1.__param(0, (0, common_1.Body)()),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [typeof (_b = typeof create_table_dto_1.CreateTableDto !== "undefined" && create_table_dto_1.CreateTableDto) === "function" ? _b : Object]),
+    tslib_1.__metadata("design:returntype", void 0)
+], TableController.prototype, "createTable", null);
+tslib_1.__decorate([
+    (0, common_1.Put)(':id'),
+    tslib_1.__param(0, (0, common_1.Body)()),
+    tslib_1.__param(1, (0, common_1.Param)('id')),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [typeof (_c = typeof create_table_dto_1.CreateTableDto !== "undefined" && create_table_dto_1.CreateTableDto) === "function" ? _c : Object, Object]),
+    tslib_1.__metadata("design:returntype", void 0)
+], TableController.prototype, "updateTable", null);
+exports.TableController = TableController = tslib_1.__decorate([
+    (0, common_1.Controller)('table'),
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof table_service_1.TableService !== "undefined" && table_service_1.TableService) === "function" ? _a : Object])
+], TableController);
+
+
+/***/ }),
+/* 98 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.TableService = void 0;
+const tslib_1 = __webpack_require__(4);
+const data_access_db_1 = __webpack_require__(7);
+const types_1 = __webpack_require__(47);
+const common_1 = __webpack_require__(1);
+let TableService = class TableService {
+    constructor(prismaService) {
+        this.prismaService = prismaService;
+    }
+    async getTables() {
+        return await this.prismaService.table.findMany({
+            include: {
+                tableSeats: true,
+                orders: {
+                    where: {
+                        orderStatus: { not: types_1.OrderStatus.CANCELLED },
+                        paymentStatus: {
+                            notIn: [types_1.PaymentStatus.CREDIT, types_1.PaymentStatus.PAID],
+                        },
+                    },
+                    select: { id: true },
+                },
+            },
+        });
+    }
+    formatData(data) {
+        return {
+            name: data.name,
+            capacity: +data.capacity,
+            floorId: +data.floorId,
+        };
+    }
+    async createTable(data) {
+        try {
+            return await this.prismaService.table.create({
+                data: this.formatData(data),
+            });
+        }
+        catch (error) {
+            throw new common_1.BadRequestException({ error: error });
+        }
+    }
+    async udpateTable(id, data) {
+        try {
+            return this.prismaService.table.update({
+                where: { id },
+                data: this.formatData(data),
+            });
+        }
+        catch (error) {
+            throw new common_1.BadRequestException({ error: error });
+        }
+    }
+};
+exports.TableService = TableService;
+exports.TableService = TableService = tslib_1.__decorate([
+    (0, common_1.Injectable)(),
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof data_access_db_1.PrismaService !== "undefined" && data_access_db_1.PrismaService) === "function" ? _a : Object])
+], TableService);
+
+
+/***/ }),
+/* 99 */
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CreateTableDto = void 0;
+class CreateTableDto {
+}
+exports.CreateTableDto = CreateTableDto;
+
+
+/***/ }),
+/* 100 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const tslib_1 = __webpack_require__(4);
+tslib_1.__exportStar(__webpack_require__(101), exports);
+
+
+/***/ }),
+/* 101 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ApiFeatureFloorModule = void 0;
+const tslib_1 = __webpack_require__(4);
+const common_1 = __webpack_require__(1);
+const floor_controller_1 = __webpack_require__(102);
+const floor_service_1 = __webpack_require__(103);
+const data_access_db_1 = __webpack_require__(7);
+let ApiFeatureFloorModule = class ApiFeatureFloorModule {
+};
+exports.ApiFeatureFloorModule = ApiFeatureFloorModule;
+exports.ApiFeatureFloorModule = ApiFeatureFloorModule = tslib_1.__decorate([
+    (0, common_1.Module)({
+        imports: [data_access_db_1.ApiDataAccessDbModule],
+        controllers: [floor_controller_1.FloorController],
+        providers: [floor_service_1.FloorService],
+        exports: [],
+    })
+], ApiFeatureFloorModule);
+
+
+/***/ }),
+/* 102 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+var _a, _b, _c;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.FloorController = void 0;
+const tslib_1 = __webpack_require__(4);
+const common_1 = __webpack_require__(1);
+const floor_service_1 = __webpack_require__(103);
+const create_floor_dto_1 = __webpack_require__(104);
+let FloorController = class FloorController {
+    constructor(floorService) {
+        this.floorService = floorService;
+    }
+    getFloors() {
+        return this.floorService.getFloors();
+    }
+    getFloorTables(params) {
+        const id = +params.id;
+        return this.floorService.getFloorTables(id);
+    }
+    createProduct(params) {
+        return this.floorService.createFloor(params);
+    }
+    updateProduct(body, id) {
+        const floorId = +id;
+        // console.log('floor id', floorId);
+        return this.floorService.editFloor(floorId, body);
+    }
+};
+exports.FloorController = FloorController;
+tslib_1.__decorate([
+    (0, common_1.Get)(),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", []),
+    tslib_1.__metadata("design:returntype", void 0)
+], FloorController.prototype, "getFloors", null);
+tslib_1.__decorate([
+    (0, common_1.Get)(':id'),
+    tslib_1.__param(0, (0, common_1.Param)()),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [Object]),
+    tslib_1.__metadata("design:returntype", void 0)
+], FloorController.prototype, "getFloorTables", null);
+tslib_1.__decorate([
+    (0, common_1.Post)(),
+    tslib_1.__param(0, (0, common_1.Body)()),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [typeof (_b = typeof create_floor_dto_1.CreateFloorDto !== "undefined" && create_floor_dto_1.CreateFloorDto) === "function" ? _b : Object]),
+    tslib_1.__metadata("design:returntype", void 0)
+], FloorController.prototype, "createProduct", null);
+tslib_1.__decorate([
+    (0, common_1.Put)(':id'),
+    tslib_1.__param(0, (0, common_1.Body)()),
+    tslib_1.__param(1, (0, common_1.Param)('id')),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [typeof (_c = typeof create_floor_dto_1.CreateFloorDto !== "undefined" && create_floor_dto_1.CreateFloorDto) === "function" ? _c : Object, Object]),
+    tslib_1.__metadata("design:returntype", void 0)
+], FloorController.prototype, "updateProduct", null);
+exports.FloorController = FloorController = tslib_1.__decorate([
+    (0, common_1.Controller)('floor'),
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof floor_service_1.FloorService !== "undefined" && floor_service_1.FloorService) === "function" ? _a : Object])
+], FloorController);
+
+
+/***/ }),
+/* 103 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.FloorService = void 0;
+const tslib_1 = __webpack_require__(4);
+const data_access_db_1 = __webpack_require__(7);
+const types_1 = __webpack_require__(47);
+const common_1 = __webpack_require__(1);
+let FloorService = class FloorService {
+    constructor(prismaService) {
+        this.prismaService = prismaService;
+    }
+    async getFloors() {
+        return await this.prismaService.floor.findMany();
+    }
+    async getFloorTables(floorId) {
+        return await this.prismaService.floor.findFirst({
+            where: { id: floorId },
+            select: {
+                id: true,
+                tables: {
+                    include: {
+                        orders: {
+                            where: {
+                                AND: [
+                                    {
+                                        orderStatus: {
+                                            notIn: [types_1.OrderStatus.SERVED, types_1.OrderStatus.CANCELLED],
+                                        },
+                                    },
+                                    { paymentStatus: types_1.PaymentStatus.NOTPAID },
+                                ],
+                            },
+                            include: {
+                                customer: true,
+                            },
+                        },
+                    },
+                    orderBy: { name: 'asc' },
+                },
+            },
+        });
+    }
+    async createFloor(floor) {
+        try {
+            return await this.prismaService.floor.create({
+                data: {
+                    name: floor.name,
+                },
+            });
+        }
+        catch (error) {
+            throw new Error('unable to create floor');
+        }
+    }
+    async editFloor(id, floor) {
+        try {
+            return await this.prismaService.floor.update({
+                where: { id },
+                data: {
+                    name: floor.name,
+                },
+            });
+        }
+        catch (error) {
+            throw new Error('floor update failed');
+        }
+    }
+};
+exports.FloorService = FloorService;
+exports.FloorService = FloorService = tslib_1.__decorate([
+    (0, common_1.Injectable)(),
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof data_access_db_1.PrismaService !== "undefined" && data_access_db_1.PrismaService) === "function" ? _a : Object])
+], FloorService);
+
+
+/***/ }),
+/* 104 */
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CreateFloorDto = void 0;
+class CreateFloorDto {
+}
+exports.CreateFloorDto = CreateFloorDto;
+
+
+/***/ }),
+/* 105 */
+/***/ ((module) => {
+
+module.exports = require("@nestjs/serve-static");
+
+/***/ }),
 /* 106 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
@@ -4353,7 +4351,6 @@ exports.getPaddedDocHeight = getPaddedDocHeight;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const tslib_1 = __webpack_require__(4);
 tslib_1.__exportStar(__webpack_require__(107), exports);
-tslib_1.__exportStar(__webpack_require__(109), exports);
 
 
 /***/ }),
@@ -4362,12 +4359,646 @@ tslib_1.__exportStar(__webpack_require__(109), exports);
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ApiFeaturePosSessionModule = void 0;
+const tslib_1 = __webpack_require__(4);
+const common_1 = __webpack_require__(1);
+const pos_session_controller_1 = __webpack_require__(108);
+const session_service_1 = __webpack_require__(109);
+const data_access_db_1 = __webpack_require__(7);
+const feature_auth_1 = __webpack_require__(15);
+const feature_stat_1 = __webpack_require__(111);
+const common_2 = __webpack_require__(83);
+const report_service_1 = __webpack_require__(110);
+const feature_expense_1 = __webpack_require__(115);
+const feature_license_1 = __webpack_require__(121);
+let ApiFeaturePosSessionModule = class ApiFeaturePosSessionModule {
+};
+exports.ApiFeaturePosSessionModule = ApiFeaturePosSessionModule;
+exports.ApiFeaturePosSessionModule = ApiFeaturePosSessionModule = tslib_1.__decorate([
+    (0, common_1.Module)({
+        controllers: [pos_session_controller_1.PosSessionController],
+        imports: [
+            data_access_db_1.ApiDataAccessDbModule,
+            feature_auth_1.ApiFeatureAuthModule,
+            feature_stat_1.ApiFeatureStatModule,
+            common_2.ApiCommonModule,
+            feature_expense_1.FeatureExpenseModule,
+            feature_license_1.FeatureLicenseModule,
+        ],
+        providers: [session_service_1.PosSessionService, report_service_1.SessionReportService],
+        exports: [],
+    })
+], ApiFeaturePosSessionModule);
+
+
+/***/ }),
+/* 108 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+var _a, _b, _c;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.PosSessionController = void 0;
+const tslib_1 = __webpack_require__(4);
+const common_1 = __webpack_require__(1);
+const session_service_1 = __webpack_require__(109);
+const feature_auth_1 = __webpack_require__(15);
+const report_service_1 = __webpack_require__(110);
+const feature_license_1 = __webpack_require__(121);
+let PosSessionController = class PosSessionController {
+    constructor(sessionService, sessionReportService, licenseService) {
+        this.sessionService = sessionService;
+        this.sessionReportService = sessionReportService;
+        this.licenseService = licenseService;
+    }
+    getSessionsOfTheDay(req) {
+        // console.log('recent orders');
+        const user = req.user;
+        return this.sessionService.getSessions();
+    }
+    startAnewSession(req, data) {
+        //[TODO] - have a license check here - when new session starts.
+        this.licenseService.checkLicense();
+        // console.log('recent orders');
+        const user = req.user;
+        const intialAmount = data.cash ? data.cash : 0;
+        return this.sessionService.createSession(user, intialAmount);
+        // removed by dead control flow
+
+    }
+    async endActiveSession(params, req
+    // @Response({ passthrough: true }) res: any
+    ) {
+        //[TODO] - have a license check here - when new session ends.
+        this.licenseService.checkLicense();
+        // console.log('recent orders');
+        const user = req.user;
+        const sessionId = +params.id;
+        const closedSession = await this.sessionService.closeSession(sessionId);
+        return closedSession;
+        // const result = await this.sessionReportService.downloadSessionReport(
+        //   sessionId
+        // );
+        // res.set({
+        //   'Content-Type': 'application/pdf',
+        //   'Content-Disposition': `attachment; filename="${result!.reportName}.pdf`,
+        // });
+        // return new StreamableFile(result!.pdfStream);
+    }
+    // @UseGuards(JwtAuthGuard)
+    async downloadSessionReport(req, Id, res) {
+        const sessionId = +Id;
+        // const user = req.user;se
+        const result = await this.sessionReportService.downloadSessionReport(sessionId);
+        res.set({
+            'Content-Type': 'application/pdf',
+            'Content-Disposition': `attachment; filename="${result?.reportName}.pdf`,
+        });
+        return new common_1.StreamableFile(result.pdfStream);
+    }
+    async downloadHomedeliveryReportOfLastSession(req, Id, res) {
+        const result = await this.sessionReportService.getHomedeliverySummaryOfLastSession();
+        // const result = await this.sessionReportService.downloadSessionReport();
+        // res.set({
+        //   'Content-Type': 'application/pdf',
+        //   'Content-Disposition': `attachment; filename="${result?.reportName}.pdf`,
+        // });
+        // return new StreamableFile(result!.pdfStream);
+        res.set({
+            'Content-Type': 'application/pdf',
+            'Content-Disposition': `attachment; filename="${result?.reportName}.pdf`,
+        });
+        return new common_1.StreamableFile(result.pdfStream);
+    }
+};
+exports.PosSessionController = PosSessionController;
+tslib_1.__decorate([
+    (0, common_1.UseGuards)(feature_auth_1.JwtAuthGuard),
+    (0, common_1.Get)(),
+    tslib_1.__param(0, (0, common_1.Req)()),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [Object]),
+    tslib_1.__metadata("design:returntype", void 0)
+], PosSessionController.prototype, "getSessionsOfTheDay", null);
+tslib_1.__decorate([
+    (0, common_1.UseGuards)(feature_auth_1.JwtAuthGuard),
+    (0, common_1.Post)(),
+    tslib_1.__param(0, (0, common_1.Req)()),
+    tslib_1.__param(1, (0, common_1.Body)()),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [Object, Object]),
+    tslib_1.__metadata("design:returntype", void 0)
+], PosSessionController.prototype, "startAnewSession", null);
+tslib_1.__decorate([
+    (0, common_1.UseGuards)(feature_auth_1.JwtAuthGuard),
+    (0, common_1.Put)(':id'),
+    tslib_1.__param(0, (0, common_1.Param)()),
+    tslib_1.__param(1, (0, common_1.Req)()),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [Object, Object]),
+    tslib_1.__metadata("design:returntype", Promise)
+], PosSessionController.prototype, "endActiveSession", null);
+tslib_1.__decorate([
+    (0, common_1.Get)('session/:id'),
+    tslib_1.__param(0, (0, common_1.Req)()),
+    tslib_1.__param(1, (0, common_1.Param)('id')),
+    tslib_1.__param(2, (0, common_1.Response)({ passthrough: true })),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [Object, String, Object]),
+    tslib_1.__metadata("design:returntype", Promise)
+], PosSessionController.prototype, "downloadSessionReport", null);
+tslib_1.__decorate([
+    (0, common_1.Get)('homedeliveryreport'),
+    tslib_1.__param(0, (0, common_1.Req)()),
+    tslib_1.__param(1, (0, common_1.Param)('id')),
+    tslib_1.__param(2, (0, common_1.Response)({ passthrough: true })),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [Object, String, Object]),
+    tslib_1.__metadata("design:returntype", Promise)
+], PosSessionController.prototype, "downloadHomedeliveryReportOfLastSession", null);
+exports.PosSessionController = PosSessionController = tslib_1.__decorate([
+    (0, common_1.Controller)('session'),
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof session_service_1.PosSessionService !== "undefined" && session_service_1.PosSessionService) === "function" ? _a : Object, typeof (_b = typeof report_service_1.SessionReportService !== "undefined" && report_service_1.SessionReportService) === "function" ? _b : Object, typeof (_c = typeof feature_license_1.LicenseService !== "undefined" && feature_license_1.LicenseService) === "function" ? _c : Object])
+], PosSessionController);
+
+
+/***/ }),
+/* 109 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.PosSessionService = void 0;
+const tslib_1 = __webpack_require__(4);
+const data_access_db_1 = __webpack_require__(7);
+const types_1 = __webpack_require__(47);
+const util_1 = __webpack_require__(43);
+const common_1 = __webpack_require__(1);
+let PosSessionService = class PosSessionService {
+    constructor(prismaService) {
+        this.prismaService = prismaService;
+    }
+    async createSession(appUser, initialCash) {
+        try {
+            // check if there  is any active session.
+            const activesession = await this.prismaService.posSession.findFirst({
+                where: {
+                    status: types_1.SessionStatus.ACTIVE,
+                },
+            });
+            // if yes do not create one..
+            if (activesession)
+                return;
+            // if no start a new one.
+            await this.prismaService.posSession.create({
+                data: {
+                    status: types_1.SessionStatus.ACTIVE,
+                    createdUserId: appUser.id,
+                    initialCash: initialCash,
+                },
+            });
+            // return all the sessions of the day.
+            return this.getSessions();
+        }
+        catch (error) {
+            console.log('error occured during creation of session');
+            return new Error();
+        }
+    }
+    async getSessions() {
+        // console.log('start of the day', getStartOfTheDay());
+        // chek any other open, close it forcefully.
+        const sessions = await this.prismaService.posSession.findMany({
+            where: {
+                OR: [
+                    {
+                        status: types_1.SessionStatus.ACTIVE,
+                    },
+                    {
+                        startTime: { gte: (0, util_1.getStartOfTheDay)() },
+                    },
+                ],
+            },
+        });
+        return sessions;
+    }
+    async closeSession(sessionId) {
+        // make sure all the sessions are closed.
+        // check for non settled orders before close it.
+        const activeSession = await this.prismaService.posSession.findUnique({
+            where: { id: sessionId },
+        });
+        if (!activeSession)
+            throw new common_1.NotFoundException('No active session');
+        const activeSessionStartTime = activeSession.startTime;
+        const nonPaidOrders = await this.prismaService.order.findMany({
+            where: {
+                paymentStatus: { notIn: [types_1.PaymentStatus.CREDIT, types_1.PaymentStatus.PAID] },
+                orderStatus: { not: types_1.OrderStatus.CANCELLED },
+                createdAt: { gte: activeSessionStartTime },
+            },
+        });
+        // console.log('not paid users', nonPaidOrders.length);
+        if (nonPaidOrders.length) {
+            // console.log('hs gone inside');
+            throw new common_1.InternalServerErrorException({
+                message: `There are ${nonPaidOrders.length} orders which are not settled yet.`,
+            });
+        }
+        // generate report and get it downloaded at the client.
+        const closedSession = await this.prismaService.posSession.update({
+            where: { id: sessionId },
+            data: { status: types_1.SessionStatus.CLOSE, endTime: new Date() },
+        });
+        // console.log('cosed sessino ', closedSession);
+        // // get orders from closed session start time..
+        // const totalsOrders = await this.prismaService.order.findMany({
+        //   where: { createdAt: { gte: closedSession.startTime } },
+        // });
+        return closedSession;
+    }
+};
+exports.PosSessionService = PosSessionService;
+exports.PosSessionService = PosSessionService = tslib_1.__decorate([
+    (0, common_1.Injectable)(),
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof data_access_db_1.PrismaService !== "undefined" && data_access_db_1.PrismaService) === "function" ? _a : Object])
+], PosSessionService);
+
+
+/***/ }),
+/* 110 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+var _a, _b, _c, _d;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.SessionReportService = void 0;
+const tslib_1 = __webpack_require__(4);
+const common_1 = __webpack_require__(83);
+const data_access_db_1 = __webpack_require__(7);
+const feature_stat_1 = __webpack_require__(111);
+const types_1 = __webpack_require__(47);
+const util_1 = __webpack_require__(43);
+const common_2 = __webpack_require__(1);
+const feature_expense_1 = __webpack_require__(115);
+let SessionReportService = class SessionReportService {
+    constructor(prismaService, statService, expenseService, pupeteerService) {
+        this.prismaService = prismaService;
+        this.statService = statService;
+        this.expenseService = expenseService;
+        this.pupeteerService = pupeteerService;
+    }
+    async downloadSessionReport(sessionId) {
+        try {
+            // get the start and end date of the session Id.
+            const session = await this.getSessionDetails(sessionId);
+            // get company taxes.
+            const company = await this.prismaService.company.findFirst({
+                include: { taxes: true },
+            });
+            if (!company)
+                throw new common_2.NotFoundException({}, 'Company Data Could not be read.');
+            const taxes = company.taxes;
+            console.log('creating pdf for the session status of ', sessionId);
+            if (!session)
+                throw new common_2.NotFoundException({}, 'No Session with the given ID');
+            const startTime = session.startTime;
+            const endTime = session.endTime;
+            const initialCash = session.initialCash;
+            const reportSummary = await this.statService.getReportStatsForThePeriod(startTime, endTime);
+            const paymentBreakDownSummary = await this.statService.getPayementBreakDownForThePeriod(startTime, endTime);
+            // [NOTE] : the below cash total separation is new which is added on May 3 2024 as
+            // the payment break of cash/card/transfer. only cash is needed to consider for expenses and other total.
+            // so cash is separating now. earlier it was taken from the order table but now payment and payment type table are considered.
+            // order table payment type should be removed later
+            let totalCashPaymentsRecieved = 0;
+            const cashSaleFiltered = paymentBreakDownSummary.filter((item) => item.name == 'Cash');
+            if (cashSaleFiltered.length) {
+                totalCashPaymentsRecieved = cashSaleFiltered[0].total;
+            }
+            const prductSummary = await this.statService.getProductStatsForThePeriod(startTime, endTime);
+            const staffCountSummary = await this.statService.getStaffCountStatsForThePeriod(startTime, endTime);
+            const staffAmoutSummary = await this.statService.getStaffAmountStatsForThePeriod(startTime, endTime);
+            // console.log('statff amount, ', staffAmoutSummary);
+            const homeDeliveryCountSummary = await this.statService.getHomeDeliveryStatCountViceForThePeriod(startTime, endTime);
+            // console.log('home delivery count', homeDeliveryCountSummary);
+            const homeDeliveryAmoutSummary = await this.statService.getHomeDeliveryStatAmountViceForThePeriod(startTime, endTime);
+            // console.log('homedevliery amount', homeDeliveryAmoutSummary);
+            const formattedStartTime = (0, util_1.dateTimeToDateHHMM)(startTime);
+            const formattedEndTime = (0, util_1.dateTimeToDateHHMM)(endTime);
+            const currentDayOnlyDate = (0, util_1.getOnlyCurrentDateWithoutTime)();
+            // console.log('product summary', prductSummary);
+            const noOfDecimalPlaces = company?.decimalZeros
+                ? company.decimalZeros
+                : 3;
+            const { ordersStatArr, totalOrderDetail, totalCashSale } = this.formatOrderStatV2(reportSummary, noOfDecimalPlaces);
+            const { taxesApplied, taxedTotal } = (0, util_1.getAppliedTaxesAndTaxesTotal)(totalCashSale, taxes);
+            const totalTaxCollected = taxedTotal - totalCashSale;
+            // include expense
+            const { expensePaidFromCash, totalExpense, filteredExpenseList } = await this.getExpenseDetails(noOfDecimalPlaces, startTime, endTime);
+            // console.log('expense from cash', expensePaidFromCash);
+            // console.log(typeof expensePaidFromCash);
+            // console.log('initial cash', initialCash);
+            // console.log('total cash revcei', totalCashPaymentsRecieved);
+            // [Note] : totalcashpaymnet taken out from the db query is coming out as string which causing the addition result to be wrong.
+            const totalCashInDrawer = initialCash +
+                Number.parseFloat(totalCashPaymentsRecieved.toString()) -
+                expensePaidFromCash;
+            const htmlInputData = {
+                taxesApplied,
+                date: currentDayOnlyDate,
+                startTime: formattedStartTime,
+                endTime: formattedEndTime,
+                initialCash: initialCash.toFixed(noOfDecimalPlaces),
+                totalCashSale: Number.parseFloat(totalCashPaymentsRecieved.toString()).toFixed(noOfDecimalPlaces),
+                paymentBreakDownArr: paymentBreakDownSummary.length
+                    ? paymentBreakDownSummary.map((item) => ({
+                        ...item,
+                        total: item.total.toFixed(noOfDecimalPlaces),
+                    }))
+                    : [],
+                totalExpense,
+                filteredExpenseList,
+                expensePaidFromCash: expensePaidFromCash.toFixed(noOfDecimalPlaces),
+                totalCashInDrawer: totalCashInDrawer.toFixed(noOfDecimalPlaces),
+                productStatArr: prductSummary,
+                ordersStatArr,
+                totalOrderDetail,
+                totalTaxCollected: totalTaxCollected.toFixed(noOfDecimalPlaces),
+                shouldTaxAndChargesDisplayed: totalTaxCollected > 0,
+                stafCountStatArr: staffCountSummary.length ? staffCountSummary : [],
+                stafAmoutStatArr: staffAmoutSummary.length
+                    ? staffAmoutSummary.map((item) => ({
+                        ...item,
+                        totalusersalesum: item.totalusersalesum.toFixed(noOfDecimalPlaces),
+                    }))
+                    : [],
+                homeDeliveryCountStatArr: homeDeliveryCountSummary.length
+                    ? homeDeliveryCountSummary
+                    : [],
+                homeDeliveryAmoutStatArr: homeDeliveryAmoutSummary.length
+                    ? homeDeliveryAmoutSummary.map((item) => ({
+                        ...item,
+                        totalusersalesum: item.totalusersalesum.toFixed(noOfDecimalPlaces),
+                    }))
+                    : [],
+                paymentBreakDownSummary: paymentBreakDownSummary.length
+                    ? paymentBreakDownSummary.map((item) => ({
+                        ...item,
+                        total: item.total.toFixed(noOfDecimalPlaces),
+                    }))
+                    : [],
+            };
+            const pdfStream = await this.pupeteerService.getReportPdfStream('sessionSummary', 'views', 'pdf', 'sessionEndsummary.report.html', htmlInputData);
+            return {
+                pdfStream,
+                reportName: `session report - ${startTime} -- ${endTime}`,
+            };
+        }
+        catch (error) {
+            console.log(error);
+            throw new common_2.BadGatewayException({ error });
+        }
+    }
+    async getSessionDetails(sessionId) {
+        return await this.prismaService.posSession.findUnique({
+            where: { id: sessionId },
+        });
+    }
+    formatOrderStat(orderStat, noOfDecimalPlaces) {
+        let totalOrders = 0;
+        let totalOrderSum = 0;
+        let totalCashSale = 0;
+        const mappedOrders = orderStat.map((item) => {
+            let description = '';
+            switch (item.paystat) {
+                case types_1.PaymentStatus.CREDIT:
+                    description = 'Credit Orders';
+                    break;
+                case types_1.PaymentStatus.PAID:
+                    description = 'Paid Orders';
+                    totalCashSale = totalCashSale + item.sum;
+                    break;
+                case types_1.PaymentStatus.NOTPAID:
+                    description = 'Non Settled Orders';
+                    break;
+                default:
+                    // console.log(item.paystat);
+                    break;
+            }
+            totalOrders = totalOrders + item.count;
+            totalOrderSum = totalOrderSum + item.sum;
+            return {
+                description: description,
+                count: item.count,
+                sum: item.sum.toFixed(noOfDecimalPlaces),
+            };
+        });
+        const totalOrderDetail = {
+            description: 'Total Orders',
+            count: totalOrders,
+            totalOrderSum: totalOrderSum.toFixed(noOfDecimalPlaces),
+        };
+        return { ordersStatArr: mappedOrders, totalOrderDetail, totalCashSale };
+    }
+    formatOrderStatV2(orderStat, noOfDecimalPlaces) {
+        let totalOrders = 0;
+        let totalOrderSum = 0;
+        let totalCashSale = 0;
+        let totalDiscount = 0;
+        const mappedOrders = orderStat.map((item) => {
+            // console.log('discount of the current', item.discount);
+            totalDiscount = totalDiscount + Number.parseFloat(item.discount);
+            totalOrderSum = totalOrderSum + item.sum;
+            totalOrders = totalOrders + item.count;
+            if (item.paystat == 'cash') {
+                totalCashSale = totalCashSale + item.sum;
+            }
+            return {
+                description: item.paystat,
+                count: item.count,
+                sum: item.sum.toFixed(noOfDecimalPlaces),
+                discount: item.discount,
+            };
+        });
+        // console.log('total discount', totalDiscount);
+        const totalOrderDetail = {
+            description: 'Total Orders',
+            count: totalOrders,
+            totalOrderSum: totalOrderSum.toFixed(noOfDecimalPlaces),
+            totalDiscount: totalDiscount.toFixed(noOfDecimalPlaces),
+        };
+        // console.log('total order details', totalOrderDetail);
+        // console.log('mapped array', mappedOrders);
+        return { ordersStatArr: mappedOrders, totalOrderDetail, totalCashSale };
+    }
+    async getExpenseDetails(decimalPlaces, startTime, endTime) {
+        let expensePaidFromCash = 0;
+        let totalExpense = 0;
+        const expensenList = await this.expenseService.getExpensesCreatedForDuration(startTime, endTime);
+        const filteredExpenseList = expensenList
+            .filter((expense) => expense.expenses.length > 0)
+            .map((expenseTypeList) => {
+            return {
+                ...expenseTypeList,
+                expenses: expenseTypeList.expenses.map((expense) => {
+                    if (expense.paidFromCash) {
+                        expensePaidFromCash = expensePaidFromCash + expense.amount;
+                    }
+                    totalExpense = totalExpense + expense.amount;
+                    return {
+                        ...expense,
+                        amount: expense.amount.toFixed(decimalPlaces),
+                    };
+                }),
+            };
+        });
+        // filteredExpenseList.forEach((expenseList) => {
+        //   expenseList.expenses.forEach((expense) => {
+        //     if (expense.paidFromCash) {
+        //       expensePaidFromCash = expensePaidFromCash + expense.amount;
+        //     }
+        //     totalExpense = totalExpense + expense.amount;
+        //   });
+        // });
+        return {
+            expensePaidFromCash,
+            totalExpense,
+            filteredExpenseList,
+        };
+    }
+    async getHomedeliverySummaryOfLastSession() {
+        try {
+            const companyId = 1;
+            const company = await this.prismaService.company.findFirst({
+                where: { id: companyId },
+                include: {
+                    taxes: { where: { isActive: true } },
+                },
+            });
+            const noOfDecimalPlaces = company?.decimalZeros
+                ? company.decimalZeros
+                : 3;
+            const homeDeliveryOfTheCurrentSessionByDeliveryUsers = (await this
+                .prismaService.$queryRaw `
+        select * from (
+      select itemT."total"::numeric as total , 
+          homeDelOrderUser."orderid", 
+          homeDelOrderUser."createdAt", 
+          homeDelOrderUser."name", 
+          homeDelOrderUser."customername", 
+          homeDelOrderUser."deliveryUserId",
+          homeDelOrderUser."customerId",
+          homeDelOrderUser."ordernumber"
+        from 
+        (select sum(("count" * "amount")) as total, 
+            "orderId"  
+        from "orderItem" 
+          group by "orderId"
+        ) itemT 
+            join  ( select filteredOrderT."id" as orderId, filteredOrderT."customerName" as customerName ,filteredOrderT."orderNumber" as ordernumber,
+                  filteredOrderT."customerId", filteredOrderT."deliveryUserId",filteredOrderT."createdAt",
+                  "user"."name" 
+                from 
+                  (select * from "order" where "orderType"='homedelivery'
+                    and
+                    "createdAt" >= (select tempt."startTime" from (select * from "posSession" order by "startTime" desc limit 1) tempt)
+                  ) filteredOrderT   
+                    left join "user" 
+                    on filteredOrderT."deliveryUserId" = "user".id) homeDelOrderUser
+            on itemT."orderId"=homeDelOrderUser.orderid) ordercustomerfilteredT
+          
+    join "customer" 
+    on "customer".id=ordercustomerfilteredT."customerId" 
+    `);
+            const mappedNullsTo9999 = homeDeliveryOfTheCurrentSessionByDeliveryUsers.map((item) => ({
+                ...item,
+                name: item.name ? item.name : 'Not Assigned',
+                total: Number.parseFloat(item.total).toFixed(noOfDecimalPlaces),
+                deliveryUserId: item.deliveryUserId ? item.deliveryUserId : 9999,
+            }));
+            const resultObj = {};
+            mappedNullsTo9999.forEach((item) => {
+                const itemDeliveryUserId = item.deliveryUserId;
+                resultObj[itemDeliveryUserId] = [
+                    ...(resultObj[itemDeliveryUserId] || []),
+                    ...[
+                        {
+                            ...item,
+                            createdAt: (0, util_1.dateTimeToDateHHMM)(new Date(item.createdAt)),
+                        },
+                    ],
+                ];
+            });
+            const resultTotalObj = {};
+            Object.entries(resultObj).map((items) => {
+                let totalCount = 0;
+                const totalOfUser = items[1].reduce((prev, curr, index) => {
+                    totalCount = index + 1;
+                    return prev + Number.parseFloat(curr.total);
+                }, 0);
+                const key = items[0].toString();
+                resultTotalObj[key] = {
+                    totalOfUser: totalOfUser.toFixed(noOfDecimalPlaces),
+                    name: items[1][0].name,
+                    count: totalCount,
+                };
+            });
+            Object.keys(resultObj).forEach((key) => (resultTotalObj[key] = {
+                ...resultTotalObj[key],
+                orders: resultObj[key],
+            }));
+            const htmlInputData = this.createHomeDeliveryReportData(resultTotalObj);
+            const pdfStream = await this.pupeteerService.getReportPdfStream('homedelivery', 'views', 'pdf', 'homedliveryorderwisebreakdown.html', htmlInputData);
+            return {
+                pdfStream,
+                reportName: `homedelivery report ${new Date()}`,
+            };
+        }
+        catch (error) {
+            console.log(error);
+            throw new common_2.BadGatewayException({ error });
+        }
+    }
+    createHomeDeliveryReportData(resultTotalObj) {
+        const htmlData = {
+            date: (0, util_1.dateTimeToDateHHMM)(new Date()),
+            homedeliveryData: resultTotalObj,
+        };
+        return htmlData;
+    }
+};
+exports.SessionReportService = SessionReportService;
+exports.SessionReportService = SessionReportService = tslib_1.__decorate([
+    (0, common_2.Injectable)(),
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof data_access_db_1.PrismaService !== "undefined" && data_access_db_1.PrismaService) === "function" ? _a : Object, typeof (_b = typeof feature_stat_1.StatsService !== "undefined" && feature_stat_1.StatsService) === "function" ? _b : Object, typeof (_c = typeof feature_expense_1.ExpenseService !== "undefined" && feature_expense_1.ExpenseService) === "function" ? _c : Object, typeof (_d = typeof common_1.PuppeteerService !== "undefined" && common_1.PuppeteerService) === "function" ? _d : Object])
+], SessionReportService);
+
+
+/***/ }),
+/* 111 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const tslib_1 = __webpack_require__(4);
+tslib_1.__exportStar(__webpack_require__(112), exports);
+tslib_1.__exportStar(__webpack_require__(114), exports);
+
+
+/***/ }),
+/* 112 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ApiFeatureStatModule = void 0;
 const tslib_1 = __webpack_require__(4);
 const data_access_db_1 = __webpack_require__(7);
 const common_1 = __webpack_require__(1);
-const stats_controller_1 = __webpack_require__(108);
-const stats_service_1 = __webpack_require__(109);
+const stats_controller_1 = __webpack_require__(113);
+const stats_service_1 = __webpack_require__(114);
 let ApiFeatureStatModule = class ApiFeatureStatModule {
 };
 exports.ApiFeatureStatModule = ApiFeatureStatModule;
@@ -4382,7 +5013,7 @@ exports.ApiFeatureStatModule = ApiFeatureStatModule = tslib_1.__decorate([
 
 
 /***/ }),
-/* 108 */
+/* 113 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -4391,14 +5022,14 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.StatController = void 0;
 const tslib_1 = __webpack_require__(4);
 const common_1 = __webpack_require__(1);
-const stats_service_1 = __webpack_require__(109);
+const stats_service_1 = __webpack_require__(114);
 // import {
 //   createHtmlDoc,
 //   getPdfOptionsForReciept,
 //   getPdfStream,
 // } from '@hotel/common/util';
-const fs_1 = __webpack_require__(75);
-const path_1 = __webpack_require__(77);
+const fs_1 = __webpack_require__(77);
+const path_1 = __webpack_require__(79);
 let StatController = class StatController {
     constructor(statService) {
         this.statService = statService;
@@ -4429,15 +5060,15 @@ let StatController = class StatController {
         return this.statService.getDashBoardData();
     }
     getOrderStatForDuration(startDateIso, endDateIso) {
-        console.log('start date', startDateIso);
-        console.log('end date', endDateIso);
+        // console.log('start date', startDateIso);
+        // console.log('end date', endDateIso);
         const startDate = new Date(startDateIso.toString());
         const endDate = new Date(endDateIso.toString());
         return this.statService.getReportStatsForThePeriod(startDate, endDate);
     }
     getProductStatsForDuration(startDateIso, endDateIso) {
-        console.log('start date', startDateIso);
-        console.log('end date', endDateIso);
+        // console.log('start date', startDateIso);
+        // console.log('end date', endDateIso);
         const startDate = new Date(startDateIso.toString());
         const endDate = new Date(endDateIso.toString());
         return this.statService.getProductStatsForThePeriod(startDate, endDate);
@@ -4532,7 +5163,7 @@ exports.StatController = StatController = tslib_1.__decorate([
 
 
 /***/ }),
-/* 109 */
+/* 114 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -4601,7 +5232,7 @@ let StatsService = class StatsService {
        AND "createdAt" < ${endTimeISO} :: timestamp AND "orderStatus" != 'cancelled') orders 
        on orders.id=tempt."orderId" group by paystat
      `;
-        console.log('result is', orderStatArr);
+        // console.log('result is', orderStatArr);
         const orderStat = orderStatArr.map((item) => {
             return {
                 sum: item.sum,
@@ -4618,6 +5249,23 @@ let StatsService = class StatsService {
         // return this.toJson(ordersTotal);
         // console.log('orders count', ordersCount);
         // return { ordersCount, ordersTotal };
+    }
+    async getPayementBreakDownForThePeriod(startDateTime, endDateTime) {
+        const startTimeISO = startDateTime.toISOString();
+        const endTimeISO = endDateTime.toISOString();
+        const paymentBreakDownArray = await this.prismaService.$queryRaw `
+     select subquery.total, paytype.name from "paymentType" paytype 
+ 	join
+		( select sum(payment.amount)::numeric as total , payment."paymentTypeId" as paymentTypeId from "payments" payment 
+		 join (
+			 select id from public."order" 
+			 where "createdAt" >=  ${startTimeISO}::timestamp
+			 AND "createdAt" <= ${endTimeISO} :: timestamp
+			) orders 
+		 on orders.id=payment."orderId" group by paymentTypeId) subquery
+	 on paytype.id=subquery.paymentTypeId
+    `;
+        return paymentBreakDownArray;
     }
     async getStaffCountStatsForThePeriod(startDateTime, endDateTime) {
         const startTimeISO = startDateTime.toISOString();
@@ -4743,7 +5391,7 @@ let StatsService = class StatsService {
         // [NOTE] prisma query works when iso format is supplied. console loging of sessiontartTime shows time in iso format but infact the content itself is not isoformated, only the console.log
         // for that we need to explicitly make it to ISOstring.
         const timeIso = sessionStartTime.toISOString();
-        console.log('session start time', sessionStartTime);
+        // console.log('session start time', sessionStartTime);
         const saleStatTypeBased = await this.prismaService.$queryRaw `
     select orderTFiltered."orderType" as description,  round(sum( orderItemsT."count" * orderItemsT."amount")::numeric, 3) as amount from public."orderItem" orderItemsT 
     join 
@@ -4752,14 +5400,14 @@ let StatsService = class StatsService {
           orderTFiltered
     on orderItemsT."orderId"=orderTFiltered.id 
     group by orderTFiltered."orderType"`;
-        console.log('saleStatTypeBased', saleStatTypeBased);
+        // console.log('saleStatTypeBased', saleStatTypeBased);
         const saleStatTypeCount = await this.prismaService.$queryRaw `
     select count(id)::int totalCount , "orderType" as description
     from public."order" orders 
     where  "createdAt" >=  ${timeIso}::timestamp AND "orderStatus" != 'cancelled'
     group by orders."orderType"
     `;
-        console.log('saleStatTypeCount', saleStatTypeCount);
+        // console.log('saleStatTypeCount', saleStatTypeCount);
         const saleStatPayCount = await this.prismaService.$queryRaw `
     select count(id)::int totalCount , "paymentStatus" as description
     from public."order" orders 
@@ -4804,7 +5452,7 @@ select  userT."name" as description, joinedTotal."multiplied"::numeric as amount
         });
         if (!activeSession)
             throw new common_1.NotFoundException('No active session');
-        console.log('active session start time is', activeSession.startTime);
+        // console.log('active session start time is', activeSession.startTime);
         return activeSession.startTime;
     }
     toJson(data) {
@@ -4857,17 +5505,341 @@ exports.StatsService = StatsService = tslib_1.__decorate([
 
 
 /***/ }),
-/* 110 */
+/* 115 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const tslib_1 = __webpack_require__(4);
-tslib_1.__exportStar(__webpack_require__(111), exports);
+tslib_1.__exportStar(__webpack_require__(116), exports);
+tslib_1.__exportStar(__webpack_require__(119), exports);
 
 
 /***/ }),
-/* 111 */
+/* 116 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.FeatureExpenseModule = void 0;
+const tslib_1 = __webpack_require__(4);
+const common_1 = __webpack_require__(1);
+const expense_controller_1 = __webpack_require__(117);
+const expense_service_1 = __webpack_require__(119);
+const data_access_db_1 = __webpack_require__(7);
+let FeatureExpenseModule = class FeatureExpenseModule {
+};
+exports.FeatureExpenseModule = FeatureExpenseModule;
+exports.FeatureExpenseModule = FeatureExpenseModule = tslib_1.__decorate([
+    (0, common_1.Module)({
+        imports: [data_access_db_1.ApiDataAccessDbModule],
+        controllers: [expense_controller_1.ExpenseController],
+        providers: [expense_service_1.ExpenseService],
+        exports: [expense_service_1.ExpenseService],
+    })
+], FeatureExpenseModule);
+
+
+/***/ }),
+/* 117 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+var _a, _b, _c;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ExpenseController = void 0;
+const tslib_1 = __webpack_require__(4);
+const common_1 = __webpack_require__(1);
+const create_expense_dto_1 = __webpack_require__(118);
+const expense_service_1 = __webpack_require__(119);
+const create_expensetype_dto_1 = __webpack_require__(120);
+let ExpenseController = class ExpenseController {
+    constructor(expenseService) {
+        this.expenseService = expenseService;
+    }
+    getExpenseList() {
+        return this.expenseService.getExpensesCreatedCurrentSession();
+    }
+    createExpenseType(data) {
+        return this.expenseService.createExpenseType(data);
+    }
+    addExpense(data) {
+        return this.expenseService.addExpense(data);
+    }
+};
+exports.ExpenseController = ExpenseController;
+tslib_1.__decorate([
+    (0, common_1.Get)(),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", []),
+    tslib_1.__metadata("design:returntype", void 0)
+], ExpenseController.prototype, "getExpenseList", null);
+tslib_1.__decorate([
+    (0, common_1.Post)('type'),
+    tslib_1.__param(0, (0, common_1.Body)()),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [typeof (_b = typeof create_expensetype_dto_1.CreateExpenseTypeDto !== "undefined" && create_expensetype_dto_1.CreateExpenseTypeDto) === "function" ? _b : Object]),
+    tslib_1.__metadata("design:returntype", void 0)
+], ExpenseController.prototype, "createExpenseType", null);
+tslib_1.__decorate([
+    (0, common_1.Post)(),
+    tslib_1.__param(0, (0, common_1.Body)()),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [typeof (_c = typeof create_expense_dto_1.CreateExpenseDto !== "undefined" && create_expense_dto_1.CreateExpenseDto) === "function" ? _c : Object]),
+    tslib_1.__metadata("design:returntype", void 0)
+], ExpenseController.prototype, "addExpense", null);
+exports.ExpenseController = ExpenseController = tslib_1.__decorate([
+    (0, common_1.Controller)('expense'),
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof expense_service_1.ExpenseService !== "undefined" && expense_service_1.ExpenseService) === "function" ? _a : Object])
+], ExpenseController);
+
+
+/***/ }),
+/* 118 */
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CreateExpenseDto = void 0;
+class CreateExpenseDto {
+}
+exports.CreateExpenseDto = CreateExpenseDto;
+
+
+/***/ }),
+/* 119 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ExpenseService = void 0;
+const tslib_1 = __webpack_require__(4);
+const data_access_db_1 = __webpack_require__(7);
+const common_1 = __webpack_require__(1);
+const types_1 = __webpack_require__(47);
+let ExpenseService = class ExpenseService {
+    constructor(prismaService) {
+        this.prismaService = prismaService;
+    }
+    async createExpenseType(data) {
+        try {
+            const createdExpenseType = await this.prismaService.expenseType.create({
+                data,
+            });
+            return createdExpenseType;
+        }
+        catch (error) {
+            throw Error('Creation of expense type failed..');
+        }
+    }
+    async addExpense(data) {
+        try {
+            const addedExpense = await this.prismaService.expense.create({
+                data,
+            });
+            return addedExpense;
+        }
+        catch (error) {
+            console.log(error);
+            throw Error('Adding expense failed.');
+        }
+    }
+    async getExpenseTypes() {
+        return await this.prismaService.expenseType.findMany();
+    }
+    async getExpensesCreatedCurrentSession() {
+        // get current session start date.
+        const currentSession = await this.prismaService.posSession.findFirst({
+            where: {
+                status: types_1.SessionStatus.ACTIVE,
+            },
+        });
+        const currentSessionStartDateTime = currentSession?.startTime;
+        // query for expense created in the current session
+        const expenseTypeListOfTheSession = await this.prismaService.expenseType.findMany({
+            include: {
+                expenses: {
+                    where: { createdAt: { gte: currentSessionStartDateTime } },
+                },
+            },
+        });
+        return expenseTypeListOfTheSession;
+    }
+    async getExpensesCreatedForDuration(startDate, endDate) {
+        const expenseTypeListOfTheSession = await this.prismaService.expenseType.findMany({
+            include: {
+                expenses: {
+                    where: {
+                        AND: [
+                            { createdAt: { gte: startDate } },
+                            { createdAt: { lte: endDate } },
+                        ],
+                    },
+                },
+            },
+        });
+        return expenseTypeListOfTheSession;
+    }
+};
+exports.ExpenseService = ExpenseService;
+exports.ExpenseService = ExpenseService = tslib_1.__decorate([
+    (0, common_1.Injectable)(),
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof data_access_db_1.PrismaService !== "undefined" && data_access_db_1.PrismaService) === "function" ? _a : Object])
+], ExpenseService);
+
+
+/***/ }),
+/* 120 */
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CreateExpenseTypeDto = void 0;
+class CreateExpenseTypeDto {
+}
+exports.CreateExpenseTypeDto = CreateExpenseTypeDto;
+
+
+/***/ }),
+/* 121 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const tslib_1 = __webpack_require__(4);
+tslib_1.__exportStar(__webpack_require__(122), exports);
+tslib_1.__exportStar(__webpack_require__(124), exports);
+
+
+/***/ }),
+/* 122 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.FeatureLicenseModule = void 0;
+const tslib_1 = __webpack_require__(4);
+const common_1 = __webpack_require__(1);
+const schedule_1 = __webpack_require__(123);
+const license_service_1 = __webpack_require__(124);
+const jwt_1 = __webpack_require__(18);
+let FeatureLicenseModule = class FeatureLicenseModule {
+    constructor(licenseService) {
+        this.licenseService = licenseService;
+    }
+    async onModuleInit() {
+        // this.licenseService.checkLicense();
+        // console.log('module init fired.. check primary license check here.');
+        // const keys = ['HKCU\\Software\\Microsoft\\Mathpi\\CurrentVersion'];
+        // const result = await list(keys);
+        // if (!result[keys[0]].exists) {
+        //   // if no key at mathpi location. exit the application
+        //   process.exit(1);
+        //   return;
+        // }
+    }
+};
+exports.FeatureLicenseModule = FeatureLicenseModule;
+exports.FeatureLicenseModule = FeatureLicenseModule = tslib_1.__decorate([
+    (0, common_1.Module)({
+        controllers: [],
+        providers: [license_service_1.LicenseService],
+        exports: [license_service_1.LicenseService],
+        imports: [schedule_1.ScheduleModule.forRoot(), jwt_1.JwtModule],
+    }),
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof license_service_1.LicenseService !== "undefined" && license_service_1.LicenseService) === "function" ? _a : Object])
+], FeatureLicenseModule);
+
+
+/***/ }),
+/* 123 */
+/***/ ((module) => {
+
+module.exports = require("@nestjs/schedule");
+
+/***/ }),
+/* 124 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+var LicenseService_1;
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.LicenseService = void 0;
+const tslib_1 = __webpack_require__(4);
+const common_1 = __webpack_require__(1);
+const jwt_1 = __webpack_require__(18);
+const hwid2_1 = __webpack_require__(125);
+const regedit_rs_1 = __webpack_require__(126);
+let LicenseService = LicenseService_1 = class LicenseService {
+    constructor(jwtService) {
+        this.jwtService = jwtService;
+        this.logger = new common_1.Logger(LicenseService_1.name);
+    }
+    // @Cron('45 * * * * *')
+    // handleCron() {
+    //   this.logger.debug('Called when the current second is 45');
+    //   // this.checkLicense();
+    // }
+    async checkLicense() {
+        return true;
+        // removed by dead control flow
+
+        // read the key from registry.
+        // removed by dead control flow
+
+        // removed by dead control flow
+
+        // removed by dead control flow
+
+    }
+    isRegKeyValid(claims) {
+        const { expiryMilliSeconds } = claims;
+        return this.isExpired(expiryMilliSeconds);
+    }
+    isExpired(timeInSeconds) {
+        const currentDateSeconds = new Date().getTime();
+        // console.log(timeInSeconds, currentDateSeconds);
+        if (timeInSeconds < currentDateSeconds) {
+            console.log('License has been expired.. ');
+            return false;
+        }
+        return true;
+    }
+};
+exports.LicenseService = LicenseService;
+exports.LicenseService = LicenseService = LicenseService_1 = tslib_1.__decorate([
+    (0, common_1.Injectable)(),
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof jwt_1.JwtService !== "undefined" && jwt_1.JwtService) === "function" ? _a : Object])
+], LicenseService);
+
+
+/***/ }),
+/* 125 */
+/***/ ((module) => {
+
+module.exports = require("hwid2");
+
+/***/ }),
+/* 126 */
+/***/ ((module) => {
+
+module.exports = require("regedit-rs");
+
+/***/ }),
+/* 127 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const tslib_1 = __webpack_require__(4);
+tslib_1.__exportStar(__webpack_require__(128), exports);
+
+
+/***/ }),
+/* 128 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -4875,9 +5847,9 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ApiFeatureKitchenModule = void 0;
 const tslib_1 = __webpack_require__(4);
 const common_1 = __webpack_require__(1);
-const kitchen_service_1 = __webpack_require__(112);
+const kitchen_service_1 = __webpack_require__(129);
 const data_access_db_1 = __webpack_require__(7);
-const kitchen_controller_1 = __webpack_require__(113);
+const kitchen_controller_1 = __webpack_require__(130);
 let ApiFeatureKitchenModule = class ApiFeatureKitchenModule {
 };
 exports.ApiFeatureKitchenModule = ApiFeatureKitchenModule;
@@ -4892,7 +5864,7 @@ exports.ApiFeatureKitchenModule = ApiFeatureKitchenModule = tslib_1.__decorate([
 
 
 /***/ }),
-/* 112 */
+/* 129 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -4902,7 +5874,7 @@ exports.KitchenService = void 0;
 const tslib_1 = __webpack_require__(4);
 const data_access_db_1 = __webpack_require__(7);
 const common_1 = __webpack_require__(1);
-const pdf_to_printer_1 = __webpack_require__(80);
+const pdf_to_printer_1 = __webpack_require__(82);
 let KitchenService = class KitchenService {
     constructor(prismaService) {
         this.prismaService = prismaService;
@@ -4943,7 +5915,7 @@ exports.KitchenService = KitchenService = tslib_1.__decorate([
 
 
 /***/ }),
-/* 113 */
+/* 130 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -4952,8 +5924,8 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.KitchenController = void 0;
 const tslib_1 = __webpack_require__(4);
 const common_1 = __webpack_require__(1);
-const kitchen_service_1 = __webpack_require__(112);
-const create_kitchen_dto_1 = __webpack_require__(114);
+const kitchen_service_1 = __webpack_require__(129);
+const create_kitchen_dto_1 = __webpack_require__(131);
 let KitchenController = class KitchenController {
     constructor(kitchenService) {
         this.kitchenService = kitchenService;
@@ -4966,7 +5938,7 @@ let KitchenController = class KitchenController {
     }
     updateKitchen(body, id) {
         const kitchenId = +id;
-        console.log('kitchen id', kitchenId);
+        // console.log('kitchen id', kitchenId);
         return this.kitchenService.udpateKitchen(kitchenId, body);
     }
 };
@@ -4999,7 +5971,7 @@ exports.KitchenController = KitchenController = tslib_1.__decorate([
 
 
 /***/ }),
-/* 114 */
+/* 131 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -5011,17 +5983,17 @@ exports.CreateKitchenDto = CreateKitchenDto;
 
 
 /***/ }),
-/* 115 */
+/* 132 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const tslib_1 = __webpack_require__(4);
-tslib_1.__exportStar(__webpack_require__(116), exports);
+tslib_1.__exportStar(__webpack_require__(133), exports);
 
 
 /***/ }),
-/* 116 */
+/* 133 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -5029,8 +6001,8 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ApiFeatureTaxModule = void 0;
 const tslib_1 = __webpack_require__(4);
 const common_1 = __webpack_require__(1);
-const tax_controller_1 = __webpack_require__(117);
-const tax_service_1 = __webpack_require__(118);
+const tax_controller_1 = __webpack_require__(134);
+const tax_service_1 = __webpack_require__(135);
 const data_access_db_1 = __webpack_require__(7);
 let ApiFeatureTaxModule = class ApiFeatureTaxModule {
 };
@@ -5046,7 +6018,7 @@ exports.ApiFeatureTaxModule = ApiFeatureTaxModule = tslib_1.__decorate([
 
 
 /***/ }),
-/* 117 */
+/* 134 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -5055,8 +6027,8 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.TaxController = void 0;
 const tslib_1 = __webpack_require__(4);
 const common_1 = __webpack_require__(1);
-const tax_service_1 = __webpack_require__(118);
-const create_tax_dto_1 = __webpack_require__(119);
+const tax_service_1 = __webpack_require__(135);
+const create_tax_dto_1 = __webpack_require__(136);
 let TaxController = class TaxController {
     constructor(taxService) {
         this.taxService = taxService;
@@ -5102,7 +6074,7 @@ exports.TaxController = TaxController = tslib_1.__decorate([
 
 
 /***/ }),
-/* 118 */
+/* 135 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -5166,7 +6138,7 @@ exports.TaxService = TaxService = tslib_1.__decorate([
 
 
 /***/ }),
-/* 119 */
+/* 136 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -5178,17 +6150,17 @@ exports.CreateTaxDto = CreateTaxDto;
 
 
 /***/ }),
-/* 120 */
+/* 137 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const tslib_1 = __webpack_require__(4);
-tslib_1.__exportStar(__webpack_require__(121), exports);
+tslib_1.__exportStar(__webpack_require__(138), exports);
 
 
 /***/ }),
-/* 121 */
+/* 138 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -5196,8 +6168,8 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ApiFeatureUserModule = void 0;
 const tslib_1 = __webpack_require__(4);
 const common_1 = __webpack_require__(1);
-const user_controller_1 = __webpack_require__(122);
-const user_service_1 = __webpack_require__(123);
+const user_controller_1 = __webpack_require__(139);
+const user_service_1 = __webpack_require__(140);
 const data_access_db_1 = __webpack_require__(7);
 let ApiFeatureUserModule = class ApiFeatureUserModule {
 };
@@ -5213,7 +6185,7 @@ exports.ApiFeatureUserModule = ApiFeatureUserModule = tslib_1.__decorate([
 
 
 /***/ }),
-/* 122 */
+/* 139 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -5222,8 +6194,8 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UserController = void 0;
 const tslib_1 = __webpack_require__(4);
 const common_1 = __webpack_require__(1);
-const user_service_1 = __webpack_require__(123);
-const user_create_dto_1 = __webpack_require__(124);
+const user_service_1 = __webpack_require__(140);
+const user_create_dto_1 = __webpack_require__(141);
 let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
@@ -5232,11 +6204,12 @@ let UserController = class UserController {
         return this.userService.getUsers();
     }
     createUser(params) {
+        // console.log('creating user', params);
         return this.userService.createUser(params);
     }
     updateUser(body, id) {
         const userId = +id;
-        console.log('User id', userId);
+        // console.log('User id', userId);
         return this.userService.updateUser(userId, body);
     }
 };
@@ -5269,7 +6242,7 @@ exports.UserController = UserController = tslib_1.__decorate([
 
 
 /***/ }),
-/* 123 */
+/* 140 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -5311,6 +6284,7 @@ let UserService = class UserService {
                     name: user.name,
                     password: +user.password,
                     username: user.username,
+                    phone: user.phone,
                     isAdmin: false,
                     isCashier: user.isCashier,
                     isKitchenUser: user.isKitchenUser,
@@ -5319,6 +6293,7 @@ let UserService = class UserService {
             });
         }
         catch (error) {
+            console.log('error on creating new user', error);
             throw new common_1.BadRequestException({ error: error });
         }
     }
@@ -5351,7 +6326,7 @@ exports.UserService = UserService = tslib_1.__decorate([
 
 
 /***/ }),
-/* 124 */
+/* 141 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -5363,17 +6338,17 @@ exports.CreateUserDto = CreateUserDto;
 
 
 /***/ }),
-/* 125 */
+/* 142 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const tslib_1 = __webpack_require__(4);
-tslib_1.__exportStar(__webpack_require__(126), exports);
+tslib_1.__exportStar(__webpack_require__(143), exports);
 
 
 /***/ }),
-/* 126 */
+/* 143 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -5382,8 +6357,8 @@ exports.ApiFeatureVariantModule = void 0;
 const tslib_1 = __webpack_require__(4);
 const data_access_db_1 = __webpack_require__(7);
 const common_1 = __webpack_require__(1);
-const variant_service_1 = __webpack_require__(127);
-const variant_conroller_1 = __webpack_require__(128);
+const variant_service_1 = __webpack_require__(144);
+const variant_conroller_1 = __webpack_require__(145);
 let ApiFeatureVariantModule = class ApiFeatureVariantModule {
 };
 exports.ApiFeatureVariantModule = ApiFeatureVariantModule;
@@ -5398,7 +6373,7 @@ exports.ApiFeatureVariantModule = ApiFeatureVariantModule = tslib_1.__decorate([
 
 
 /***/ }),
-/* 127 */
+/* 144 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -5472,7 +6447,7 @@ exports.VariantService = VariantService = tslib_1.__decorate([
 
 
 /***/ }),
-/* 128 */
+/* 145 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -5481,8 +6456,8 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.VariantController = void 0;
 const tslib_1 = __webpack_require__(4);
 const common_1 = __webpack_require__(1);
-const variant_service_1 = __webpack_require__(127);
-const create_variant_dto_1 = __webpack_require__(129);
+const variant_service_1 = __webpack_require__(144);
+const create_variant_dto_1 = __webpack_require__(146);
 let VariantController = class VariantController {
     constructor(variantService) {
         this.variantService = variantService;
@@ -5543,7 +6518,7 @@ exports.VariantController = VariantController = tslib_1.__decorate([
 
 
 /***/ }),
-/* 129 */
+/* 146 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -5555,17 +6530,17 @@ exports.CreateVariantDto = CreateVariantDto;
 
 
 /***/ }),
-/* 130 */
+/* 147 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const tslib_1 = __webpack_require__(4);
-tslib_1.__exportStar(__webpack_require__(131), exports);
+tslib_1.__exportStar(__webpack_require__(148), exports);
 
 
 /***/ }),
-/* 131 */
+/* 148 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -5574,8 +6549,8 @@ exports.ApiFeatureHomeDeliveryModule = void 0;
 const tslib_1 = __webpack_require__(4);
 const data_access_db_1 = __webpack_require__(7);
 const common_1 = __webpack_require__(1);
-const home_delivery_controller_1 = __webpack_require__(132);
-const home_delivery_service_1 = __webpack_require__(133);
+const home_delivery_controller_1 = __webpack_require__(149);
+const home_delivery_service_1 = __webpack_require__(150);
 const feature_auth_1 = __webpack_require__(15);
 let ApiFeatureHomeDeliveryModule = class ApiFeatureHomeDeliveryModule {
 };
@@ -5591,7 +6566,7 @@ exports.ApiFeatureHomeDeliveryModule = ApiFeatureHomeDeliveryModule = tslib_1.__
 
 
 /***/ }),
-/* 132 */
+/* 149 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -5600,7 +6575,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.HomeDeliveryController = void 0;
 const tslib_1 = __webpack_require__(4);
 const common_1 = __webpack_require__(1);
-const home_delivery_service_1 = __webpack_require__(133);
+const home_delivery_service_1 = __webpack_require__(150);
 const feature_auth_1 = __webpack_require__(15);
 let HomeDeliveryController = class HomeDeliveryController {
     constructor(homedeliveryService) {
@@ -5654,7 +6629,7 @@ exports.HomeDeliveryController = HomeDeliveryController = tslib_1.__decorate([
 
 
 /***/ }),
-/* 133 */
+/* 150 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -5670,7 +6645,7 @@ let HomeDeliveryService = class HomeDeliveryService {
         this.prismaService = prismaService;
     }
     async deliverHomeDeliveryOrder(orderId) {
-        console.log('delivering home order.', orderId);
+        // console.log('delivering home order.', orderId);
         try {
             await this.prismaService.order.update({
                 where: { id: orderId },
@@ -5760,7 +6735,7 @@ let HomeDeliveryService = class HomeDeliveryService {
         });
         if (!activeSession)
             throw new common_1.NotFoundException('No active session');
-        console.log('active session start time is', activeSession.startTime);
+        // console.log('active session start time is', activeSession.startTime);
         return activeSession.startTime;
     }
 };
@@ -5772,17 +6747,17 @@ exports.HomeDeliveryService = HomeDeliveryService = tslib_1.__decorate([
 
 
 /***/ }),
-/* 134 */
+/* 151 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const tslib_1 = __webpack_require__(4);
-tslib_1.__exportStar(__webpack_require__(135), exports);
+tslib_1.__exportStar(__webpack_require__(152), exports);
 
 
 /***/ }),
-/* 135 */
+/* 152 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -5792,8 +6767,8 @@ const tslib_1 = __webpack_require__(4);
 const common_1 = __webpack_require__(1);
 const feature_auth_1 = __webpack_require__(15);
 const data_access_db_1 = __webpack_require__(7);
-const order_history_controller_1 = __webpack_require__(136);
-const order_history_service_1 = __webpack_require__(137);
+const order_history_controller_1 = __webpack_require__(153);
+const order_history_service_1 = __webpack_require__(154);
 let ApiFeatureOrderHistoryModule = class ApiFeatureOrderHistoryModule {
 };
 exports.ApiFeatureOrderHistoryModule = ApiFeatureOrderHistoryModule;
@@ -5808,7 +6783,7 @@ exports.ApiFeatureOrderHistoryModule = ApiFeatureOrderHistoryModule = tslib_1.__
 
 
 /***/ }),
-/* 136 */
+/* 153 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -5818,19 +6793,19 @@ exports.OrderHistoryController = void 0;
 const tslib_1 = __webpack_require__(4);
 const feature_auth_1 = __webpack_require__(15);
 const common_1 = __webpack_require__(1);
-const order_history_service_1 = __webpack_require__(137);
+const order_history_service_1 = __webpack_require__(154);
 let OrderHistoryController = class OrderHistoryController {
     constructor(orderHistoryService) {
         this.orderHistoryService = orderHistoryService;
     }
     getOrderHistoryOfOrderAsArray(req, param) {
         const orderId = +param.id;
-        console.log('searching by order number');
+        // console.log('searching by order number');
         return this.orderHistoryService.getOrderHistoryOfOrderNumberAsArr(orderId);
     }
     getOrderHistoryOfCurrentSession(req, skip, take) {
         const user = req.user;
-        console.log('inside get of history module');
+        // console.log('inside get of history module');
         // return 'hello';
         return this.orderHistoryService.getOrderHistoryOfTheCurrentSession(user, {
             skip: +skip,
@@ -5839,7 +6814,7 @@ let OrderHistoryController = class OrderHistoryController {
     }
     getOrderHistoryOfCurrentSessionGivenUser(req, skip, take, userId) {
         const user = req.user;
-        console.log('skip take userId', `${skip} - ${take} = ${userId}`);
+        // console.log('skip take userId', `${skip} - ${take} = ${userId}`);
         return this.orderHistoryService.getOrderHistoryOfGivenUserInTheCurrentSession(+userId, {
             skip: +skip,
             take: +take,
@@ -5884,7 +6859,7 @@ exports.OrderHistoryController = OrderHistoryController = tslib_1.__decorate([
 
 
 /***/ }),
-/* 137 */
+/* 154 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -5908,10 +6883,10 @@ let OrderHistoryService = class OrderHistoryService {
         let { skip, take } = params;
         if (!take)
             take = 10;
-        console.log('values of skipt and take', `skip ${skip} - take ${take}`);
+        // console.log('values of skipt and take', `skip ${skip} - take ${take}`);
         try {
             if (!skip) {
-                console.log(`in the skip 0 area skip values is ${skip}`);
+                // console.log(`in the skip 0 area skip values is ${skip}`);
                 return this.prismaService.order.findMany({
                     take,
                     where: {
@@ -6002,7 +6977,7 @@ let OrderHistoryService = class OrderHistoryService {
         });
         if (!activeSession)
             throw new common_1.NotFoundException('No active session');
-        console.log('active session start time is', activeSession.startTime);
+        // console.log('active session start time is', activeSession.startTime);
         return activeSession.startTime;
     }
 };
@@ -6014,17 +6989,17 @@ exports.OrderHistoryService = OrderHistoryService = tslib_1.__decorate([
 
 
 /***/ }),
-/* 138 */
+/* 155 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const tslib_1 = __webpack_require__(4);
-tslib_1.__exportStar(__webpack_require__(139), exports);
+tslib_1.__exportStar(__webpack_require__(156), exports);
 
 
 /***/ }),
-/* 139 */
+/* 156 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -6033,14 +7008,14 @@ exports.ApiFeatureKotModule = void 0;
 const tslib_1 = __webpack_require__(4);
 const data_access_db_1 = __webpack_require__(7);
 const common_1 = __webpack_require__(1);
-const kot_controller_1 = __webpack_require__(140);
-const kot_services_1 = __webpack_require__(141);
+const kot_controller_1 = __webpack_require__(157);
+const kot_services_1 = __webpack_require__(158);
 let ApiFeatureKotModule = class ApiFeatureKotModule {
 };
 exports.ApiFeatureKotModule = ApiFeatureKotModule;
 exports.ApiFeatureKotModule = ApiFeatureKotModule = tslib_1.__decorate([
     (0, common_1.Module)({
-        imports: [data_access_db_1.ApiDataAccessDbModule],
+        imports: [data_access_db_1.ApiDataAccessDbModule, ApiFeatureKotModule],
         controllers: [kot_controller_1.KotController],
         providers: [kot_services_1.KotService],
         exports: [],
@@ -6049,7 +7024,7 @@ exports.ApiFeatureKotModule = ApiFeatureKotModule = tslib_1.__decorate([
 
 
 /***/ }),
-/* 140 */
+/* 157 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -6058,13 +7033,19 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.KotController = void 0;
 const tslib_1 = __webpack_require__(4);
 const common_1 = __webpack_require__(1);
-const kot_services_1 = __webpack_require__(141);
+const feature_auth_1 = __webpack_require__(15);
+const kot_services_1 = __webpack_require__(158);
 let KotController = class KotController {
     constructor(kotService) {
         this.kotService = kotService;
     }
+    getUserNotServedKots(req) {
+        const user = req.user;
+        // console.log('user id', user.id);
+        return this.kotService.getUserNotServedKots(user.id);
+    }
     getOpenKots() {
-        console.log('cotoller called?');
+        // console.log('cotoller called?');
         return this.kotService.getOpenKots();
     }
     completeKot(data) {
@@ -6072,11 +7053,23 @@ let KotController = class KotController {
         return this.kotService.completeKot(kotId);
     }
     getOrderKots(id) {
-        console.log(id);
+        // console.log(id);
         return id;
+    }
+    makeKotToServed(data) {
+        const kotId = +data.kotId;
+        return this.kotService.makeKotServed(kotId);
     }
 };
 exports.KotController = KotController;
+tslib_1.__decorate([
+    (0, common_1.UseGuards)(feature_auth_1.JwtAuthGuard),
+    (0, common_1.Get)('usernotservedkots'),
+    tslib_1.__param(0, (0, common_1.Req)()),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [Object]),
+    tslib_1.__metadata("design:returntype", void 0)
+], KotController.prototype, "getUserNotServedKots", null);
 tslib_1.__decorate([
     (0, common_1.Get)(),
     tslib_1.__metadata("design:type", Function),
@@ -6097,6 +7090,13 @@ tslib_1.__decorate([
     tslib_1.__metadata("design:paramtypes", [Object]),
     tslib_1.__metadata("design:returntype", void 0)
 ], KotController.prototype, "getOrderKots", null);
+tslib_1.__decorate([
+    (0, common_1.Put)(),
+    tslib_1.__param(0, (0, common_1.Body)()),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [Object]),
+    tslib_1.__metadata("design:returntype", void 0)
+], KotController.prototype, "makeKotToServed", null);
 exports.KotController = KotController = tslib_1.__decorate([
     (0, common_1.Controller)('kot'),
     tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof kot_services_1.KotService !== "undefined" && kot_services_1.KotService) === "function" ? _a : Object])
@@ -6104,7 +7104,7 @@ exports.KotController = KotController = tslib_1.__decorate([
 
 
 /***/ }),
-/* 141 */
+/* 158 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -6150,39 +7150,61 @@ let KotService = class KotService {
             throw new Error('Could not update the kotstatus');
         }
     }
+    async makeKotServed(id) {
+        try {
+            const updatedKot = await this.prismaService.kot.update({
+                where: {
+                    id,
+                },
+                data: {
+                    status: types_1.KotStatus.SERVED,
+                },
+            });
+            return updatedKot.id;
+        }
+        catch (error) {
+            throw new Error('Could not update the kotstatus');
+        }
+    }
     async getOpenKots() {
         const rawQueryResult = await this.prismaService.$queryRaw `
-    select 
+  select 
     "orderItem"."customeKey",
     "orderItem"."count",
 	"orderItem"."name",
 	"orderItem"."orderItemType",
 	"orderItem"."amount",
+	"orderItem"."note" as "kotItemNote",
 	"orderItem"."message",
 	kotOrderUserT."orderId",
 	kotOrderUserT."kotid", 
 	kotOrderUserT."createdAt",
 	kotOrderUserT."updatedAt",
 	kotOrderUserT."kitchenId",
+  kotOrderUserT."note" as "kotNote",
 	kotOrderUserT."createdUserName",
 	kotOrderUserT."createdUserId",
 	kotOrderUserT."orderNumber",
-	kotOrderUserT."orderType"
+	kotOrderUserT."orderType",
+	kotOrderUserT."customerName"
 from	
 	(select 	kotUserTable."kotid", 
 		kotUserTable."createdAt",
 		kotUserTable."updatedAt",
 		kotUserTable."kitchenId",
+    kotUserTable."note",
 		kotUserTable."orderId",
 		kotUserTable."createdUserName",
 		kotUserTable."createdUserId",
 		filteredOrderTable."orderNumber",
-		filteredOrderTable."orderType"
+		filteredOrderTable."orderType",
+		filteredOrderTable."customerName"
 		from 
 			(select kotT.id as kotid, 
 					kotT."createdAt", 
 					kotT."updatedAt", 
 					kotT."kitchenId",
+          kotT."note",
 					kotT."orderId", 
 					"user"."name" as "createdUserName",
 					"user".id as "createdUserId"
@@ -6192,19 +7214,21 @@ from
 									join 
 										(select id as orderpid, 
 										 		"orderNumber" ,
-										 		"orderType"
+										 		"orderType",
+                        "customerName"
 										 			from "order" where "orderStatus"='inprogress' and "paymentStatus"='notpaid') filteredOrderTable
 									on kotUserTable."orderId"=filteredOrderTable."orderpid" ) kotOrderUserT
 										join "orderItem"
 											on kotOrderUserT."kotid"="orderItem"."kotNumber"
     `;
-        let kotMap = {};
+        const kotMap = {};
         rawQueryResult.forEach((result) => {
             const kotid = result.kotid.toString();
             kotMap[kotid] = {
                 ...(kotMap[kotid] || {}),
                 ...{
                     ...result,
+                    note: result.kotNote,
                     kotItems: kotMap[kotid]
                         ? [
                             ...kotMap[kotid].kotItems,
@@ -6214,6 +7238,7 @@ from
                                 amount: result.amount,
                                 count: result.count,
                                 message: result.message,
+                                note: result.kotItemNote,
                                 customeKey: result.customeKey,
                             },
                         ]
@@ -6225,6 +7250,136 @@ from
                                 count: result.count,
                                 message: result.message,
                                 customeKey: result.customeKey,
+                                note: result.kotItemNote,
+                            },
+                        ],
+                },
+            };
+        });
+        return Object.values(kotMap);
+        // const kots: Kot[] = [
+        //   {
+        //     createdAt: new Date(),
+        //     updatedAt: new Date(),
+        //     createdUserId: 1,
+        //     createdUserName: 'Jafar',
+        //     id: 1,
+        //     kitchenId: 2,
+        //     orderId: 1,
+        //     status: KotStatus.INPROGRESS,
+        //   },
+        //   {
+        //     createdAt: new Date(),
+        //     updatedAt: new Date(),
+        //     createdUserId: 1,
+        //     createdUserName: 'Sadiq',
+        //     id: 2,
+        //     kitchenId: 2,
+        //     orderId: 1,
+        //     status: KotStatus.INPROGRESS,
+        //   },
+        //   {
+        //     createdAt: new Date(),
+        //     updatedAt: new Date(),
+        //     createdUserId: 1,
+        //     createdUserName: 'Bro',
+        //     id: 3,
+        //     kitchenId: 2,
+        //     orderId: 1,
+        //     status: KotStatus.INPROGRESS,
+        //   },
+        // ];
+        // return kots;
+    }
+    async getUserNotServedKots(userId) {
+        const rawQueryResult = await this.prismaService.$queryRaw `
+    select 
+    "orderItem"."customeKey",
+    "orderItem"."count",
+	"orderItem"."name",
+	"orderItem"."orderItemType",
+	"orderItem"."amount",
+	"orderItem"."message",
+  "orderItem"."note" as "kotItemNote",
+	kotOrderUserT."orderId",
+	kotOrderUserT."kotid", 
+	kotOrderUserT."createdAt",
+	kotOrderUserT."updatedAt",
+	kotOrderUserT."kitchenId",
+	kotOrderUserT."createdUserName",
+	kotOrderUserT."createdUserId",
+	kotOrderUserT."orderNumber",
+  kotOrderUserT."note" as "kotNote",
+	kotOrderUserT."orderType",
+  kotOrderUserT."status"	,
+  kotOrderUserT."customerName"
+from	
+	(select 	kotUserTable."kotid", 
+		kotUserTable."createdAt",
+		kotUserTable."updatedAt",
+		kotUserTable."kitchenId",
+		kotUserTable."orderId",
+    kotUserTable."status",
+		kotUserTable."createdUserName",
+    kotUserTable."note",
+		kotUserTable."createdUserId",
+		filteredOrderTable."orderNumber",
+		filteredOrderTable."orderType",
+    filteredOrderTable."customerName"
+		from 
+			(select kotT.id as kotid, 
+					kotT."createdAt", 
+					kotT."updatedAt", 
+					kotT."kitchenId",
+          kotT."status",
+          kotT."note",
+					kotT."orderId", 
+					"user"."name" as "createdUserName",
+					"user".id as "createdUserId"
+						from (select * from kot where kot."status"!='served') kotT
+				 			join "user" 
+			 				on kotT."updatedUserId"="user"."id") kotUserTable 
+									join 
+										(select id as orderpid, 
+										 		"orderNumber" ,
+										 		"orderType",
+                        "customerName"
+										 			from "order" where "orderStatus"='inprogress' and "paymentStatus"='notpaid' and "createdUserId"=${userId}) filteredOrderTable
+									on kotUserTable."orderId"=filteredOrderTable."orderpid" ) kotOrderUserT
+										join "orderItem"
+											on kotOrderUserT."kotid"="orderItem"."kotNumber"
+    `;
+        const kotMap = {};
+        // console.log('raw queyr result is ', rawQueryResult);
+        rawQueryResult.forEach((result) => {
+            const kotid = result.kotid.toString();
+            kotMap[kotid] = {
+                ...(kotMap[kotid] || {}),
+                ...{
+                    ...result,
+                    note: result.kotNote,
+                    kotItems: kotMap[kotid]
+                        ? [
+                            ...kotMap[kotid].kotItems,
+                            {
+                                name: result.name,
+                                orderItemType: result.orderItemType,
+                                amount: result.amount,
+                                count: result.count,
+                                message: result.message,
+                                customeKey: result.customeKey,
+                                note: result.kotItemNote,
+                            },
+                        ]
+                        : [
+                            {
+                                name: result.name,
+                                orderItemType: result.orderItemType,
+                                amount: result.amount,
+                                count: result.count,
+                                message: result.message,
+                                customeKey: result.customeKey,
+                                note: result.kotItemNote,
                             },
                         ],
                 },
@@ -6274,7 +7429,359 @@ exports.KotService = KotService = tslib_1.__decorate([
 
 
 /***/ }),
-/* 142 */
+/* 159 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const tslib_1 = __webpack_require__(4);
+tslib_1.__exportStar(__webpack_require__(160), exports);
+
+
+/***/ }),
+/* 160 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.FeaturePaymentModule = void 0;
+const tslib_1 = __webpack_require__(4);
+const common_1 = __webpack_require__(1);
+const feature_payment_controller_1 = __webpack_require__(161);
+const feature_payment_service_1 = __webpack_require__(163);
+const data_access_db_1 = __webpack_require__(7);
+const feature_order_1 = __webpack_require__(38);
+let FeaturePaymentModule = class FeaturePaymentModule {
+};
+exports.FeaturePaymentModule = FeaturePaymentModule;
+exports.FeaturePaymentModule = FeaturePaymentModule = tslib_1.__decorate([
+    (0, common_1.Module)({
+        controllers: [feature_payment_controller_1.PaymentController],
+        providers: [feature_payment_service_1.PaymentService],
+        exports: [],
+        imports: [data_access_db_1.ApiDataAccessDbModule, feature_order_1.ApiFeatureOrderModule],
+    })
+], FeaturePaymentModule);
+
+
+/***/ }),
+/* 161 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+var _a, _b;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.PaymentController = void 0;
+const tslib_1 = __webpack_require__(4);
+const common_1 = __webpack_require__(1);
+const add_payment_dto_1 = __webpack_require__(162);
+const feature_payment_service_1 = __webpack_require__(163);
+let PaymentController = class PaymentController {
+    constructor(paymentService) {
+        this.paymentService = paymentService;
+    }
+    payTheOrder(data) {
+        // console.log(data);
+        // return 'helelo';
+        return this.paymentService.payTheOrder(data);
+    }
+    getPaymentOptions() {
+        return this.paymentService.getPaymentOptions();
+    }
+};
+exports.PaymentController = PaymentController;
+tslib_1.__decorate([
+    (0, common_1.Post)(),
+    tslib_1.__param(0, (0, common_1.Body)()),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [typeof (_b = typeof add_payment_dto_1.AddPaymentDto !== "undefined" && add_payment_dto_1.AddPaymentDto) === "function" ? _b : Object]),
+    tslib_1.__metadata("design:returntype", void 0)
+], PaymentController.prototype, "payTheOrder", null);
+tslib_1.__decorate([
+    (0, common_1.Get)(),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", []),
+    tslib_1.__metadata("design:returntype", void 0)
+], PaymentController.prototype, "getPaymentOptions", null);
+exports.PaymentController = PaymentController = tslib_1.__decorate([
+    (0, common_1.Controller)('payment'),
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof feature_payment_service_1.PaymentService !== "undefined" && feature_payment_service_1.PaymentService) === "function" ? _a : Object])
+], PaymentController);
+
+
+/***/ }),
+/* 162 */
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.AddPaymentDto = void 0;
+class AddPaymentDto {
+}
+exports.AddPaymentDto = AddPaymentDto;
+
+
+/***/ }),
+/* 163 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+var _a, _b;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.PaymentService = void 0;
+const tslib_1 = __webpack_require__(4);
+const data_access_db_1 = __webpack_require__(7);
+const common_1 = __webpack_require__(1);
+const types_1 = __webpack_require__(47);
+const feature_order_1 = __webpack_require__(38);
+let PaymentService = class PaymentService {
+    constructor(prismaService, orderService) {
+        this.prismaService = prismaService;
+        this.orderService = orderService;
+    }
+    async getPaymentOptions() {
+        const options = await this.prismaService.paymentType.findMany();
+        return options;
+    }
+    async payTheOrder(addPaymentDto) {
+        const orderId = addPaymentDto.orderId;
+        const payments = addPaymentDto.payments;
+        const orderTotal = Math.floor(addPaymentDto.orderTotal * 1000) / 1000;
+        const discount = Math.floor(addPaymentDto.discount * 1000) / 1000;
+        const paidTotal = payments.reduce((prev, curr) => prev + curr.amount, 0);
+        const payedDifference = (paidTotal * 1000 - (orderTotal * 1000 - discount * 1000)) / 1000;
+        // console.log('paid total', paidTotal);
+        // console.log('ordedtop.ordertotal', addPaymentDto.orderTotal);
+        // console.log('order total', orderTotal);
+        // console.log('order tota l - dicount', orderTotal - discount);
+        // console.log('dicousnt given', discount);
+        // console.log('paydifference', payedDifference);
+        if (payedDifference < 0)
+            throw Error('paid amount is not enough.');
+        // assuming the cash pay option has id of 1.
+        const cashPay = payments.filter((item) => item.paymentTypeId == 1);
+        if (!cashPay.length && payedDifference > 0)
+            throw new common_1.NotAcceptableException('No cash amount to adjust the balance. Other paid option should not be allowed to have more amount entered.');
+        if (cashPay.length) {
+            const cashAmount = cashPay[0].amount;
+            if (cashAmount < payedDifference)
+                throw new common_1.NotAcceptableException('Cannot process payment coz the cash entered is not enough to return the change, and other mode of payment (credit, card) are not allowed to be added more than the total');
+        }
+        const newPayEntry = payments.map(({ isSelected, name, ...item }) => {
+            if (item.paymentTypeId == 1) {
+                return { ...item, amount: item.amount - payedDifference, orderId };
+            }
+            else {
+                return { ...item, orderId };
+            }
+        });
+        try {
+            // update the order table and make it paid.
+            await this.prismaService.order.update({
+                where: {
+                    id: orderId,
+                },
+                data: {
+                    discountApplied: addPaymentDto.discount,
+                    balance: payedDifference ? payedDifference : null,
+                    paymentStatus: types_1.PaymentStatus.PAID,
+                    paidAmount: paidTotal,
+                },
+            });
+            await this.prismaService.payments.createMany({
+                data: [...newPayEntry],
+            });
+            if (addPaymentDto.shouldPrintBill) {
+                // don't have to await for print to finish
+                this.orderService.printReceipt(orderId);
+            }
+        }
+        catch (error) {
+            console.log(error);
+            throw new common_1.NotAcceptableException('Something wrong happened while updating the database of printing the receipt');
+        }
+    }
+};
+exports.PaymentService = PaymentService;
+exports.PaymentService = PaymentService = tslib_1.__decorate([
+    (0, common_1.Injectable)(),
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof data_access_db_1.PrismaService !== "undefined" && data_access_db_1.PrismaService) === "function" ? _a : Object, typeof (_b = typeof feature_order_1.OrderService !== "undefined" && feature_order_1.OrderService) === "function" ? _b : Object])
+], PaymentService);
+
+
+/***/ }),
+/* 164 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const tslib_1 = __webpack_require__(4);
+tslib_1.__exportStar(__webpack_require__(165), exports);
+
+
+/***/ }),
+/* 165 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.FeatureImageUploadModule = void 0;
+const tslib_1 = __webpack_require__(4);
+const common_1 = __webpack_require__(1);
+const upload_service_1 = __webpack_require__(166);
+const feature_image_upload_controller_1 = __webpack_require__(167);
+const data_access_db_1 = __webpack_require__(7);
+let FeatureImageUploadModule = class FeatureImageUploadModule {
+};
+exports.FeatureImageUploadModule = FeatureImageUploadModule;
+exports.FeatureImageUploadModule = FeatureImageUploadModule = tslib_1.__decorate([
+    (0, common_1.Module)({
+        controllers: [feature_image_upload_controller_1.UploadController],
+        providers: [upload_service_1.UploadService],
+        exports: [],
+        imports: [data_access_db_1.ApiDataAccessDbModule],
+    })
+], FeatureImageUploadModule);
+
+
+/***/ }),
+/* 166 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.UploadService = void 0;
+const tslib_1 = __webpack_require__(4);
+const data_access_db_1 = __webpack_require__(7);
+const common_1 = __webpack_require__(1);
+const fs = tslib_1.__importStar(__webpack_require__(77));
+const path = tslib_1.__importStar(__webpack_require__(79));
+// import * as sharp from 'sharp';
+let UploadService = class UploadService {
+    constructor(prismaService) {
+        this.prismaService = prismaService;
+    }
+    async processAndSaveImage(file) {
+        const uploadDir = path.join(__dirname, '..', 'public', 'uploads');
+        if (!fs.existsSync(uploadDir)) {
+            fs.mkdirSync(uploadDir, { recursive: true });
+        }
+        // Generate a unique filename
+        const fileExt = path.extname(file.originalname);
+        const fileName = `product-${Date.now()}.jpg`;
+        const filePath = path.join(uploadDir, fileName);
+        // Save the image directly without processing
+        fs.writeFileSync(filePath, file.buffer);
+        return `/uploads/${fileName}`; // URL for serving
+    }
+    async deleteExistingFile(productId) {
+        //TODO - first read db for existing image file, if existing delete it before saving new.
+        const { image: imageUrl } = await this.prismaService.product.findFirstOrThrow({
+            where: { id: productId },
+            select: { image: true },
+        });
+        if (imageUrl) {
+            const filePath = path.join(__dirname, '..', 'public', imageUrl);
+            if (fs.existsSync(filePath)) {
+                try {
+                    fs.unlinkSync(filePath);
+                }
+                catch (error) {
+                    console.log('Could not find or error occured while deleting the file', error);
+                }
+            }
+        }
+    }
+    async updateProductImageURL(productId, imageURL) {
+        return await this.prismaService.product.update({
+            where: { id: productId },
+            data: { image: imageURL },
+        });
+    }
+};
+exports.UploadService = UploadService;
+exports.UploadService = UploadService = tslib_1.__decorate([
+    (0, common_1.Injectable)(),
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof data_access_db_1.PrismaService !== "undefined" && data_access_db_1.PrismaService) === "function" ? _a : Object])
+], UploadService);
+
+
+/***/ }),
+/* 167 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+var _a, _b, _c;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.UploadController = void 0;
+const tslib_1 = __webpack_require__(4);
+const common_1 = __webpack_require__(1);
+const platform_express_1 = __webpack_require__(168);
+const upload_service_1 = __webpack_require__(166);
+let UploadController = class UploadController {
+    constructor(uploadService) {
+        this.uploadService = uploadService;
+    }
+    getLod() {
+        return { message: 'lol' };
+    }
+    async uploadImage(file, id) {
+        console.log('image upload controller running...');
+        const productId = +id;
+        if (!file) {
+            throw new common_1.BadRequestException('No file uploaded');
+        }
+        // delete existing product.
+        await this.uploadService.deleteExistingFile(productId);
+        // Process & Save Image
+        const imageUrl = await this.uploadService.processAndSaveImage(file);
+        if (imageUrl) {
+            await this.uploadService.updateProductImageURL(productId, imageUrl);
+        }
+        return { message: 'Image uploaded successfully', imageUrl };
+    }
+};
+exports.UploadController = UploadController;
+tslib_1.__decorate([
+    (0, common_1.Get)(),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", []),
+    tslib_1.__metadata("design:returntype", void 0)
+], UploadController.prototype, "getLod", null);
+tslib_1.__decorate([
+    (0, common_1.Post)('image/:id'),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file', {
+        fileFilter: (req, file, cb) => {
+            console.log('file intercepter running jaffararr');
+            const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg'];
+            if (!allowedTypes.includes(file.mimetype)) {
+                return cb(new common_1.BadRequestException('Only PNG, JPEG, or JPG allowed'), false);
+            }
+            cb(null, true);
+        },
+        limits: { fileSize: 5 * 1024 * 1024 }, // 5MB max size
+    })),
+    tslib_1.__param(0, (0, common_1.UploadedFile)()),
+    tslib_1.__param(1, (0, common_1.Param)('id')),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [typeof (_c = typeof Express !== "undefined" && (_b = Express.Multer) !== void 0 && _b.File) === "function" ? _c : Object, Object]),
+    tslib_1.__metadata("design:returntype", Promise)
+], UploadController.prototype, "uploadImage", null);
+exports.UploadController = UploadController = tslib_1.__decorate([
+    (0, common_1.Controller)('upload'),
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof upload_service_1.UploadService !== "undefined" && upload_service_1.UploadService) === "function" ? _a : Object])
+], UploadController);
+
+
+/***/ }),
+/* 168 */
+/***/ ((module) => {
+
+module.exports = require("@nestjs/platform-express");
+
+/***/ }),
+/* 169 */
 /***/ ((module) => {
 
 module.exports = require("express");
@@ -6308,7 +7815,7 @@ module.exports = require("express");
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+// This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
 (() => {
 var exports = __webpack_exports__;
 
@@ -6320,18 +7827,20 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const common_1 = __webpack_require__(1);
 const core_1 = __webpack_require__(2);
 const app_module_1 = __webpack_require__(3);
-const express_1 = __webpack_require__(142);
-const path_1 = __webpack_require__(77);
+const express_1 = __webpack_require__(169);
+const path_1 = __webpack_require__(79);
 async function bootstrap() {
+    //[TODO] - have a license check here - first time app starts.
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.enableCors();
     const globalPrefix = 'api';
     app.setGlobalPrefix(globalPrefix);
     app.use((0, express_1.json)({ limit: '50mb' }));
+    console.log('dir name', __dirname);
     app.useStaticAssets((0, path_1.join)(__dirname, '..', 'public'));
     app.setBaseViewsDir((0, path_1.join)(__dirname, '..', 'views'));
     app.setViewEngine('hbs');
-    const port = process.env.PORT || 3000;
+    const port = process.env.V2_PORT || 3000;
     await app.listen(port);
     common_1.Logger.log(`🚀 Application is running on: http://localhost:${port}/${globalPrefix}`);
 }
@@ -6339,6 +7848,8 @@ bootstrap();
 
 })();
 
+var __webpack_export_target__ = exports;
+for(var __webpack_i__ in __webpack_exports__) __webpack_export_target__[__webpack_i__] = __webpack_exports__[__webpack_i__];
+if(__webpack_exports__.__esModule) Object.defineProperty(__webpack_export_target__, "__esModule", { value: true });
 /******/ })()
 ;
-//# sourceMappingURL=main.js.map

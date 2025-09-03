@@ -5,5 +5,6 @@ var KotStatus;
 (function (KotStatus) {
     KotStatus["INPROGRESS"] = "inprogress";
     KotStatus["READY"] = "ready";
+    KotStatus["SERVED"] = "served";
 })(KotStatus || (exports.KotStatus = KotStatus = {}));
 //# sourceMappingURL=kitchen.js.map

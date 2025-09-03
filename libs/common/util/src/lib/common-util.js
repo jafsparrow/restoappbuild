@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.aggregateOrderItems = exports.getOnlyCurrentDateWithoutTime = exports.getStartOfTheMonth = exports.getStartOfTheWeek = exports.getStartOfTheDay = exports.timesAgoFormat = exports.dateTimeNowMinus = exports.dateTimeToDateHHMM = exports.getTaxedSubTotal = exports.getAppliedTaxesAndTaxesTotal = exports.getOrderItemsTotal = exports.commonUtil = void 0;
+exports.aggregateOrderItems = exports.getOnlyCurrentDateWithoutTime = exports.getStartOfTheMonth = exports.getStartOfTheWeek = exports.getStartOfTheDay = exports.timesAgoFormat = exports.dateTimeNowMinus = exports.dateTimeToDateHHMM = exports.getTaxedSubTotal = exports.getAppliedTaxesAndTaxesTotal = exports.getOrderItemsTotal = void 0;
+exports.commonUtil = commonUtil;
 const luxon_1 = require("luxon");
 function commonUtil() {
     return 'common-util';
 }
-exports.commonUtil = commonUtil;
 const getOrderItemsTotal = (orderItems) => {
     const totalOfOderItems = +Object.values(orderItems).reduce((tot, orderItem) => {
         return tot + orderItem.amount;

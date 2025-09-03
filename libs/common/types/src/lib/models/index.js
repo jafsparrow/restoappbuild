@@ -25,4 +25,6 @@ tslib_1.__exportStar(require("./user.dialog"), exports);
 tslib_1.__exportStar(require("./variant.dialog"), exports);
 tslib_1.__exportStar(require("./confirm.dialog.data"), exports);
 tslib_1.__exportStar(require("./cart-item-price.dialog.data"), exports);
+tslib_1.__exportStar(require("./expense"), exports);
+tslib_1.__exportStar(require("./payment"), exports);
 //# sourceMappingURL=index.js.map

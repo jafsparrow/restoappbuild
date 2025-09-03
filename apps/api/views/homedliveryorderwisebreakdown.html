@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Homedelivery Summary</title>
+
+    <style type="text/css">
+      body {
+        width: 360px;
+        margin: 0px;
+        padding: 0px;
+        font-size: 18px;
+        line-height: 24px;
+        font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+        font-weight: light;
+        /* color: rgb(33,33,33); */
+      }
+
+      .report-title {
+        font-size: 25px;
+        font-weight: thin;
+      }
+
+      .duration {
+        font-size: 15px;
+        font-weight: thin;
+        color: grey;
+      }
+
+      .section {
+        border: 1px solid grey;
+        padding: 10px;
+        margin-top: 5px;
+      }
+
+      .section-heading {
+        font-weight: bold;
+        text-decoration: underline;
+        margin-bottom: 5px;
+      }
+      .underline {
+        text-decoration: underline;
+      }
+      .p-2 {
+        padding: 5px;
+      }
+
+      .px-2 {
+        padding: 0px 5px;
+      }
+
+      .px-4 {
+        padding: 0px 10px;
+      }
+      .py-2 {
+        padding: 5px 0px;
+      }
+
+      .mt-2 {
+        margin: 5px 0px 0px 0px;
+      }
+      .flex {
+        display: flex;
+      }
+
+      .flex-col {
+        flex-direction: column;
+      }
+
+      .flex-grow-1 {
+        flex-grow: 1;
+      }
+      .shrink-0 {
+        flex-shrink: 0;
+      }
+
+      .border-bottom {
+        width: 100%;
+        background-color: grey;
+        height: 2px;
+      }
+      .font-semibold {
+        font-weight: 500;
+      }
+
+      .bold {
+        font-weight: 700;
+      }
+    </style>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header-container">
+        <div class="flex">
+          <div class="flex-grow-1">
+            <div class="report-title">Homedelivery Report</div>
+          </div>
+        </div>
+        <div class="duration">{{date}}</div>
+      </div>
+
+      {{#each homedeliveryData}}
+
+      <section class="section">
+        <div class="section-heading flex">
+          <div class="flex-grow-1">{{this.name}}</div>
+          <div>{{this.totalOfUser}}</div>
+        </div>
+        <div>Number of orders:- {{this.count}}</div>
+        <div class="border-bottom"></div>
+        {{#each this.orders}}
+
+        <div class="">
+          <div class="flex py-2 bold">
+            <div class="flex-grow-1 px-2">Order No:-{{this.ordernumber}}</div>
+            <div>{{this.createdAt}}</div>
+          </div>
+          <div class="flex py-2">
+            <div class="flex-grow-1 px-2">
+              {{this.firstName}}-{{this.lastName}}
+            </div>
+            <div>{{this.total}}</div>
+          </div>
+        </div>
+
+        {{/each}}
+      </section>
+      {{/each}}
+    </div>
+  </body>
+</html>

@@ -25,6 +25,7 @@ export interface Organisation {
     decimalZeros?: number;
     printer?: string;
     password?: string;
+    generalNotes?: string[];
 }
 export declare enum CompanyShortcutTypes {
     PRODUCTSHORTCUTS = "productshortctus",

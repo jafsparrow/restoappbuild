@@ -2,5 +2,6 @@
   "name": "@hotel/common/types",
   "version": "0.0.1",
   "type": "commonjs",
+  "types": "./src/index.d.ts",
   "main": "./src/index.js"
 }

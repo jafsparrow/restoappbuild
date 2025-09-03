@@ -6,6 +6,7 @@ const getCartItemTotalFromVariantAndModifiers = (cartItem) => {
     let productPrice = cartItem.variant
         ? cartItem.variant.price
         : cartItem.product.price;
+    console.log('product resultant rate check', productPrice);
     if (cartItem.modifiers) {
         productPrice =
             productPrice +
@@ -20,6 +21,7 @@ const getCartItemNameFromVariant = (cartItem) => {
 };
 exports.getCartItemNameFromVariant = getCartItemNameFromVariant;
 const getResultantCartItems = (cartItemObj, orderEditItemsObj) => {
+    console.log('getting resultant items........');
     const cartItems = Object.values(cartItemObj);
     const orderItemEdits = Object.values(orderEditItemsObj);
     const resultantCartItemsArray = [];
@@ -31,12 +33,13 @@ const getResultantCartItems = (cartItemObj, orderEditItemsObj) => {
     if (cartItems.length) {
         console.log('cart items have somethign in it.');
         Object.entries(cartItemObj).map((item) => {
+            var _a;
             const [key, cartItem] = item;
             const currentCountInCart = cartItem.count;
             if (orderEditItemsObj[key]) {
                 console.log('current cart item is in the order edit');
                 const orderEdit = orderEditItemsObj[key];
-                const originalCount = orderEdit.orderItem.count;
+                const originalCount = orderEdit.originalCount || 0;
                 const updatedOrderEditCount = orderEdit.count;
                 const resultantCount = updatedOrderEditCount + currentCountInCart;
                 console.log('result count', resultantCount);
@@ -106,7 +109,9 @@ const getResultantCartItems = (cartItemObj, orderEditItemsObj) => {
                     modifiers: cartItem.modifiers,
                     variant: cartItem.variant,
                     sortOrder: cartItem.sortOrder || 0,
+                    note: (_a = cartItem.note) !== null && _a !== void 0 ? _a : '',
                 };
+                console.log('only cartitem resultand', resultantCartItem);
                 resultantCartItemsArray.push(resultantCartItem);
             }
         });
@@ -115,15 +120,17 @@ const getResultantCartItems = (cartItemObj, orderEditItemsObj) => {
         console.log('only order edit has items');
         Object.entries(orderEditItemsObj).map((item) => {
             const [key, orderItemEditItem] = item;
-            const finalCount = orderItemEditItem.orderItem.count + orderItemEditItem.count;
+            console.log('edit item when reached here', orderItemEditItem);
+            const finalCount = orderItemEditItem.originalCount + orderItemEditItem.count;
+            console.log('final count', finalCount);
             let resultantCartItem = {
                 amount: orderItemEditItem.orderItem.amount || 0,
                 cartItemType: types_1.CartItemType.NEW,
                 count: orderItemEditItem.count,
                 key: key,
-                message: `${orderItemEditItem.orderItem.count}->${orderItemEditItem.count} `,
+                message: `${orderItemEditItem.originalCount}->${orderItemEditItem.count} `,
                 name: orderItemEditItem.orderItem.name || 'No name',
-                originalCount: orderItemEditItem.orderItem.count,
+                originalCount: orderItemEditItem.originalCount,
                 product: orderItemEditItem.orderItem.product,
                 modifiers: orderItemEditItem.orderItem.modifiers,
                 sortOrder: 0,
@@ -138,7 +145,7 @@ const getResultantCartItems = (cartItemObj, orderEditItemsObj) => {
             }
             else {
                 // item counted edit to a less value.
-                resultantCartItem = Object.assign(Object.assign({}, resultantCartItem), { count: orderItemEditItem.count, cartItemType: types_1.CartItemType.EDIT, message: `${orderItemEditItem.orderItem.count}-${finalCount}` });
+                resultantCartItem = Object.assign(Object.assign({}, resultantCartItem), { count: orderItemEditItem.count, cartItemType: types_1.CartItemType.EDIT, message: `${orderItemEditItem.originalCount}-${finalCount}` });
             }
             // const resultantCartItem: ResultantCartItem = {
             //   amount: orderItemEditItem.orderItem.amount || 0,

@@ -17,6 +17,7 @@ export interface OrderItem {
     amount?: number;
     customeKey?: string;
     product?: Product;
+    notes?: string[];
 }
 export interface OrderSummary {
     id: number;
@@ -84,6 +85,7 @@ export interface StaffStat {
 export interface OrderItemEdit {
     orderItem: OrderItem;
     count: number;
+    originalCount: number;
 }
 export interface PaymentDetails {
     paidAmount: number;

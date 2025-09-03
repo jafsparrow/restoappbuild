@@ -1,8 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.commonTypes = void 0;
+exports.commonTypes = commonTypes;
 function commonTypes() {
     return 'common-types';
 }
-exports.commonTypes = commonTypes;
 //# sourceMappingURL=common-types.js.map

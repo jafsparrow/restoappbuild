@@ -9,6 +9,8 @@ export interface CartItem {
     variant?: Variant | null;
     key?: string;
     sortOrder?: number;
+    note?: string;
+    customeKey?: string;
 }
 export interface Cart {
     createdAt?: Date;
@@ -42,6 +44,7 @@ export interface ResultantCartItem {
     variant?: Variant | null;
     cartItemType: CartItemType;
     sortOrder: number;
+    note?: string;
 }
 export declare enum CartItemType {
     NEW = "N",

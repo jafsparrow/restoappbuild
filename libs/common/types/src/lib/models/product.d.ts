@@ -41,6 +41,7 @@ export interface Product {
     indexInCategory?: number;
     qwickViewOrder?: number;
     code?: number;
+    notes?: string[];
 }
 export interface Variant {
     id?: number;

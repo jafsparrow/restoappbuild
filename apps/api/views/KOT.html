@@ -74,6 +74,9 @@
       padding: 3px 0;
     }
     
+	.font-normal  {
+		font-weight: 400;
+	}
 		.item-name-wrapper {
 			flex-grow: 1;
 		}
@@ -113,6 +116,10 @@
 	.delete-bar {
 		margin-top: 15px;
 		border-bottom: 20px solid black;
+	}
+
+	.mt-20px {
+		margin-top: 20px;
 	}
 	</style>
 	<meta charset="utf-8">
@@ -158,10 +165,19 @@
 
 		<div class="item">
 			<div class="item-name-wrapper">
-       			 <div class="item-name bold">{{this.name}}</div>
+       			 <div class="item-name bold">{{this.name}} - 
+					
+					<span class="font-normal">
+						({{this.amount}})
+					</span>
+				</div>
 
 					{{#if modifiers}}
 					<div class="modifier">{{modifiers}}</div>
+					{{/if}}
+
+					{{#if this.note}}
+					<div class="font-normal">{{this.note}}</div>
 					{{/if}}
 
 			</div>
@@ -175,7 +191,16 @@
 		<div>Items : {{numberOfItems}} </div>
 		<div> Quantity: {{quantity}}</div>
 		</div>
+
+		<div class="summary-container">
+			<div>Total KOT amount: </div>
+			<div class="bold"> {{kotTotalAmount}}</div>
+			</div>
 		
+
+		{{#if kotNote}} 
+			<div class="bold py-2 dotted-border-top mt-20px"> {{kotNote}}</div>
+		{{/if}}
 		{{#if hasDeleteItems}}
 		<div class="delete-bar"></div>
 		{{/if}}

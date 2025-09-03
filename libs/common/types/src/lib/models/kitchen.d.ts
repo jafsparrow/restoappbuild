@@ -7,7 +7,8 @@ export interface Kitchen {
 }
 export declare enum KotStatus {
     INPROGRESS = "inprogress",
-    READY = "ready"
+    READY = "ready",
+    SERVED = "served"
 }
 export interface Kot {
     kotid: number;
@@ -20,8 +21,10 @@ export interface Kot {
     orderId: number;
     orderNumber: number;
     orderType: OrderType;
+    customerName: string;
     isNew?: boolean;
     kotItems: KotItem[];
+    note?: string;
 }
 export interface KotItem {
     name: string;
@@ -30,4 +33,5 @@ export interface KotItem {
     orderItemType: string;
     customeKey: string;
     count: number;
+    note?: string;
 }
