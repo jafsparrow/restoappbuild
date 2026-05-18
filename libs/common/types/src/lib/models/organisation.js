@@ -1,9 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.CompanyShortcutTypes = void 0;
-var CompanyShortcutTypes;
+export var CompanyShortcutTypes;
 (function (CompanyShortcutTypes) {
     CompanyShortcutTypes["PRODUCTSHORTCUTS"] = "productshortctus";
     CompanyShortcutTypes["CUSTOMERSHORTCUTS"] = "customershortcuts";
-})(CompanyShortcutTypes || (exports.CompanyShortcutTypes = CompanyShortcutTypes = {}));
+})(CompanyShortcutTypes || (CompanyShortcutTypes = {}));
 //# sourceMappingURL=organisation.js.map

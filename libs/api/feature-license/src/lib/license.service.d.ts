@@ -1,9 +1,14 @@
 import { JwtService } from '@nestjs/jwt';
-export declare class LicenseService {
+export declare class ChaviService {
     private jwtService;
     constructor(jwtService: JwtService);
     private readonly logger;
     handleCron(): void;
-    checkLicense(): Promise<void>;
-    isLicenseValid(claims: Record<string, any>): boolean;
+    orderRunCreate(): Promise<boolean>;
+    private getRegistryKey;
+    private isRegKeyValid;
+    private isDateExpired;
+    private isExpired;
+    private getCurrentMachineId;
+    private chaviKandethuka;
 }

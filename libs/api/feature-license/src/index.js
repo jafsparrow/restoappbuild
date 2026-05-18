@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const tslib_1 = require("tslib");
-tslib_1.__exportStar(require("./lib/feature-license.module"), exports);
+export * from './lib/feature-license.module';
+export * from './lib/license.service';
 //# sourceMappingURL=index.js.map

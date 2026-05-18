@@ -1,9 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.SessionStatus = void 0;
-var SessionStatus;
+export var SessionStatus;
 (function (SessionStatus) {
     SessionStatus["ACTIVE"] = "active";
     SessionStatus["CLOSE"] = "closed";
-})(SessionStatus || (exports.SessionStatus = SessionStatus = {}));
+})(SessionStatus || (SessionStatus = {}));
 //# sourceMappingURL=pos.session.js.map

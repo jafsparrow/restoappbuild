@@ -1,32 +1,26 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.aggregateOrderItems = exports.getOnlyCurrentDateWithoutTime = exports.getStartOfTheMonth = exports.getStartOfTheWeek = exports.getStartOfTheDay = exports.timesAgoFormat = exports.dateTimeNowMinus = exports.dateTimeToDateHHMM = exports.getTaxedSubTotal = exports.getAppliedTaxesAndTaxesTotal = exports.getOrderItemsTotal = void 0;
-exports.commonUtil = commonUtil;
-const luxon_1 = require("luxon");
-function commonUtil() {
+import { DateTime } from 'luxon';
+export function commonUtil() {
     return 'common-util';
 }
-const getOrderItemsTotal = (orderItems) => {
+export const getOrderItemsTotal = (orderItems) => {
     const totalOfOderItems = +Object.values(orderItems).reduce((tot, orderItem) => {
         return tot + orderItem.amount;
     }, 0);
     return +totalOfOderItems.toFixed(3);
 };
-exports.getOrderItemsTotal = getOrderItemsTotal;
-const getAppliedTaxesAndTaxesTotal = (total, taxes) => {
+export const getAppliedTaxesAndTaxesTotal = (total, taxes) => {
     const taxAppliedInfo = {
-        taxesApplied: taxes === null || taxes === void 0 ? void 0 : taxes.map((tax) => {
+        taxesApplied: taxes?.map((tax) => {
             return {
                 taxName: tax.printName,
-                value: (0, exports.getTaxedSubTotal)(total, tax),
+                value: getTaxedSubTotal(total, tax),
             };
         }),
-        taxedTotal: taxes === null || taxes === void 0 ? void 0 : taxes.reduce((a, b) => a + (0, exports.getTaxedSubTotal)(total, b), total),
+        taxedTotal: taxes?.reduce((a, b) => a + getTaxedSubTotal(total, b), total),
     };
     return taxAppliedInfo;
 };
-exports.getAppliedTaxesAndTaxesTotal = getAppliedTaxesAndTaxesTotal;
-const getTaxedSubTotal = (total, tax) => {
+export const getTaxedSubTotal = (total, tax) => {
     if (tax.isPercentage) {
         return +(total * 0.01 * tax.value);
     }
@@ -34,33 +28,32 @@ const getTaxedSubTotal = (total, tax) => {
         return +tax.value;
     }
 };
-exports.getTaxedSubTotal = getTaxedSubTotal;
-const dateTimeToDateHHMM = (dateTime) => luxon_1.DateTime.fromJSDate(dateTime).toLocaleString(luxon_1.DateTime.DATETIME_SHORT);
-exports.dateTimeToDateHHMM = dateTimeToDateHHMM;
-const dateTimeNowMinus = (hoursToSubtract) => {
-    return luxon_1.DateTime.now().minus({ hour: hoursToSubtract }).toJSDate();
+export const dateTimeToDateHHMM = (dateTime) => DateTime.fromJSDate(dateTime).toLocaleString(DateTime.DATETIME_SHORT);
+export const dateTimeNowMinus = (hoursToSubtract) => {
+    return DateTime.now().minus({ hour: hoursToSubtract }).toJSDate();
 };
-exports.dateTimeNowMinus = dateTimeNowMinus;
-const timesAgoFormat = (datetime) => luxon_1.DateTime.fromISO(datetime).toRelative();
-exports.timesAgoFormat = timesAgoFormat;
-const getStartOfTheDay = () => luxon_1.DateTime.now().startOf('day').toJSDate();
-exports.getStartOfTheDay = getStartOfTheDay;
-const getStartOfTheWeek = () => luxon_1.DateTime.now().startOf('week').toJSDate();
-exports.getStartOfTheWeek = getStartOfTheWeek;
-const getStartOfTheMonth = () => luxon_1.DateTime.now().startOf('month').toJSDate();
-exports.getStartOfTheMonth = getStartOfTheMonth;
-const getOnlyCurrentDateWithoutTime = () => luxon_1.DateTime.now().toLocaleString(luxon_1.DateTime.DATE_SHORT);
-exports.getOnlyCurrentDateWithoutTime = getOnlyCurrentDateWithoutTime;
-const aggregateOrderItems = (orderItems) => {
+export const timesAgoFormat = (datetime) => DateTime.fromISO(datetime).toRelative();
+export const getStartOfTheDay = () => DateTime.now().startOf('day').toJSDate();
+export const getStartOfTheWeek = () => DateTime.now().startOf('week').toJSDate();
+export const getStartOfTheMonth = () => DateTime.now().startOf('month').toJSDate();
+export const getOnlyCurrentDateWithoutTime = () => DateTime.now().toLocaleString(DateTime.DATE_SHORT);
+export const aggregateOrderItems = (orderItems) => {
     let totalQuantityCount = 0;
     let totalItemsCount = 0;
     let totalAmount = 0;
     const itemObj = {};
     orderItems.forEach((orderItem) => {
         const key = orderItem.customeKey;
-        itemObj[key] = Object.assign(Object.assign({}, (itemObj[key] || {})), Object.assign(Object.assign({}, orderItem), { id: itemObj[key] ? itemObj[key].id : orderItem.id, count: itemObj[key]
-                ? itemObj[key].count + orderItem.count
-                : orderItem.count }));
+        itemObj[key] = {
+            ...(itemObj[key] || {}),
+            ...{
+                ...orderItem,
+                id: itemObj[key] ? itemObj[key].id : orderItem.id, // This step is neeed to keep the sort order if item had edit later on but still need to keep order at the top even had edits
+                count: itemObj[key]
+                    ? itemObj[key].count + orderItem.count
+                    : orderItem.count,
+            },
+        };
     });
     // Sort is needed to fix the unordered keys of the object. this is making order of items displayed on the screen not in the order it was created.
     const aggregatedOrderItemsArr = Object.values(itemObj).sort((a, b) => {
@@ -81,5 +74,4 @@ const aggregateOrderItems = (orderItems) => {
         totalItemsCount,
     };
 };
-exports.aggregateOrderItems = aggregateOrderItems;
 //# sourceMappingURL=common-util.js.map

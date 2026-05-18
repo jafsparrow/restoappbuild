@@ -1,8 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.getResultantCartItems = exports.getCartItemNameFromVariant = exports.getCartItemTotalFromVariantAndModifiers = void 0;
-const types_1 = require("@hotel/common/types");
-const getCartItemTotalFromVariantAndModifiers = (cartItem) => {
+import { CartItemType, } from '@hotel/common/types';
+export const getCartItemTotalFromVariantAndModifiers = (cartItem) => {
     let productPrice = cartItem.variant
         ? cartItem.variant.price
         : cartItem.product.price;
@@ -14,13 +11,11 @@ const getCartItemTotalFromVariantAndModifiers = (cartItem) => {
     }
     return productPrice;
 };
-exports.getCartItemTotalFromVariantAndModifiers = getCartItemTotalFromVariantAndModifiers;
-const getCartItemNameFromVariant = (cartItem) => {
+export const getCartItemNameFromVariant = (cartItem) => {
     return (cartItem.product.name +
         (cartItem.variant ? '-' + cartItem.variant.name : ''));
 };
-exports.getCartItemNameFromVariant = getCartItemNameFromVariant;
-const getResultantCartItems = (cartItemObj, orderEditItemsObj) => {
+export const getResultantCartItems = (cartItemObj, orderEditItemsObj) => {
     console.log('getting resultant items........');
     const cartItems = Object.values(cartItemObj);
     const orderItemEdits = Object.values(orderEditItemsObj);
@@ -33,7 +28,6 @@ const getResultantCartItems = (cartItemObj, orderEditItemsObj) => {
     if (cartItems.length) {
         console.log('cart items have somethign in it.');
         Object.entries(cartItemObj).map((item) => {
-            var _a;
             const [key, cartItem] = item;
             const currentCountInCart = cartItem.count;
             if (orderEditItemsObj[key]) {
@@ -46,12 +40,12 @@ const getResultantCartItems = (cartItemObj, orderEditItemsObj) => {
                 if (resultantCount <= 0) {
                     // this condition is equivalent to deleting the time.
                     const resultantCartItem = {
-                        amount: (0, exports.getCartItemTotalFromVariantAndModifiers)(cartItem),
-                        cartItemType: types_1.CartItemType.DELETE,
+                        amount: getCartItemTotalFromVariantAndModifiers(cartItem),
+                        cartItemType: CartItemType.DELETE,
                         count: resultantCount,
                         key: key,
                         message: '0',
-                        name: (0, exports.getCartItemNameFromVariant)(cartItem),
+                        name: getCartItemNameFromVariant(cartItem),
                         originalCount: originalCount,
                         product: cartItem.product,
                         modifiers: cartItem.modifiers,
@@ -64,12 +58,12 @@ const getResultantCartItems = (cartItemObj, orderEditItemsObj) => {
                 else {
                     // this is a new item which is adding.
                     const resultantCartItem = {
-                        amount: (0, exports.getCartItemTotalFromVariantAndModifiers)(cartItem),
-                        cartItemType: types_1.CartItemType.NEW,
+                        amount: getCartItemTotalFromVariantAndModifiers(cartItem),
+                        cartItemType: CartItemType.NEW,
                         count: resultantCount,
                         key: key,
                         message: `${resultantCount}`,
-                        name: (0, exports.getCartItemNameFromVariant)(cartItem),
+                        name: getCartItemNameFromVariant(cartItem),
                         originalCount: originalCount,
                         product: cartItem.product,
                         modifiers: cartItem.modifiers,
@@ -98,18 +92,18 @@ const getResultantCartItems = (cartItemObj, orderEditItemsObj) => {
             else {
                 console.log('only cartitems have items');
                 const resultantCartItem = {
-                    amount: (0, exports.getCartItemTotalFromVariantAndModifiers)(cartItem),
-                    cartItemType: types_1.CartItemType.NEW,
+                    amount: getCartItemTotalFromVariantAndModifiers(cartItem),
+                    cartItemType: CartItemType.NEW,
                     count: cartItem.count,
                     key: key,
                     message: `${cartItem.count}`,
-                    name: (0, exports.getCartItemNameFromVariant)(cartItem),
+                    name: getCartItemNameFromVariant(cartItem),
                     originalCount: cartItem.count,
                     product: cartItem.product,
                     modifiers: cartItem.modifiers,
                     variant: cartItem.variant,
                     sortOrder: cartItem.sortOrder || 0,
-                    note: (_a = cartItem.note) !== null && _a !== void 0 ? _a : '',
+                    note: cartItem.note ?? '',
                 };
                 console.log('only cartitem resultand', resultantCartItem);
                 resultantCartItemsArray.push(resultantCartItem);
@@ -125,7 +119,7 @@ const getResultantCartItems = (cartItemObj, orderEditItemsObj) => {
             console.log('final count', finalCount);
             let resultantCartItem = {
                 amount: orderItemEditItem.orderItem.amount || 0,
-                cartItemType: types_1.CartItemType.NEW,
+                cartItemType: CartItemType.NEW,
                 count: orderItemEditItem.count,
                 key: key,
                 message: `${orderItemEditItem.originalCount}->${orderItemEditItem.count} `,
@@ -137,15 +131,28 @@ const getResultantCartItems = (cartItemObj, orderEditItemsObj) => {
             };
             if (finalCount > orderItemEditItem.orderItem.count) {
                 // add a new item.
-                resultantCartItem = Object.assign(Object.assign({}, resultantCartItem), { cartItemType: types_1.CartItemType.NEW, message: `${orderItemEditItem.count}` });
+                resultantCartItem = {
+                    ...resultantCartItem,
+                    cartItemType: CartItemType.NEW,
+                    message: `${orderItemEditItem.count}`,
+                };
             }
             else if (finalCount <= 0) {
                 // item deleted.
-                resultantCartItem = Object.assign(Object.assign({}, resultantCartItem), { cartItemType: types_1.CartItemType.DELETE, message: `${orderItemEditItem.orderItem.count}-0` });
+                resultantCartItem = {
+                    ...resultantCartItem,
+                    cartItemType: CartItemType.DELETE,
+                    message: `${orderItemEditItem.orderItem.count}-0`,
+                };
             }
             else {
                 // item counted edit to a less value.
-                resultantCartItem = Object.assign(Object.assign({}, resultantCartItem), { count: orderItemEditItem.count, cartItemType: types_1.CartItemType.EDIT, message: `${orderItemEditItem.originalCount}-${finalCount}` });
+                resultantCartItem = {
+                    ...resultantCartItem,
+                    count: orderItemEditItem.count,
+                    cartItemType: CartItemType.EDIT,
+                    message: `${orderItemEditItem.originalCount}-${finalCount}`,
+                };
             }
             // const resultantCartItem: ResultantCartItem = {
             //   amount: orderItemEditItem.orderItem.amount || 0,
@@ -164,5 +171,4 @@ const getResultantCartItems = (cartItemObj, orderEditItemsObj) => {
     console.log('resultatn', resultantCartItemsArray);
     return resultantCartItemsArray.sort((a, b) => a.sortOrder - b.sortOrder);
 };
-exports.getResultantCartItems = getResultantCartItems;
 //# sourceMappingURL=cartItems.util.js.map

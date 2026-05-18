@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Session Summary - Taj Restaurant</title>
+  <style type="text/css">
+    /* Global Reset & Box Model */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      max-width: 800px; /* Optimal reading/printing width for A4 portrait */
+      margin: 40px auto;
+      padding: 0 20px;
+      font-size: 14px;
+      line-height: 1.6;
+      font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+      color: #333333;
+      background-color: #ffffff;
+    }
+
+    /* Professional Palette */
+    :root {
+      --primary-color: #1e293b;
+      --secondary-color: #0f766e;
+      --background-light: #f8fafc;
+      --border-color: #cbd5e1;
+      --text-muted: #64748b;
+    }
+
+    /* Elegant, Wide Header */
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 3px solid var(--primary-color);
+      padding-bottom: 15px;
+      margin-bottom: 30px;
+    }
+
+    .business-info h1 {
+      font-size: 32px;
+      color: var(--primary-color);
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .business-info p {
+      color: var(--text-muted);
+      font-size: 13px;
+      margin-top: 2px;
+    }
+
+    .report-meta {
+      text-align: right;
+    }
+
+    .report-title {
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--secondary-color);
+    }
+
+    .duration {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* Natural Page Flow Sections */
+    .section {
+      background: #ffffff;
+      margin-bottom: 25px;
+    }
+
+    .section-heading {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--primary-color);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      border-bottom: 2px solid var(--primary-color);
+      padding-bottom: 6px;
+      margin-bottom: 12px;
+    }
+
+    /* Flexible Grid System that naturally breaks onto new lines */
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 25px;
+    }
+
+    /* Structured Data Layouts */
+    .data-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .data-row:last-child {
+      border-bottom: none;
+    }
+    
+    .flex-grow-1 {
+      flex-grow: 1;
+    }
+
+    .font-semibold {
+      font-weight: 600;
+    }
+
+    .highlight-box {
+      background-color: var(--background-light);
+      padding: 10px 14px;
+      border-radius: 4px;
+      border-left: 4px solid var(--secondary-color);
+      margin-top: 8px;
+    }
+
+    /* Sub-group Styling */
+    .sub-group {
+      margin-top: 10px;
+      padding-left: 10px;
+      border-left: 2px solid var(--border-color);
+    }
+    
+    .sub-title {
+      font-weight: 600;
+      color: var(--primary-color);
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+
+    input[type="checkbox"] {
+      accent-color: var(--secondary-color);
+      pointer-events: none;
+    }
+
+    /* Flawless Printing Rules */
+    @media print {
+      body {
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      .section {
+        /* Prevents section headers from getting awkwardly isolated at the bottom of a page */
+        page-break-inside: avoid; 
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Fluid Header -->
+  <header class="header-container">
+    <div class="business-info">
+      <h1>Taj Restaurant</h1>
+      <p>123 Gourmet Street, Foodie District &bull; Phone: +1 (555) 019-2834</p>
+    </div>
+    <div class="report-meta">
+      <div class="report-title">Sales Report</div>
+      <div class="font-semibold">{{date}}</div>
+      <div class="duration">Duration: {{startTime}} &ndash; {{endTime}}</div>
+    </div>
+  </header>
+
+  <!-- Financial Metrics Section Layout -->
+  <div class="grid-container">
+    
+    <!-- Order Summary -->
+    <div class="section">
+      <div class="section-heading">Order Summary</div>
+      <div class="data-row">
+        <div class="flex-grow-1">Total Orders</div>
+        <div style="margin-right: 20px; color: var(--text-muted);">{{totalOrderDetail.count}} Nos</div>
+        <div class="font-semibold">{{totalOrderDetail.totalOrderSum}}</div>
+      </div>
+      <div class="data-row">
+        <div class="flex-grow-1">Total Discount</div>
+        <div class="font-semibold" style="color: #dc2626;">{{totalOrderDetail.totalDiscount}}</div>
+      </div>
+    </div>
+
+    <!-- Sales Summary -->
+    <div class="section">
+      <div class="section-heading">Sales Summary</div>
+      {{#each paymentBreakDownArr}}
+      <div class="data-row">
+        <div class="flex-grow-1">{{this.name}}</div>
+        <div class="font-semibold">{{this.total}}</div>
+      </div>
+      {{else}}
+      <div class="data-row" style="color: var(--text-muted);">No payments processed.</div>
+      {{/each}}
+    </div>
+
+    <!-- Cash Summary -->
+    <div class="section">
+      <div class="section-heading">Cash Summary</div>
+      <div class="data-row">
+        <div class="flex-grow-1">Begin Amount:</div>
+        <div>{{initialCash}}</div>
+      </div>
+      <div class="data-row">
+        <div class="flex-grow-1">Total Cash Sale:</div>
+        <div>{{totalCashSale}}</div>
+      </div>
+      <div class="data-row">
+        <div class="flex-grow-1">Cash Spent from Register:</div>
+        <div style="color: #dc2626;">-{{expensePaidFromCash}}</div>
+      </div>
+      <div class="data-row highlight-box">
+        <div class="flex-grow-1 font-semibold">Total Cash in Register</div>
+        <div class="font-semibold" style="color: var(--secondary-color);">{{totalCashInDrawer}}</div>
+      </div>
+    </div>
+
+    <!-- Taxes & Charges Block -->
+    <div class="section">
+      <div class="section-heading">Taxes &amp; Charges</div>
+      {{#if shouldTaxAndChargesDisplayed}}
+      <div class="data-row font-semibold">
+        <div class="flex-grow-1">Total Tax Collected</div>
+        <div>{{totalTaxCollected}}</div>
+      </div>
+      <div class="highlight-box" style="border-left-color: var(--border-color);">
+        {{#each taxesApplied}}
+        <div class="data-row" style="font-size: 13px; padding: 4px 0;">
+          <div class="flex-grow-1">{{this.taxName}}</div>
+          <div>{{this.value}}</div>
+        </div>
+        {{/each}}
+      </div>
+      {{else}}
+      <div class="data-row" style="color: var(--text-muted); font-style: italic;">
+        No tax structures applied to this summary session.
+      </div>
+      {{/if}}
+    </div>
+
+  </div>
+
+  <!-- Expenses Block (Spans full width cleanly if it has a long list) -->
+  <div class="section" style="margin-top: 15px;">
+    <div class="section-heading">Expenses Breakdown</div>
+    {{#each filteredExpenseList}}
+    <div class="sub-group">
+      <div class="sub-title">{{this.name}}</div>
+      {{#each this.expenses}}
+      <div class="data-row" style="font-size: 13px;">
+        <div class="flex-grow-1">&bull; {{this.description}}</div>
+        <div style="margin-right: 25px;" class="font-semibold">{{this.amount}}</div>
+        <div style="display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--text-muted);">
+          <input type="checkbox" {{#if this.paidFromCash}}checked{{/if}}> Paid via Cash
+        </div>
+      </div>
+      {{/each}}
+    </div>
+    {{else}}
+    <div class="data-row" style="color: var(--text-muted); justify-content: center;">No recorded operational expenses.</div>
+    {{/each}}
+  </div>
+
+  <!-- Logistics & Staff Matrix Layout -->
+  <div class="grid-container" style="margin-top: 15px;">
+    
+    <!-- Staff Counts -->
+    <div class="section">
+      <div class="section-heading">Staff Performance</div>
+      {{#each stafCountStatArr}} 
+      <div class="data-row">
+        <div class="flex-grow-1">{{this.name}}</div>
+        <div class="font-semibold" style="color: var(--secondary-color);">{{this.orderCount}} Orders</div>
+      </div>
+      {{/each}}
+    </div>
+
+    <!-- Waiter Volume -->
+    <div class="section">
+      <div class="section-heading">Waiter Amount Stats</div>
+      {{#each stafAmoutStatArr}} 
+      <div class="data-row">
+        <div class="flex-grow-1">{{this.name}}</div>
+        <div class="font-semibold">{{this.totalusersalesum}}</div>
+      </div>
+      {{/each}}
+    </div>
+
+    <!-- Home Delivery Counts -->
+    <div class="section">
+      <div class="section-heading">Homedelivery Stats</div>
+      {{#each homeDeliveryCountStatArr}} 
+      <div class="data-row">
+        <div class="flex-grow-1">{{this.name}}</div>
+        <div class="font-semibold">{{this.ordercount}} Orders</div>
+      </div>
+      {{/each}}
+    </div>
+
+    <!-- Delivery Volume -->
+    <div class="section">
+      <div class="section-heading">Delivery Amount Stats</div>
+      {{#each homeDeliveryAmoutStatArr}} 
+      <div class="data-row">
+        <div class="flex-grow-1">{{this.name}}</div>
+        <div class="font-semibold">{{this.totalusersalesum}}</div>
+      </div>
+      {{/each}}
+    </div>
+
+  </div>
+
+  <!-- Products Sold Flow Block -->
+  <div class="section" style="margin-top: 15px;">
+    <div class="section-heading">Products Sold Analytics</div>
+    <div class="grid-container">
+      {{#each productStatArr}} 
+      <div class="data-row" style="padding: 10px 0;">
+        <div class="flex-grow-1 font-semibold" style="max-width: 65%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+          {{this.name}}
+        </div>
+        <div style="color: var(--text-muted); margin-right: 15px;">Qty: {{this.count}}</div>
+        <div class="font-semibold" style="color: var(--secondary-color);">{{this.percentage}}%</div>
+      </div>
+      {{else}}
+      <div class="data-row" style="color: var(--text-muted); justify-content: center;">No product lines recorded.</div>
+      {{/each}}
+    </div>
+  </div>
+
+</body>
+</html>

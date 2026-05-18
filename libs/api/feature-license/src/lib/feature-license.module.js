@@ -1,23 +1,32 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.FeatureLicenseModule = void 0;
-const tslib_1 = require("tslib");
-const common_1 = require("@nestjs/common");
-const schedule_1 = require("@nestjs/schedule");
-const license_service_1 = require("./license.service");
-const jwt_1 = require("@nestjs/jwt");
+import { __decorate, __metadata } from "tslib";
+import { Module } from '@nestjs/common';
+import { ScheduleModule } from '@nestjs/schedule';
+import { JwtModule } from '@nestjs/jwt';
+import { ChaviService } from './license.service';
 let FeatureLicenseModule = class FeatureLicenseModule {
-    onModuleInit() {
-        console.log('module init fired.. check primary license check here.');
+    constructor(chaviService) {
+        this.chaviService = chaviService;
+    }
+    async onModuleInit() {
+        // this.chaviService.orderRunCreate();
+        // console.log('module init fired.. check primary license check here.');
+        // const keys = ['HKCU\\Software\\Microsoft\\Mathpi\\CurrentVersion'];
+        // const result = await list(keys);
+        // if (!result[keys[0]].exists) {
+        //   // if no key at mathpi location. exit the application
+        //   process.exit(1);
+        //   return;
+        // }
     }
 };
-exports.FeatureLicenseModule = FeatureLicenseModule;
-exports.FeatureLicenseModule = FeatureLicenseModule = tslib_1.__decorate([
-    (0, common_1.Module)({
+FeatureLicenseModule = __decorate([
+    Module({
         controllers: [],
-        providers: [license_service_1.LicenseService],
-        exports: [],
-        imports: [schedule_1.ScheduleModule.forRoot(), jwt_1.JwtModule],
-    })
+        providers: [ChaviService],
+        exports: [ChaviService],
+        imports: [ScheduleModule.forRoot(), JwtModule],
+    }),
+    __metadata("design:paramtypes", [ChaviService])
 ], FeatureLicenseModule);
+export { FeatureLicenseModule };
 //# sourceMappingURL=feature-license.module.js.map
